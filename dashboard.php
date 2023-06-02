@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include('./connection.php');
 if (!isset($_SESSION['user'])) {
     echo '
         <script>
@@ -15,6 +15,14 @@ if (!isset($_SESSION['user'])) {
 $id = $_SESSION['user']['id'];
 $name = $_SESSION['user']['name'];
 $surname = $_SESSION['user']['surname'];
+$rol = $_SESSION['user']['rol_id'];
+$notifications = $conn->query("
+    SELECT COUNT(*)
+    FROM laboratories
+    INNER JOIN notifications
+    ON laboratories.id = notifications.laboratory_id 
+    WHERE admin_id = '$id'
+")->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -28,36 +36,42 @@ $surname = $_SESSION['user']['surname'];
 </head>
 <body>
     <h1>Bienvenido <?php echo $name . " " . $surname ?></h1>
+    <?php if($rol == 1) {?>
     <div>
         <a href="./subjects">
             <i class="fa-solid fa-book"></i>
             <h3>Biblioteca</h3>
         </a>
     </div>
+    <?php } if($rol == 1) {?>
     <div>
         <a href="#">
             <i class="fa-solid fa-display"></i>
             <h3>Exponer</h3>
         </a>
     </div>
+    <?php } if($rol == 2) {?>
     <div>
-        <a href="./notifications/?adminId=<?php echo $id ?>">
+        <a href="./notifications/">
             <i class="fa-solid fa-file-circle-exclamation"></i>
-            <h3>Hoja de observaciones</h3>
+            <h3>Hoja de observaciones <span>(<?php echo $notifications['COUNT(*)']; ?>)</span></h3>
         </a>
     </div>
+    <?php }?>
     <div>
         <a href="#">
             <i class="fa-solid fa-user"></i>
             <h3>Mi cuenta</h3>
         </a>
     </div>
+    <?php if($rol = 1) {?>
     <div>
         <a href="./admin">
             <i class="fa-solid fa-user-lock"></i>
             <h3>Panel de administración</h3>
         </a>
     </div>
+    <?php } ?>
     <div>
         <a href="./auth/logout">
             <i class="fa-solid fa-arrow-right-to-bracket"></i>

@@ -1,6 +1,9 @@
 <?php
+session_start();
 include('../connection.php');
-
+if(isset($_SESSION['user'])){
+  $rol = $_SESSION['user']['rol_id'];
+}
 if(isset($_GET['id']))
 	$result = $conn->query("SELECT * FROM files WHERE subject_id = $_GET[id]");
 
@@ -230,6 +233,7 @@ $validExt = array('png', 'jpg', 'jpeg', 'svg', 'pdf', 'mp3', 'wav' ,'mp4');
 </head>
 <body>
     <h1>Tesla - La plataforma web</h1>
+    <?php if(isset($rol)){ ?>
     <section class="subir-archivos">
       <a href="#" class="button button--larger">
         <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-upload" viewBox="0 0 16 16">
@@ -239,6 +243,7 @@ $validExt = array('png', 'jpg', 'jpeg', 'svg', 'pdf', 'mp3', 'wav' ,'mp4');
         <span>Subir archivo</span>
       </a>
     </section>
+    <?php }?>
     <table>
       <tr>
         <th>Nombre</th>

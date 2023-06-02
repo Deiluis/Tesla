@@ -19,7 +19,7 @@
             echo '
                 <script>
                     alert("Usuario no existe, verifique los datos ingresados");
-                    window.location = "../";
+                    window.location = "./";
                 </script>
             ';
             session_destroy();
@@ -28,7 +28,7 @@
         echo '
             <script>
                 alert("Usuario no existe, verifique los datos ingresados");
-                window.location = "../";
+                window.location = "./";
             </script>
         ';
         session_destroy();

@@ -4,6 +4,11 @@
     $id = $_GET['id'];
     $table = $_GET['table'];
 
+    if ($table == 'notifications') {
+        $resolve = $_GET['status'];
+        $values = "`status` = '$resolve'";
+    }
+
     if (isset($_POST['account'])) {
         $name = $_POST['name'];
         $surname = $_POST['surname'];
@@ -37,6 +42,10 @@
         $adminId = $_POST['admin_id'];
 
         $values = "`id` = '$name', `computers_quantity`='$computersQuantity', `admin_id`='$adminId'";
+        if ($conn->query("UPDATE `$table` SET $values WHERE `id`='$id'"))
+            return header('Location: ../admin');
+        else
+            return print($SQL .' ||| \n '. $conn->error);
     }
      
     if (isset($_POST['courses'])) {
@@ -51,5 +60,5 @@
     if ($conn->query("UPDATE `$table` SET $values WHERE `id`=$id"))
         header('Location: ../admin');
     else
-        echo $SQL .' ||| '. $conn->error;
+        echo $SQL .' ||| \n '. $conn->error;
 ?>

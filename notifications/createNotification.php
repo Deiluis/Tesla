@@ -1,5 +1,5 @@
 <?php
-include('connection.php');
+include('../connection.php');
 
 $query_ids = $conn -> query("SELECT `id` FROM laboratories");
 $query = $conn -> query("SELECT * FROM laboratories");

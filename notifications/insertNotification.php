@@ -14,7 +14,7 @@ if ($result) {
     echo '
         <script>
             alert("Observación enviada exitosamente.");
-            window.location = "../createNote";
+            window.location = "../dashboard";
         </script>
     ';
 } else

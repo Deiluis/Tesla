@@ -1,18 +1,41 @@
+<?php
+    session_start();
+    if (isset($_SESSION['user'])) {
+        echo '
+            <script>
+                window.location = "./dashboard";
+            </script>
+        ';
+        exit;
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tesla - Iniciar sesión</title>
+    <title>Tesla</title>
 </head>
 <body>
-    <h1>Tesla - La plataforma web</h1>
-    <form action="./auth/login" method="post">
-        <input type="text" name="username" id="username" placeholder="Nombre de usuario">
-        <input type="password" name="password" id="password" placeholder="Contraseña">
-        <button>Iniciar sesión</button>
-    </form>
-    <a href="accounts">Crear cuenta</a>
+    <h1>Bienvenido a Tesla</h1>
+    <div>
+        <a href="./subjects">
+            <i class="fa-solid fa-book"></i>
+            <h3>Biblioteca</h3>
+        </a>
+    </div>
+    <div>
+        <a href="#">
+            <i class="fa-solid fa-display"></i>
+            <h3>Ver exposicion</h3>
+        </a>
+    </div>
+    <div>
+        <a href="./auth/">
+            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            <h3>Iniciar Sesion</h3>
+        </a>
+    </div>
 </body>
 </html>
