@@ -5,8 +5,12 @@
     $table = $_GET['table'];
 
     if ($table == 'notifications') {
-        $resolve = $_GET['status'];
-        $values = "`status` = '$resolve'";
+        $resolve = $_GET['status_id'];
+        $values = "`status_id` = '$resolve'";
+        if ($conn->query("UPDATE `$table` SET $values WHERE `id`=$id"))
+            return header('Location: ../notifications');
+        else
+            return print $SQL .' ||| \n '. $conn->error;
     }
 
     if (isset($_POST['account'])) {
@@ -56,7 +60,6 @@
 
         $values = "`year` = '$year', `division`='$division', `subgroup`='$subgroup', `sector`='$sector'";
     }
-    $SQL = "UPDATE `$table` SET $values WHERE `id`=$id";
     if ($conn->query("UPDATE `$table` SET $values WHERE `id`=$id"))
         header('Location: ../admin');
     else

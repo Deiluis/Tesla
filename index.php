@@ -20,7 +20,7 @@
 <body>
     <h1>Bienvenido a Tesla</h1>
     <div>
-        <a href="./subjects">
+        <a href="./library">
             <i class="fa-solid fa-book"></i>
             <h3>Biblioteca</h3>
         </a>

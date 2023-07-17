@@ -170,14 +170,14 @@ include('../connection.php');
         <th>Opciones</th>
       </tr>
       <?php
-      $result = $conn->query("SELECT subjects.*, CONCAT(users.name,' ', users.surname) AS professor, CONCAT(courses.year,'°',courses.division,' - ',courses.subgroup) AS course FROM ((subjects INNER JOIN users ON users.id = subjects.professor_id) INNER JOIN courses ON courses.id = subjects.course_id)");
+      $result = $conn->query("SELECT subjects.id, subjects.course, subjects.division, subjects.group, subjects_names.name, users.name AS professor, subjects.laboratory_id FROM subjects INNER JOIN subjects_names ON subjects.name_id = subjects_names.id INNER JOIN users ON subjects.professor_id = users.id");
       if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) { ?>
           <tr>
             <td><?php echo $row["name"] ?></td>
-            <td><?php echo $row["course"] ?></td>
-            <td><?php echo $row["professor"] ?></td>
-            <td><?php echo $row["laboratory"] ?></td>
+            <td><?php echo $row["course"] . "°" . $row["division"] . " - " . $row["group"] ?></td>
+            <td><?php echo $row["professor"]?></td>
+            <td><?php echo $row["laboratory_id"] ?></td>
             <td>
               <a href="../actions/delete?id=<?php echo $row["id"] ?>&table=subjects">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
@@ -196,16 +196,27 @@ include('../connection.php');
       ?>
       <tr>
         <form action="../actions/create" method="post">
-          <td><input type="text" name="name" id="name" placeholder="Nombre"></td>
+                      <td><select  style='width:200px;' name="course" id="course">
+              <?php
+              $result = $conn->query("SELECT * FROM subjects_names");
+              if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "
+                          <option value='" . $row['id'] . "'>". $row['name'] . "</option>
+                        ";
+                }
+              }
+              ?>
+            </select></td>
           <td>
             <select name="course" id="course">
               <?php
-              $result = $conn->query("SELECT *  FROM courses ORDER BY year");
+              $result = $conn->query("SELECT * FROM subjects ORDER BY course");
               if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     echo "
                           <option value='" . $row['id'] . "'>
-                            ". $row['year'] . "°" . $row['division'] . " - " . $row['subgroup'] ."
+                            ". $row['course'] . "°" . $row['division'] . " - " . $row['group'] ."
                           </option>
                         ";
                 }
@@ -364,21 +375,15 @@ include('../connection.php');
     </table>
     <table>
       <tr>
-        <th>Curso</th>
-        <th>Division</th>
-        <th>Subgrupo</th>
-        <th>Sector</th>
+        <th>Nombre</th>
         <th>Opciones</th>
       </tr>
       <?php
-      $result = $conn->query("SELECT * FROM courses");
+      $result = $conn->query("SELECT * FROM subjects_names");
       if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) { ?>
           <tr>
-            <td><?php echo $row["year"] ?></td>
-            <td><?php echo $row["division"] ?></td>
-            <td><?php echo $row["subgroup"] ?></td>
-            <td><?php echo $row["sector"] ?></td>
+            <td><?php echo $row["name"] ?></td>
             <td>
             <a href="../actions/delete?id=<?php echo $row["id"] ?>&table=courses">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
@@ -397,10 +402,7 @@ include('../connection.php');
       ?>
       <tr>
         <form action="../actions/create" method="post">
-          <td><input type="text" name="year" id="name" placeholder="Año"></td>
-          <td><input type="text" name="division" id="name" placeholder="Division"></td>
-          <td><input type="text" name="subgroup" id="name" placeholder="Subgrupo"></td>
-          <td><input type="text" name="sector" id="name" placeholder="Sector"></td>
+          <td><input type="text" name="name" id="name" placeholder="Nombre"></td>
           <td>
             <button type="reset">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
@@ -421,7 +423,7 @@ include('../connection.php');
         <input type="file" name="file" id="file">
         <select name="subject_id" id="subject_id">
           <?php
-          $result = $conn->query("SELECT id, name FROM subjects");
+          $result = $conn->query("SELECT id, name FROM subjects_names");
           if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
               echo "<option value='" . $row['id'] . "'>" . $row['name'] ."</option>";

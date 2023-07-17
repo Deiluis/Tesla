@@ -1,25 +1,27 @@
 <?php
-if(isset($_GET['courseId']) || isset($_GET['divisionId'])){
+if(isset($_GET['courseId'])){
 include('../connection.php');
 $curso = $_GET['courseId'];
-$division = $_GET['divisionId'];
 $query = "
-SELECT subjects.*, subjects_names.name
+    SELECT subjects.*, subjects_names.name
     FROM subjects_names 
     INNER JOIN subjects
     ON subjects.name_id = subjects_names.id
-    WHERE course = $curso AND division = $division
+    WHERE course = $curso
 ";
 
 $result = $conn -> query($query);
+
+
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tesla - Iniciar sesión</title>
+    <title>Tesla - Biblioteca</title>
     <style>
         .card{
             width: 200px;
@@ -50,23 +52,23 @@ $result = $conn -> query($query);
     </style>
 </head>
 <body>
-    <h1>Tesla - La plataforma web</h1>
+    <h1>Tesla - Biblioteca</h1>
+    <p>Elegí la división a la que queres acceder.</p>
     <div class="container">
-        <?php
-    
-        if ($result -> num_rows > 0) {
-            while ($row = $result -> fetch_assoc()) { ?>
-                <a href="files?id=<?php echo $row['id'] ?>">
-                    <div class="card">
-                        <img src="https://www.quimica-organica.com/wp-content/uploads/2017/12/la-materia-electron-atomo.png"/>
-                        <span><?php echo $row["name"] ?></span>
-                    </div>
-                </a>
-        <?php
-            }
-        }
+    <?php
+    for ($i = 1; $i <= 6; $i++) { 
+        if ($curso == 7 && $i > 4)
+            break;
         ?>
+        <a href="../subjects?courseId=<?php echo $curso ?>&divisionId=<?php echo $i ?>">
+            <div class="card">
+                <img src="https://www.quimica-organica.com/wp-content/uploads/2017/12/la-materia-electron-atomo.png"/>
+                <span><?php echo $curso ?>º<?php echo $i ?></span>
+            </div>
+        </a>
+    <?php
+    }
+    ?>
     </div>
 </body>
-</html>
-<?php } else header('Location: ../library');  ?>
+</html><?php }else{ header('Location: ./');} ?>

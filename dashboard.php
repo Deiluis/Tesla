@@ -21,7 +21,7 @@ $notifications = $conn->query("
     FROM laboratories
     INNER JOIN notifications
     ON laboratories.id = notifications.laboratory_id 
-    WHERE admin_id = '$id'
+    WHERE admin_id = '$id' AND status_id = 1;
 ")->fetch_assoc();
 ?>
 
@@ -38,7 +38,7 @@ $notifications = $conn->query("
     <h1>Bienvenido <?php echo $name . " " . $surname ?></h1>
     <?php if($rol == 1) {?>
     <div>
-        <a href="./subjects">
+        <a href="./library">
             <i class="fa-solid fa-book"></i>
             <h3>Biblioteca</h3>
         </a>
@@ -55,6 +55,13 @@ $notifications = $conn->query("
         <a href="./notifications/">
             <i class="fa-solid fa-file-circle-exclamation"></i>
             <h3>Hoja de observaciones <span>(<?php echo $notifications['COUNT(*)']; ?>)</span></h3>
+        </a>
+    </div>
+    <?php } if($rol == 1) {?>
+    <div>
+        <a href="./notifications/createNotification">
+            <i class="fa-solid fa-file-circle-exclamation"></i>
+            <h3>Hoja de observaciones <span></h3>
         </a>
     </div>
     <?php }?>
