@@ -45,7 +45,6 @@ html {
 
 body {
   font-family: var(--body-font);
-  background-image: url(https://wallpapershome.com/images/wallpapers/macos-big-sur-1280x720-dark-wwdc-2020-22655.jpg);
   background-size: cover;
   background-position: center;
   display: flex;
@@ -162,7 +161,7 @@ body.light-mode .video-bg:before {
   align-items: center;
 }
 .header-menu a {
-  padding: 20px 30px;
+  padding: 17px 30px;
   text-decoration: none;
   color: var(--inactive-color);
   border-bottom: 2px solid transparent;
@@ -251,7 +250,7 @@ body.light-mode .video-bg:before {
   margin-left: auto;
   flex-shrink: 0;
 }
-.header-profile svg {
+.header-profile .notification svg {
   width: 22px;
   color: #f9fafb;
   flex-shrink: 0;
@@ -291,7 +290,16 @@ body.light-mode .video-bg:before {
   border: 2px solid var(--theme-color);
   margin-left: 22px;
 }
-
+.logout{
+  margin-left: 10px;
+  margin-bottom: 5px; 
+  pointer-events: none;
+  display: block;
+  width: 100%; 
+  height: 100%;
+  color: #f9fafb;
+  flex-shrink: 0;
+}
 .wide .header-menu,
 .wide .header-profile {
   display: none;
@@ -385,7 +393,7 @@ body.light-mode .video-bg:before {
   }
 }
 .main-header .header-menu a {
-  padding: 20px 24px;
+  padding: 17px 24px;
 }
 
 .main-container {
@@ -525,6 +533,10 @@ body.light-mode .video-bg:before {
   border: 1px solid var(--theme-bg-color);
   border-spacing:0; /* Removes the cell spacing via CSS */
 }
+/* .content-section table:last-child {
+  position: absolute;
+  bottom:10px;
+} */
 .content-section table tr {
   text-align: left;
   transition: 0.3s;
@@ -537,6 +549,22 @@ body.light-mode .video-bg:before {
 }
 .content-section table tr:hover {
   background-color: var(--theme-bg-color);
+}
+.content-section table input{
+  font-family: var(--body-font);
+}
+.content-section table input[type=text],.content-section table input[type=email], .content-section table input[type=password], .content-section table input[type=number] {
+  width:80px;
+  background-color: transparent;
+  border:none; color:white;
+}
+.content-section table select {
+  border-radius:5px;
+  width:120px; 
+  background-color: #562a3c; 
+  border:none; 
+  font-family: var(--body-font);
+  color:white;
 }
 .content-section ul {
   display: flex;
@@ -698,9 +726,6 @@ body.light-mode .video-bg:before {
 .button-wrapper {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  width: 187px;
-  margin-left: auto;
 }
 @media screen and (max-width: 480px) {
   .button-wrapper {

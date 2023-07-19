@@ -28,10 +28,12 @@
     if (isset($_POST['subject'])) {
         $name = $_POST['name'];
         $course = $_POST['course'];
+        $division = $_POST['division'];
+        $group = $_POST['group'];
         $professor = $_POST['professor'];
         $laboratory = $_POST['laboratory'];
 
-        $values = "`name` = '$name', `course_id`=$course, `professor_id`=$professor, `laboratory`='$laboratory'";
+        $values = "`name_id` = $name, `course`=$course, `division`=$division, `group`='$course', `professor_id`=$professor, `laboratory_id`='$laboratory'";
     }
 
     if (isset($_POST['roles'])) {
@@ -45,11 +47,11 @@
         $computersQuantity = $_POST['computersQuantity'];
         $adminId = $_POST['admin_id'];
 
-        $values = "`id` = '$name', `computers_quantity`='$computersQuantity', `admin_id`='$adminId'";
+        $values = "`id` = '$name', `computers_quantity`=$computersQuantity, `admin_id`='$adminId'";
         if ($conn->query("UPDATE `$table` SET $values WHERE `id`='$id'"))
-            return header('Location: ../admin');
+            return header('Location: ../admin/#laboratorios');
         else
-            return print($SQL .' ||| \n '. $conn->error);
+            return print($values .' ||| \n '. $conn->error);
     }
      
     if (isset($_POST['courses'])) {

@@ -21,12 +21,12 @@
         FROM laboratories
         INNER JOIN notifications
         ON laboratories.id = notifications.laboratory_id 
-        WHERE laboratories.admin_id = '$id' AND notifications.status_id = 1;
+        WHERE laboratories.admin_id = $id AND notifications.status_id = 1;
     ")->fetch_assoc();
     $laboratories = $conn->query("
         SELECT id AS laboratory
         FROM `laboratories`
-        WHERE admin_id = 2;
+        WHERE admin_id = $id;
     ");
     $query = $conn->query("
         SELECT notifications.*, statuses_names.name
@@ -35,7 +35,7 @@
         ON laboratories.id = notifications.laboratory_id
         INNER JOIN statuses_names
         ON notifications.status_id = statuses_names.id
-        WHERE admin_id = '$id' ORDER BY laboratories.id, notifications.computer
+        WHERE admin_id = $id ORDER BY laboratories.id, notifications.computer
     ");
 ?>
 <!DOCTYPE html>
@@ -135,7 +135,7 @@
                     </div>
                 </div>
                 <div class="side-wrapper">
-                    <div class="side-title">Panel de administracion</div>
+                    <div class="side-title">Panel de administración</div>
                     <div class="side-menu">
                     <a href="./#usuarios">
                             <svg viewBox="0 0 512 512" fill="currentColor">
