@@ -65,5 +65,5 @@
     if ($conn->query("UPDATE `$table` SET $values WHERE `id`=$id"))
         header('Location: ../admin');
     else
-        echo $SQL .' ||| \n '. $conn->error;
+        echo "UPDATE `$table` SET $values WHERE `id`=$id" .' ||| \n '. $conn->error;
 ?>

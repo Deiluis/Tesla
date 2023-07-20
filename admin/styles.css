@@ -530,16 +530,33 @@ body.light-mode .video-bg:before {
   justify-content: space-around;
   background-color: var(--content-bg);
   border-radius: 14px;
+  table-layout: fixed;
+  width: 100%;
   border: 1px solid var(--theme-bg-color);
   border-spacing:0; /* Removes the cell spacing via CSS */
 }
-/* .content-section table:last-child {
+.content-section table + table {
   position: absolute;
   bottom:10px;
-} */
+}
 .content-section table tr {
   text-align: left;
   transition: 0.3s;
+}
+.content-section table tr:last-child .status-button {
+  padding: 6px 17px;
+}
+.content-section table tr:last-child button[type=reset] {
+  position: relative;
+  height: 28px;
+  width: 34px;
+  display: flex;
+  left: 6px;
+  color: #a7a3b4;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  align-items: center;
 }
 .content-section table td, .content-section table th{
   padding: 10px 18px;
@@ -560,8 +577,8 @@ body.light-mode .video-bg:before {
 }
 .content-section table select {
   border-radius:5px;
-  width:120px; 
-  background-color: #562a3c; 
+  width:fit-content; 
+  background-color: #394167; 
   border:none; 
   font-family: var(--body-font);
   color:white;
@@ -687,9 +704,9 @@ body.light-mode .video-bg:before {
 }
 .dropdown {
   position: relative;
-  height: 53px;
-  width: 40px;
-  top: -24px;
+  height: 30px;
+  width: 30px;
+  top: -14px;
   display: flex;
   left: -5px;
   background: transparent;
@@ -699,7 +716,7 @@ body.light-mode .video-bg:before {
 .dropdown ul {
   position: absolute;
   background: var(--dropdown-bg);
-  height: 110px;
+  height: fit-content;
   width: 120px;
   right: 0;
   top: 20px;
