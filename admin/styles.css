@@ -518,26 +518,23 @@ body.light-mode .video-bg:before {
 }
 
 .content-section {
-  margin-top: 30px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 .content-section-title {
   color: var(--content-title-color);
   margin-bottom: 14px;
 }
 .content-section table {
-  justify-content: space-around;
   background-color: var(--content-bg);
   border-radius: 14px;
   table-layout: fixed;
   width: 100%;
   border: 1px solid var(--theme-bg-color);
   border-spacing:0; /* Removes the cell spacing via CSS */
-}
-.content-section table + table {
-  position: absolute;
-  bottom:10px;
 }
 .content-section table tr {
   text-align: left;
@@ -570,14 +567,19 @@ body.light-mode .video-bg:before {
 .content-section table input{
   font-family: var(--body-font);
 }
-.content-section table input[type=text],.content-section table input[type=email], .content-section table input[type=password], .content-section table input[type=number] {
-  width:80px;
+.content-section table input[type=text],.content-section table input[type=email], .content-section table input[type=password] {
+  width: 100%;
+  background-color: transparent;
+  border:none; color:white;
+}
+.content-section table input[type=number] {
+  width: calc(100% + 15px);
   background-color: transparent;
   border:none; color:white;
 }
 .content-section table select {
   border-radius:5px;
-  width:fit-content; 
+  width: 100%; 
   background-color: #394167; 
   border:none; 
   font-family: var(--body-font);
@@ -587,7 +589,6 @@ body.light-mode .video-bg:before {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
   justify-content: space-around;
   background-color: var(--content-bg);
   padding-left: 0;
@@ -640,7 +641,7 @@ body.light-mode .video-bg:before {
 
 .status {
   margin-left: auto;
-  width: 140px;
+  width: 500px;
   font-size: 15px;
   position: relative;
 }

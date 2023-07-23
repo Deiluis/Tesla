@@ -18,10 +18,12 @@
     if (isset($_POST['subject'])) {
         $name = $_POST['name'];
         $course = $_POST['course'];
+        $division = $_POST['division'];
+        $group = $_POST['group'];
         $professor = $_POST['professor'];
         $laboratory = $_POST['laboratory'];
 
-        if ($conn->query("INSERT INTO `subjects` (`id`, `name`, `course_id`, `professor_id`, `laboratory`) VALUES (NULL, '$name', $course, $professor, '$laboratory')")) {
+        if ($conn->query("INSERT INTO `subjects` (`id`, `name_id`, `course`, `division`, `group`, `professor_id`, `laboratory_id`) VALUES (NULL, $name, $course , $division, '$group', $professor, '$laboratory')")) {
             header('Location: ../admin');
         } else {
             echo $conn->error;
@@ -45,12 +47,9 @@
             echo $conn->error;
         }
     }
-    if (isset($_POST['courses'])) {
-        $year = $_POST['year'];
-        $division = $_POST['division'];
-        $subgroup = $_POST['subgroup'];
-        $sector = $_POST['sector'];
-        if ($conn->query("INSERT INTO `courses` (`id`, `year`, `division`, `subgroup`, `sector`) VALUES (NULL, $year, $division, '$subgroup', $sector)")) {
+    if (isset($_POST['name_subjects'])) {
+        $name = $_POST['name'];
+        if ($conn->query("INSERT INTO `subjects_names` (`id`, `name`) VALUES (NULL, '$name')")) {
             header('Location: ../admin');
         } else {
             echo $conn->error;

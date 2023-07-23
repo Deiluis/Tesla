@@ -8,7 +8,7 @@
         $resolve = $_GET['status_id'];
         $values = "`status_id` = '$resolve'";
         if ($conn->query("UPDATE `$table` SET $values WHERE `id`=$id"))
-            return header('Location: ../admin');
+            return header('Location: ../admin/observaciones');
         else
             return print $SQL .' ||| \n '. $conn->error;
     }

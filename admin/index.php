@@ -35,7 +35,8 @@ $notifications = $conn->query("
         </video>
     </div>
     <div class="dark-light">
-        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"
+            stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
         </svg>
     </div>
@@ -44,9 +45,11 @@ $notifications = $conn->query("
             <div class="menu-circle"></div>
             <div class="header-menu">
                 <?php if ($notifications['COUNT(*)'] > 0) {
-                ?> <a class="menu-link notify" href="observaciones">Observaciones</a> <?php
-                                                                                    } else {
-                                                                                        ?> <a class="menu-link " href="observaciones">Observaciones</a> <?php } ?>
+                    ?> <a class="menu-link notify" href="observaciones">Observaciones</a>
+                    <?php
+                } else {
+                    ?> <a class="menu-link " href="observaciones">Observaciones</a>
+                <?php } ?>
                 <a class="menu-link is-active">Panel de Administracion</a>
             </div>
             <div class="search-bar">
@@ -54,17 +57,25 @@ $notifications = $conn->query("
             </div>
             <div class="header-profile">
                 <div class="notification">
-                    <span class="notification-number"><?php echo $notifications['COUNT(*)']; ?></span>
-                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell">
+                    <span class="notification-number">
+                        <?php echo $notifications['COUNT(*)']; ?>
+                    </span>
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell">
                         <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" />
                     </svg>
                 </div>
                 <a href="#">
-                    <img class="profile-img" src="https://images.unsplash.com/photo-1600353068440-6361ef3a86e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="">
+                    <img class="profile-img"
+                        src="https://images.unsplash.com/photo-1600353068440-6361ef3a86e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                        alt="">
                 </a>
                 <a href="../auth/logout">
-                    <svg viewBox="0 0 24 24" fill="currentColor" height="24" width="24" focusable="false" class="logout">
-                        <path d="M20 3v18H8v-1h11V4H8V3h12zm-8.9 12.1.7.7 4.4-4.4L11.8 7l-.7.7 3.1 3.1H3v1h11.3l-3.2 3.3z"></path>
+                    <svg viewBox="0 0 24 24" fill="currentColor" height="24" width="24" focusable="false"
+                        class="logout">
+                        <path
+                            d="M20 3v18H8v-1h11V4H8V3h12zm-8.9 12.1.7.7 4.4-4.4L11.8 7l-.7.7 3.1 3.1H3v1h11.3l-3.2 3.3z">
+                        </path>
                     </svg>
                 </a>
             </div>
@@ -77,16 +88,22 @@ $notifications = $conn->query("
                         <a href="../account/">
                             <svg viewBox="0 0 512 512">
                                 <g xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-                                    <path d="M0 0h128v128H0zm0 0M192 0h128v128H192zm0 0M384 0h128v128H384zm0 0M0 192h128v128H0zm0 0" data-original="#bfc9d1" />
+                                    <path
+                                        d="M0 0h128v128H0zm0 0M192 0h128v128H192zm0 0M384 0h128v128H384zm0 0M0 192h128v128H0zm0 0"
+                                        data-original="#bfc9d1" />
                                 </g>
-                                <path xmlns="http://www.w3.org/2000/svg" d="M192 192h128v128H192zm0 0" fill="currentColor" data-original="#82b1ff" />
-                                <path xmlns="http://www.w3.org/2000/svg" d="M384 192h128v128H384zm0 0M0 384h128v128H0zm0 0M192 384h128v128H192zm0 0M384 384h128v128H384zm0 0" fill="currentColor" data-original="#bfc9d1" />
+                                <path xmlns="http://www.w3.org/2000/svg" d="M192 192h128v128H192zm0 0"
+                                    fill="currentColor" data-original="#82b1ff" />
+                                <path xmlns="http://www.w3.org/2000/svg"
+                                    d="M384 192h128v128H384zm0 0M0 384h128v128H0zm0 0M192 384h128v128H192zm0 0M384 384h128v128H384zm0 0"
+                                    fill="currentColor" data-original="#bfc9d1" />
                             </svg>
                             Mi cuenta
                         </a>
                         <a href="../auth/logout">
                             <svg viewBox="0 0 488.932 488.932" fill="currentColor">
-                                <path d="M243.158 61.361v-57.6c0-3.2 4-4.9 6.7-2.9l118.4 87c2 1.5 2 4.4 0 5.9l-118.4 87c-2.7 2-6.7.2-6.7-2.9v-57.5c-87.8 1.4-158.1 76-152.1 165.4 5.1 76.8 67.7 139.1 144.5 144 81.4 5.2 150.6-53 163-129.9 2.3-14.3 14.7-24.7 29.2-24.7 17.9 0 31.8 15.9 29 33.5-17.4 109.7-118.5 192-235.7 178.9-98-11-176.7-89.4-187.8-187.4-14.7-128.2 84.9-237.4 209.9-238.8z" />
+                                <path
+                                    d="M243.158 61.361v-57.6c0-3.2 4-4.9 6.7-2.9l118.4 87c2 1.5 2 4.4 0 5.9l-118.4 87c-2.7 2-6.7.2-6.7-2.9v-57.5c-87.8 1.4-158.1 76-152.1 165.4 5.1 76.8 67.7 139.1 144.5 144 81.4 5.2 150.6-53 163-129.9 2.3-14.3 14.7-24.7 29.2-24.7 17.9 0 31.8 15.9 29 33.5-17.4 109.7-118.5 192-235.7 178.9-98-11-176.7-89.4-187.8-187.4-14.7-128.2 84.9-237.4 209.9-238.8z" />
                             </svg>
                             Cerrar sesion
                         </a>
@@ -98,15 +115,20 @@ $notifications = $conn->query("
                         <a href="observaciones">
                             <svg viewBox="0 0 512 512" fill="currentColor">
                                 <circle cx="295.099" cy="327.254" r="110.96" transform="rotate(-45 295.062 327.332)" />
-                                <path d="M471.854 338.281V163.146H296.72v41.169a123.1 123.1 0 01121.339 122.939c0 3.717-.176 7.393-.5 11.027zM172.14 327.254a123.16 123.16 0 01100.59-120.915L195.082 73.786 40.146 338.281H172.64c-.325-3.634-.5-7.31-.5-11.027z" />
+                                <path
+                                    d="M471.854 338.281V163.146H296.72v41.169a123.1 123.1 0 01121.339 122.939c0 3.717-.176 7.393-.5 11.027zM172.14 327.254a123.16 123.16 0 01100.59-120.915L195.082 73.786 40.146 338.281H172.64c-.325-3.634-.5-7.31-.5-11.027z" />
                             </svg>
                             Observaciones
-                            <span class="notification-number updates"><?php echo $notifications['COUNT(*)']; ?></span>
+                            <span class="notification-number updates">
+                                <?php echo $notifications['COUNT(*)']; ?>
+                            </span>
                         </a>
                         <a href="#">
                             <svg viewBox="0 0 488.455 488.455" fill="currentColor">
-                                <path d="M287.396 216.317c23.845 23.845 23.845 62.505 0 86.35s-62.505 23.845-86.35 0-23.845-62.505 0-86.35 62.505-23.845 86.35 0" />
-                                <path d="M427.397 91.581H385.21l-30.544-61.059H133.76l-30.515 61.089-42.127.075C27.533 91.746.193 119.115.164 152.715L0 396.86c0 33.675 27.384 61.074 61.059 61.074h366.338c33.675 0 61.059-27.384 61.059-61.059V152.639c-.001-33.674-27.385-61.058-61.059-61.058zM244.22 381.61c-67.335 0-122.118-54.783-122.118-122.118s54.783-122.118 122.118-122.118 122.118 54.783 122.118 122.118S311.555 381.61 244.22 381.61z" />
+                                <path
+                                    d="M287.396 216.317c23.845 23.845 23.845 62.505 0 86.35s-62.505 23.845-86.35 0-23.845-62.505 0-86.35 62.505-23.845 86.35 0" />
+                                <path
+                                    d="M427.397 91.581H385.21l-30.544-61.059H133.76l-30.515 61.089-42.127.075C27.533 91.746.193 119.115.164 152.715L0 396.86c0 33.675 27.384 61.074 61.059 61.074h366.338c33.675 0 61.059-27.384 61.059-61.059V152.639c-.001-33.674-27.385-61.058-61.059-61.058zM244.22 381.61c-67.335 0-122.118-54.783-122.118-122.118s54.783-122.118 122.118-122.118 122.118 54.783 122.118 122.118S311.555 381.61 244.22 381.61z" />
                             </svg>
                             Administracion
                         </a>
@@ -118,28 +140,35 @@ $notifications = $conn->query("
                         <a href="#usuarios">
                             <svg viewBox="0 0 512 512" fill="currentColor">
                                 <circle cx="295.099" cy="327.254" r="110.96" transform="rotate(-45 295.062 327.332)" />
-                                <path d="M471.854 338.281V163.146H296.72v41.169a123.1 123.1 0 01121.339 122.939c0 3.717-.176 7.393-.5 11.027zM172.14 327.254a123.16 123.16 0 01100.59-120.915L195.082 73.786 40.146 338.281H172.64c-.325-3.634-.5-7.31-.5-11.027z" />
+                                <path
+                                    d="M471.854 338.281V163.146H296.72v41.169a123.1 123.1 0 01121.339 122.939c0 3.717-.176 7.393-.5 11.027zM172.14 327.254a123.16 123.16 0 01100.59-120.915L195.082 73.786 40.146 338.281H172.64c-.325-3.634-.5-7.31-.5-11.027z" />
                             </svg>
                             Usuarios
                         </a>
                         <a href="#materias">
                             <svg viewBox="0 0 488.455 488.455" fill="currentColor">
-                                <path d="M287.396 216.317c23.845 23.845 23.845 62.505 0 86.35s-62.505 23.845-86.35 0-23.845-62.505 0-86.35 62.505-23.845 86.35 0" />
-                                <path d="M427.397 91.581H385.21l-30.544-61.059H133.76l-30.515 61.089-42.127.075C27.533 91.746.193 119.115.164 152.715L0 396.86c0 33.675 27.384 61.074 61.059 61.074h366.338c33.675 0 61.059-27.384 61.059-61.059V152.639c-.001-33.674-27.385-61.058-61.059-61.058zM244.22 381.61c-67.335 0-122.118-54.783-122.118-122.118s54.783-122.118 122.118-122.118 122.118 54.783 122.118 122.118S311.555 381.61 244.22 381.61z" />
+                                <path
+                                    d="M287.396 216.317c23.845 23.845 23.845 62.505 0 86.35s-62.505 23.845-86.35 0-23.845-62.505 0-86.35 62.505-23.845 86.35 0" />
+                                <path
+                                    d="M427.397 91.581H385.21l-30.544-61.059H133.76l-30.515 61.089-42.127.075C27.533 91.746.193 119.115.164 152.715L0 396.86c0 33.675 27.384 61.074 61.059 61.074h366.338c33.675 0 61.059-27.384 61.059-61.059V152.639c-.001-33.674-27.385-61.058-61.059-61.058zM244.22 381.61c-67.335 0-122.118-54.783-122.118-122.118s54.783-122.118 122.118-122.118 122.118 54.783 122.118 122.118S311.555 381.61 244.22 381.61z" />
                             </svg>
                             Materias
                         </a>
                         <a href="#laboratorios">
                             <svg viewBox="0 0 488.455 488.455" fill="currentColor">
-                                <path d="M287.396 216.317c23.845 23.845 23.845 62.505 0 86.35s-62.505 23.845-86.35 0-23.845-62.505 0-86.35 62.505-23.845 86.35 0" />
-                                <path d="M427.397 91.581H385.21l-30.544-61.059H133.76l-30.515 61.089-42.127.075C27.533 91.746.193 119.115.164 152.715L0 396.86c0 33.675 27.384 61.074 61.059 61.074h366.338c33.675 0 61.059-27.384 61.059-61.059V152.639c-.001-33.674-27.385-61.058-61.059-61.058zM244.22 381.61c-67.335 0-122.118-54.783-122.118-122.118s54.783-122.118 122.118-122.118 122.118 54.783 122.118 122.118S311.555 381.61 244.22 381.61z" />
+                                <path
+                                    d="M287.396 216.317c23.845 23.845 23.845 62.505 0 86.35s-62.505 23.845-86.35 0-23.845-62.505 0-86.35 62.505-23.845 86.35 0" />
+                                <path
+                                    d="M427.397 91.581H385.21l-30.544-61.059H133.76l-30.515 61.089-42.127.075C27.533 91.746.193 119.115.164 152.715L0 396.86c0 33.675 27.384 61.074 61.059 61.074h366.338c33.675 0 61.059-27.384 61.059-61.059V152.639c-.001-33.674-27.385-61.058-61.059-61.058zM244.22 381.61c-67.335 0-122.118-54.783-122.118-122.118s54.783-122.118 122.118-122.118 122.118 54.783 122.118 122.118S311.555 381.61 244.22 381.61z" />
                             </svg>
                             Laboratorios
                         </a>
                         <a href="#roles">
                             <svg viewBox="0 0 488.455 488.455" fill="currentColor">
-                                <path d="M287.396 216.317c23.845 23.845 23.845 62.505 0 86.35s-62.505 23.845-86.35 0-23.845-62.505 0-86.35 62.505-23.845 86.35 0" />
-                                <path d="M427.397 91.581H385.21l-30.544-61.059H133.76l-30.515 61.089-42.127.075C27.533 91.746.193 119.115.164 152.715L0 396.86c0 33.675 27.384 61.074 61.059 61.074h366.338c33.675 0 61.059-27.384 61.059-61.059V152.639c-.001-33.674-27.385-61.058-61.059-61.058zM244.22 381.61c-67.335 0-122.118-54.783-122.118-122.118s54.783-122.118 122.118-122.118 122.118 54.783 122.118 122.118S311.555 381.61 244.22 381.61z" />
+                                <path
+                                    d="M287.396 216.317c23.845 23.845 23.845 62.505 0 86.35s-62.505 23.845-86.35 0-23.845-62.505 0-86.35 62.505-23.845 86.35 0" />
+                                <path
+                                    d="M427.397 91.581H385.21l-30.544-61.059H133.76l-30.515 61.089-42.127.075C27.533 91.746.193 119.115.164 152.715L0 396.86c0 33.675 27.384 61.074 61.059 61.074h366.338c33.675 0 61.059-27.384 61.059-61.059V152.639c-.001-33.674-27.385-61.058-61.059-61.058zM244.22 381.61c-67.335 0-122.118-54.783-122.118-122.118s54.783-122.118 122.118-122.118 122.118 54.783 122.118 122.118S311.555 381.61 244.22 381.61z" />
                             </svg>
                             Roles
                         </a>
@@ -160,17 +189,15 @@ $notifications = $conn->query("
                 <div class="content-wrapper" id="usuarios">
                     <div class="content-section">
                         <table>
-                            <thead>
-                                <tr>
-                                    <th style="width: 10%;">Nombre</th>
-                                    <th style="width: 10%;">Apellido</th>
-                                    <th style="width: 10%;">Usuario</th>
-                                    <th>Email</th>
-                                    <th style="width: 17%;">Autenticidad?</th>
-                                    <th style="width: 10%;">Rol</th>
-                                    <th style="width: 16%;">Opciones</th>
-                                </tr>
-                            </thead>
+                            <tr>
+                                <th style="width: 10%;">Nombre</th>
+                                <th style="width: 10%;">Apellido</th>
+                                <th style="width: 10%;">Usuario</th>
+                                <th>Email</th>
+                                <th style="width: 17%;">Autenticidad?</th>
+                                <th style="width: 13%;">Rol</th>
+                                <th style="width: 16%;">Opciones</th>
+                            </tr>
                             <?php
                             $result = $conn->query("SELECT users.*, roles.name AS roles FROM users INNER JOIN roles ON roles.id = users.rol_id");
                             if ($result->num_rows > 0) {
@@ -180,30 +207,39 @@ $notifications = $conn->query("
                                         <td><?php echo $row["surname"] ?></td>
                                         <td><?php echo $row["username"] ?></td>
                                         <td><?php echo $row["email"] ?></td>
-                                        <td><?php if (password_verify('', $row["password"])) print "<span class='status'><span class='status-circle red'></span>Sin contraseña</span>";
-                                            else print "<span class='status'><span class='status-circle green'></span>Autenticado</span>"; ?></td>
-                                        <td><?php echo $row["roles"] ?></td>
+                                        <td>
+                                            <?php if (password_verify('', $row["password"]))
+                                                print "<span class='status'><span class='status-circle red'></span>Sin contraseña</span>";
+                                            else
+                                                print "<span class='status'><span class='status-circle green'></span>Autenticado</span>"; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row["roles"] ?>
+                                        </td>
                                         <td>
                                             <div class="button-wrapper">
-                                                <a href="./?id=<?php echo $row['id'] ?>&table=users"><button class='content-button status-button'>Editar</button></a>
+                                                <a href="./?id=<?php echo $row['id'] ?>&table=users"><button
+                                                        class='content-button status-button'>Editar</button></a>
                                                 <div class="menu">
                                                     <button class="dropdown">
                                                         <ul>
-                                                            <li><a href="delete?id=<?php echo $row["id"] ?>&table=users">Borrar</a></li>
+                                                            <li><a href="../actions/delete?id=<?php echo $row["id"] ?>&table=users">Borrar</a>
+                                                            </li>
                                                         </ul>
                                                     </button>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
-                            <?php }
+                                <?php }
                             }
                             ?>
                             <tr>
                                 <form action="../actions/create" method="post">
                                     <td><input type="text" name="name" id="name" placeholder="Nombre"></td>
                                     <td><input type="text" name="surname" id="surname" placeholder="Apellido"></td>
-                                    <td><input type="text" name="username" id="username" placeholder="Nombre de usuario"></td>
+                                    <td><input type="text" name="username" id="username"
+                                            placeholder="Nombre de usuario"></td>
                                     <td><input type="email" name="email" id="email" placeholder="Email"></td>
                                     <td><input type="password" name="password" id="password" placeholder="Contraseña"></td>
                                     <td>
@@ -220,393 +256,546 @@ $notifications = $conn->query("
                                     </td>
                                     <td>
                                         <div class="button-wrapper">
-                                            <button class='content-button status-button' name="account" type="submit">Agregar</button>
+                                            <button class='content-button status-button' name="account"
+                                                type="submit">Agregar</button>
                                             <button type="reset">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
-                                                    <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    fill="currentColor" class="bi bi-arrow-clockwise"
+                                                    viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd"
+                                                        d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+                                                    <path
+                                                        d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
                                                 </svg>
                                             </button>
                                         </div>
-                    </div>
-                    </td>
-                    </form>
-                    </tr>
-                    </table>
-                    <?php
-                    if (isset($_GET['id']) || isset($_GET['table'])) {
-                        if ($_GET['table'] == 'users') {
-                            $id = $_GET['id'];
-                            $table = $_GET['table'];
-                            $user = $conn->query("SELECT * FROM `$table` WHERE `id`=$id")->fetch_assoc();
-                    ?>
-                            <table>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Usuario</th>
-                                    <th>Email</th>
-                                    <th>Contraseña</th>
-                                    <th>Rol</th>
-                                    <th>Opciones</th>
-                                </tr>
-                                <tr>
-                                    <form action="../actions/update?id=<?php echo $user['id'] ?>&table=users" method="post">
-                                        <td><input type="text" name="name" id="name" placeholder="Nombre" value="<?php echo $user['name'] ?>"></td>
-                                        <td><input type="text" name="surname" id="surname" placeholder="Apellido" value="<?php echo $user['surname'] ?>"></td>
-                                        <td><input type="text" name="username" id="username" placeholder="Nombre de usuario" value="<?php echo $user['username'] ?>"></td>
-                                        <td><input type="email" name="email" id="email" placeholder="Email" value="<?php echo $user['email'] ?>"></td>
-                                        <td><input type="password" name="password" id="password" placeholder="***********" value=""></td>
-                                        <td>
-                                            <select name="rol_id" id="rol_id">
-                                                <?php
-                                                $roles = $conn->query("SELECT * FROM roles");
-                                                if ($roles->num_rows > 0) {
-                                                    while ($row = $roles->fetch_assoc()) {
-                                                        echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+                                    </td>
+                                </form>
+                            </tr>
+                        </table>
+                        <?php
+                        if (isset($_GET['id']) || isset($_GET['table'])) {
+                            if ($_GET['table'] == 'users') {
+                                $id = $_GET['id'];
+                                $table = $_GET['table'];
+                                $user = $conn->query("SELECT * FROM `$table` WHERE `id`=$id")->fetch_assoc();
+                                ?>
+                                <table>
+                                    <tr>
+                                        <th style="width: 11%;">Nombre</th>
+                                        <th style="width: 11%;">Apellido</th>
+                                        <th style="width: 11%;">Usuario</th>
+                                        <th>Email</th>
+                                        <th style="width: 16%;">Autenticidad?</th>
+                                        <th style="width: 13%;">Rol</th>
+                                        <th style="width: 12%;">Opciones</th>
+                                    </tr>
+                                    <tr>
+                                        <form action="../actions/update?id=<?php echo $user['id'] ?>&table=users" method="post">
+                                            <td><input type="text" name="name" id="name" placeholder="Nombre"
+                                                    value="<?php echo $user['name'] ?>"></td>
+                                            <td><input type="text" name="surname" id="surname" placeholder="Apellido"
+                                                    value="<?php echo $user['surname'] ?>"></td>
+                                            <td><input type="text" name="username" id="username" placeholder="Nombre de usuario"
+                                                    value="<?php echo $user['username'] ?>"></td>
+                                            <td><input type="email" name="email" id="email" placeholder="Email"
+                                                    value="<?php echo $user['email'] ?>"></td>
+                                            <td><input type="password" name="password" id="password" placeholder="***********"
+                                                    value=""></td>
+                                            <td>
+                                                <select name="rol_id" id="rol_id">
+                                                    <?php
+                                                    $roles = $conn->query("SELECT * FROM roles");
+                                                    if ($roles->num_rows > 0) {
+                                                        while ($row = $roles->fetch_assoc()) {
+                                                            echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+                                                        }
                                                     }
-                                                }
-                                                ?>
-                                            </select>
+                                                    ?>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <div class="button-wrapper">
+                                                    <button class='content-button status-button' type="submit"
+                                                        name="account">Aceptar</button>
+                                                </div>
+                                            </td>
+                                        </form>
+                                    </tr>
+                                </table>
+                        <?php }
+                        } ?>
+                    </div>
+                </div>
+                <div class="content-wrapper" id="materias">
+                    <div class="content-section">
+                        <table>
+                            <tr>
+                                <th style="width:40%">Materia</th>
+                                <th>Profesor</th>
+                                <th style="width:10%">Curso</th>
+                                <th style="width:14%">Laboratorio</th>
+                                <th style="width:16%">Opciones</th>
+                            </tr>
+                            <?php
+                            $result = $conn->query("SELECT subjects.id, subjects.course, subjects.division, subjects.group, subjects_names.name, CONCAT(users.name,' ',users.surname) AS professor, subjects.laboratory_id FROM subjects INNER JOIN subjects_names ON subjects.name_id = subjects_names.id INNER JOIN users ON subjects.professor_id = users.id");
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) { ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo $row["name"] ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row["professor"] ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row["course"] . "°" . $row["division"] . " - " . $row["group"] ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row["laboratory_id"] ?>
                                         </td>
                                         <td>
                                             <div class="button-wrapper">
-                                                <button class='content-button status-button' type="submit" name="account">Aceptar</button>
+                                                <a href="./?id=<?php echo $row['id'] ?>&table=subjects#materias"><button
+                                                        class='content-button status-button'>Editar</button></a>
+                                                <div class="menu">
+                                                    <button class="dropdown">
+                                                        <ul>
+                                                            <li><a href="../actions/delete?id=<?php echo $row["id"] ?>&table=subjects">Borrar</a>
+                                                            </li>
+                                                        </ul>
+                                                    </button>
+                                                </div>
                                             </div>
-                </div>
-                </td>
-                </form>
-                </tr>
-                </table>
-        <?php }
-                    } ?>
-            </div>
-        </div>
-        <div class="content-wrapper" id="materias">
-            <div class="content-section">
-                <table>
-                    <tr>
-                        <th>Materia</th>
-                        <th>Profesor</th>
-                        <th>Curso</th>
-                        <th>Laboratorio</th>
-                        <th>Opciones</th>
-                    </tr>
-                    <?php
-                    $result = $conn->query("SELECT subjects.id, subjects.course, subjects.division, subjects.group, subjects_names.name, users.name AS professor, subjects.laboratory_id FROM subjects INNER JOIN subjects_names ON subjects.name_id = subjects_names.id INNER JOIN users ON subjects.professor_id = users.id");
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) { ?>
+                                        </td>
+                                    </tr>
+
+                                <?php }
+                            }
+                            ?>
                             <tr>
-                                <td><?php echo $row["name"] ?></td>
-                                <td><?php echo $row["professor"] ?></td>
-                                <td><?php echo $row["course"] . "°" . $row["division"] . " - " . $row["group"] ?></td>
-                                <td><?php echo $row["laboratory_id"] ?></td>
-                                <td>
-                                    <div class="button-wrapper">
-                                        <a href="./?id=<?php echo $row['id'] ?>&table=subjects#materias"><button class='content-button status-button'>Editar</button></a>
-                                        <div class="menu">
-                                            <button class="dropdown">
-                                                <ul>
-                                                    <li><a href="delete?id=<?php echo $row["id"] ?>&table=subjects">Borrar</a></li>
-                                                </ul>
+                                <form action="../actions/create" method="post">
+                                    <td>
+                                        <select name="name" id="name">
+                                            <?php $result = $conn->query("SELECT * FROM subjects_names");
+                                            if ($result->num_rows > 0) {
+                                                while ($row = $result->fetch_assoc()) {
+                                                    echo "
+                                                                <option value='" . $row['id'] . "'>" . $row['name'] . "</option>
+                                                                ";
+                                                }
+                                            } ?>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="professor" id="professor">
+                                            <?php $result = $conn->query("SELECT * FROM users WHERE rol_id=1");
+                                            if ($result->num_rows > 0) {
+                                                while ($row = $result->fetch_assoc()) {
+                                                    echo "<option value='" . $row['id'] . "'>" . $row['name'] . " " . $row['surname'] . "</option>";
+                                                }
+                                            } ?>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="number" min=1 max=7 name="course" placeholder="Curso">
+                                        <input type="number" min=1 max=6 name="division" placeholder="Division">
+                                        <input type="text" name="group" placeholder="Grupo">
+                                    </td>
+                                    <td>
+                                        <select name="laboratory" id="laboratory">
+                                            <?php
+                                            $result = $conn->query("SELECT * FROM laboratories");
+                                            if ($result->num_rows > 0) {
+                                                while ($row = $result->fetch_assoc()) {
+                                                    echo "<option value='" . $row['id'] . "'>" . $row['id'] . "</option>";
+                                                }
+                                            }
+                                            ?>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <div class="button-wrapper">
+                                            <button class='content-button status-button' type="submit" name="subject">Agregar</button>
+                                            <button type="reset">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd"
+                                                        d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+                                                    <path
+                                                        d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+                                                </svg>
                                             </button>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
+                                </form>
                             </tr>
+                        </table>
+                        <?php
+                        if (isset($_GET['id']) || isset($_GET['table'])) {
+                            if ($_GET['table'] == 'subjects') {
+                                $id = $_GET['id'];
+                                $table = $_GET['table'];
+                                $user = $conn->query("SELECT * FROM `$table` WHERE `id`=$id")->fetch_assoc();
+                                ?>
+                                <table>
+                                    <tr>
+                                        <th style="width:35%">Materia</th>
+                                        <th>Profesor</th>
+                                        <th style="width:7%">Curso</th>
+                                        <th style="width:7%">Division</th>
+                                        <th style="width:7%">Grupo</th>
+                                        <th style="width:12%">Laboratorio</th>
+                                        <th style="width:12%">Opciones</th>
+                                    </tr>
+                                    <tr>
+                                        <form action="../actions/update?id=<?php echo $user['id'] ?>&table=subjects" method="post">
+                                            <td><select name="name" id="name">
+                                                    <?php
+                                                    $roles = $conn->query("SELECT id, name FROM subjects_names");
+                                                    if ($roles->num_rows > 0) {
+                                                        while ($row = $roles->fetch_assoc()) {
+                                                            echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </td>
+                                            <td><select name="professor" id="name">
+                                                    <?php
+                                                    $roles = $conn->query("SELECT id, name, surname FROM users WHERE rol_id=1");
+                                                    if ($roles->num_rows > 0) {
+                                                        while ($row = $roles->fetch_assoc()) {
+                                                            echo "<option value='" . $row['id'] . "'>" . $row['name'] . ' '. $row['surname']. "</option>";
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </td>
+                                            <td><input type="text" name="course" id="username" placeholder="Curso"
+                                                    value="<?php echo $user['course'] ?>"></td>
+                                            <td><input type="text" name="division" id="username" placeholder="Division"
+                                                    value="<?php echo $user['division'] ?>"></td>
+                                            <td><input type="text" name="group" id="username" placeholder="Grupo"
+                                                    value="<?php echo $user['group'] ?>"></td>
+                                            <td><select name="laboratory" id="name">
+                                                    <?php
+                                                    $roles = $conn->query("SELECT id FROM laboratories");
+                                                    if ($roles->num_rows > 0) {
+                                                        while ($row = $roles->fetch_assoc()) {
+                                                            echo "<option value='" . $row['id'] . "'>" . $row['id'] . "</option>";
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <div class="button-wrapper">
+                                                    <button class='content-button status-button' type="submit"
+                                                        name="subject">Aceptar</button>
+                                                </div>
+                                            </td>
+                                        </form>
+                                    </tr>
+                                </table>
+                            <?php }
+                        } ?>
+                    </div>
+                </div>
+                <div class="content-wrapper" id="laboratorios">
+                    <div class="content-section">
+                        <table>
+                            <tr>
+                                <th style="width: 14%">Laboratorio</th>
+                                <th style="width: 17%">Computadoras</th>
+                                <th>Admin</th>
+                                <th style="width: 16%">Opciones</th>
+                            </tr>
+                            <?php
+                            $result = $conn->query("SELECT laboratories.id, laboratories.computers_quantity, users.name, users.surname FROM laboratories INNER JOIN users ON laboratories.admin_id = users.id ");
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) { ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo $row["id"] ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row["computers_quantity"] ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row["name"] ?>
+                                            <?php echo $row["surname"] ?>
+                                        </td>
+                                        <td>
+                                            <div class="button-wrapper">
+                                                <a href="./?id=<?php echo $row['id'] ?>&table=laboratories#laboratorios"><button
+                                                        class='content-button status-button'>Editar</button></a>
+                                                <div class="menu">
+                                                    <button class="dropdown">
+                                                        <ul>
+                                                            <li><a href="../actions/delete?id=<?php echo $row["id"] ?>&table=laboratories">Borrar</a>
+                                                            </li>
+                                                        </ul>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
 
-                    <?php }
-                    }
-                    ?>
-                    <tr>
-                        <form action="../actions/create" method="post">
-                            <td>
-                                <select name="name" id="name">
-                                    <?php $result = $conn->query("SELECT * FROM subjects_names");
-                                    if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            echo "
-                                                        <option value='" . $row['id'] . "'>" . $row['name'] . "</option>
-                                                        ";
-                                        }
-                                    } ?>
-                                </select>
-                            </td>
-                            <td>
-                                <select name="professor" id="professor">
-                                    <?php $result = $conn->query("SELECT * FROM users WHERE rol_id=1");
-                                    if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            echo "<option value='" . $row['id'] . "'>" . $row['name'] . " " . $row['surname'] . "</option>";
-                                        }
-                                    } ?>
-                                </select>
-                            </td>
-                            <td>
-                                <input type="number" min=1 max=7 name="course" placeholder="Curso">
-                                <input type="number" min=1 max=6 name="division" placeholder="Division">
-                                <input type="text" name="group" placeholder="Grupo" style="width:50px">
-                            </td>
-                            <td>
-                                <select name="laboratory" id="laboratory">
-                                    <?php
-                                    $result = $conn->query("SELECT * FROM laboratories");
-                                    if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            echo "<option value='" . $row['id'] . "'>" . $row['id'] . "</option>";
-                                        }
-                                    }
-                                    ?>
-                                </select>
-                            </td>
-                            <td>
-                                <div class="button-wrapper">
-                                    <button class='content-button status-button' type="submit">Agregar</button>
-                                    <button type="reset">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
-                                            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
-                                        </svg>
-                                    </button>
-                                </div>
+                                <?php }
+                            }
+                            ?>
+                            <tr>
+                                <form action="../actions/create" method="post">
+                                    <td><input type="text" name="name" id="name" placeholder="Laboratorio"></td>
+                                    <td><input type="number" min="1" max="20" name="computers" id="computers" placeholder="Computadoras"></td>
+                                    <td>
+                                        <select name="admin_id" id="admin_id">
+                                            <?php
+                                            $result = $conn->query("SELECT id, name, surname FROM users WHERE rol_id=2");
+                                            if ($result->num_rows > 0) {
+                                                while ($row = $result->fetch_assoc()) {
+                                                    echo "<option value='" . $row['id'] . "'>" . $row['name'] . ' ' . $row['name'] . "</option>";
+                                                }
+                                            }
+                                            ?>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <div class="button-wrapper">
+                                            <button class='content-button status-button' type="submit" name="laboratories">Agregar</button>
+                                            <button type="reset">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd"
+                                                        d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+                                                    <path
+                                                        d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </form>
+                            </tr>
+                        </table>
+                        <?php
+                        if (isset($_GET['id']) || isset($_GET['table'])) {
+                            if ($_GET['table'] == 'laboratories') {
+                                $id = $_GET['id'];
+                                $table = $_GET['table'];
+                                $user = $conn->query("SELECT * FROM `$table` WHERE `id`='$id'")->fetch_assoc();
+                                ?>
+                                <table>
+                                    <tr>
+                                        <th style="width: 14%">Laboratorio</th>
+                                        <th style="width: 17%">Computadoras</th>
+                                        <th>Admin</th>
+                                        <th style="width: 12%;">Opciones</th>
+                                    </tr>
+                                    <tr>
+                                        <form action="../actions/update?id=<?php echo $user['id'] ?>&table=laboratories" method="post">
+                                            <td><input type="text" name="name" value="<?php echo $user['id'] ?>" placeholder="Laboratorio">
+                                            </td>
+                                            <td><input type="number" min="0" max="20" name="computersQuantity" id="computers_quantity"
+                                                    placeholder="Cantidad de computadoras"
+                                                    value="<?php echo $user['computers_quantity'] ?>"></td>
+                                            <td><select name="admin_id" id="admin_id">
+                                                    <?php
+                                                    $roles = $conn->query("SELECT id, name, surname FROM users WHERE rol_id=2");
+                                                    if ($roles->num_rows > 0) {
+                                                        while ($row = $roles->fetch_assoc()) {
+                                                            echo "<option value='" . $row['id'] . "'>" . $row['name'] . " " . $row['surname'] . "</option>";
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <div class="button-wrapper">
+                                                    <button class='content-button status-button' type="submit"
+                                                        name="laboratories">Aceptar</button>
+                                                </div>
+                                            </td>
+                                        </form>
+                                    </tr>
+                                </table>
+                            <?php }
+                        } ?>
+                    </div>
+                </div>
+                <div class="content-wrapper" id="roles">
+                    <div class="content-section">
+                        <table>
+                            <tr>
+                                <th>Roles</th>
+                                <th style="width: 16%">Opciones</th>
+                            </tr>
+                            <?php
+                            $result = $conn->query("SELECT name, id FROM roles");
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) { ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo $row["name"] ?>
+                                        </td>
+                                        <td>
+                                            <div class="button-wrapper">
+                                                <a href="./?id=<?php echo $row['id'] ?>&table=roles#roles"><button
+                                                        class='content-button status-button'>Editar</button></a>
+                                                <div class="menu">
+                                                    <button class="dropdown">
+                                                        <ul>
+                                                            <li><a
+                                                                    href="../actions/delete?id=<?php echo $row["id"] ?>&table=roles">Borrar</a>
+                                                            </li>
+                                                        </ul>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php }
+                            }
+                            ?>
+                            <tr>
+                                <form action="../actions/create" method="post">
+                                    <td><input type="text" name="name" id="name" placeholder="Nombre"></td>
+                                    <td>
+                                        <div class="button-wrapper">
+                                            <button class='content-button status-button' type="submit" name="roles">Agregar</button>
+                                            <button type="reset">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                    class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd"
+                                                        d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+                                                    <path
+                                                        d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </form>
+                            </tr>
+                        </table>
+                        <?php
+                        if (isset($_GET['id']) || isset($_GET['table'])) {
+                            if ($_GET['table'] == 'roles') {
+                                $id = $_GET['id'];
+                                $table = $_GET['table'];
+                                $user = $conn->query("SELECT * FROM `$table` WHERE `id`=$id")->fetch_assoc();
+                                ?>
+                                <table>
+                                    <tr>
+                                        <th>Roles</th>
+                                        <th style="width: 12%">Opciones</th>
+                                    </tr>
+                                    <tr>
+                                        <form action="../actions/update?id=<?php echo $user['id'] ?>&table=roles" method="post">
+                                            <td><input type="text" name="name" id="name" value="<?php echo $user['name'] ?>"></td>
+                                            <td>
+                                                <div class="button-wrapper">
+                                                    <button class='content-button status-button' type="submit"
+                                                        name="roles">Aceptar</button>
+                                                </div>
+                                            </td>
+                                        </form>
+                                    </tr>
+                                </table>
+                            <?php }
+                        } ?>
+                    </div>
+                </div>
+                <div class="content-wrapper" id="name_materias">
+                    <div class="content-section">
+                        <table>
+                            <tr>
+                                <th>Materia</th>
+                                <th style="width: 16%">Opciones</th>
+                            </tr>
+                            <?php
+                            $result = $conn->query("SELECT name, id FROM subjects_names");
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) { ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo $row["name"] ?>
+                                        </td>
+                                        <td>
+                                            <div class="button-wrapper">
+                                                <a href="./?id=<?php echo $row['id'] ?>&table=subjects_names#name_materias"><button
+                                                        class='content-button status-button'>Editar</button></a>
+                                                <div class="menu">
+                                                    <button class="dropdown">
+                                                        <ul>
+                                                            <li><a
+                                                                    href="../actions/delete?id=<?php echo $row["id"] ?>&table=subjects_names">Borrar</a>
+                                                            </li>
+                                                        </ul>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php }
+                            }
+                            ?>
+                            <tr>
+                                <form action="../actions/create" method="post">
+                                    <td><input type="text" name="name" id="name" placeholder="Nombre"></td>
+                                    <td>
+                                        <div class="button-wrapper">
+                                            <button class='content-button status-button' type="submit" name="name_subjects">Agregar</button>
+                                            <button type="reset">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                    class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd"
+                                                        d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+                                                    <path
+                                                        d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </form>
+                            </tr>
+                        </table>
+                        <?php
+                        if (isset($_GET['id']) || isset($_GET['table'])) {
+                            if ($_GET['table'] == 'subjects_names') {
+                                $id = $_GET['id'];
+                                $table = $_GET['table'];
+                                $user = $conn->query("SELECT * FROM `$table` WHERE `id`=$id")->fetch_assoc();
+                                ?>
+                                <table>
+                                    <tr>
+                                        <th>Roles</th>
+                                        <th style="width: 12%">Opciones</th>
+                                    </tr>
+                                    <tr>
+                                        <form action="../actions/update?id=<?php echo $user['id'] ?>&table=subjects_names" method="post">
+                                            <td><input type="text" name="name" id="name" value="<?php echo $user['name'] ?>"></td>
+                                            <td>
+                                                <div class="button-wrapper">
+                                                    <button class='content-button status-button' type="submit"
+                                                        name="roles">Aceptar</button>
+                                                </div>
+                                            </td>
+                                        </form>
+                                    </tr>
+                                </table>
+                            <?php }
+                        } ?>
+                    </div>
+                </div>
             </div>
-            </td>
-            </form>
-            </tr>
-            </table>
-            <?php
-            if (isset($_GET['id']) || isset($_GET['table'])) {
-                if ($_GET['table'] == 'subjects') {
-                    $id = $_GET['id'];
-                    $table = $_GET['table'];
-                    $user = $conn->query("SELECT * FROM `$table` WHERE `id`=$id")->fetch_assoc();
-            ?>
-                    <table>
-                        <tr>
-                            <th>Materia</th>
-                            <th>Profesor</th>
-                            <th>Curso</th>
-                            <th>Division</th>
-                            <th>Grupo</th>
-                            <th>Laboratorio</th>
-                            <th>Opciones</th>
-                        </tr>
-                        <tr>
-                            <form action="../actions/update?id=<?php echo $user['id'] ?>&table=subjects" method="post">
-                                <td><select name="name" id="name">
-                                        <?php
-                                        $roles = $conn->query("SELECT id, name FROM subjects_names");
-                                        if ($roles->num_rows > 0) {
-                                            while ($row = $roles->fetch_assoc()) {
-                                                echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
-                                            }
-                                        }
-                                        ?>
-                                    </select>
-                                </td>
-                                <td><select name="professor" id="name">
-                                        <?php
-                                        $roles = $conn->query("SELECT id, name FROM users WHERE rol_id=1");
-                                        if ($roles->num_rows > 0) {
-                                            while ($row = $roles->fetch_assoc()) {
-                                                echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
-                                            }
-                                        }
-                                        ?>
-                                    </select>
-                                </td>
-                                <td><input type="text" name="course" id="username" placeholder="Curso" value="<?php echo $user['course'] ?>"></td>
-                                <td><input type="text" name="division" id="username" placeholder="Division" value="<?php echo $user['division'] ?>"></td>
-                                <td><input type="text" name="group" id="username" placeholder="Grupo" value="<?php echo $user['group'] ?>"></td>
-                                <td><select name="laboratory" id="name">
-                                        <?php
-                                        $roles = $conn->query("SELECT id FROM laboratories");
-                                        if ($roles->num_rows > 0) {
-                                            while ($row = $roles->fetch_assoc()) {
-                                                echo "<option value='" . $row['id'] . "'>" . $row['id'] . "</option>";
-                                            }
-                                        }
-                                        ?>
-                                    </select>
-                                </td>
-                                <td>
-                                    <div class="button-wrapper">
-                                        <button class='content-button status-button' type="submit" name="subject">Aceptar</button>
-                                    </div>
-                                </td>
-                            </form>
-                        </tr>
-                    </table>
-            <?php }
-            } ?>
         </div>
-    </div>
-    <div class="content-wrapper" id="laboratorios">
-        <div class="content-section">
-            <table>
-                <tr>
-                    <th>Laboratorio</th>
-                    <th>Computadoras</th>
-                    <th>Admin</th>
-                    <th>Opciones</th>
-                </tr>
-                <?php
-                $result = $conn->query("SELECT laboratories.id, laboratories.computers_quantity, users.name, users.surname FROM laboratories INNER JOIN users ON laboratories.admin_id = users.id ");
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) { ?>
-                        <tr>
-                            <td><?php echo $row["id"] ?></td>
-                            <td><?php echo $row["computers_quantity"] ?></td>
-                            <td><?php echo $row["name"] ?> <?php echo $row["surname"] ?></td>
-                            <td>
-                                <div class="button-wrapper">
-                                    <a href="./?id=<?php echo $row['id'] ?>&table=laboratories#laboratorios"><button class='content-button status-button'>Editar</button></a>
-                                    <div class="menu">
-                                        <button class="dropdown">
-                                            <ul>
-                                                <li><a href="delete?id=<?php echo $row["id"] ?>&table=laboratories">Borrar</a></li>
-                                            </ul>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                <?php }
-                }
-                ?>
-            </table>
-            <?php
-            if (isset($_GET['id']) || isset($_GET['table'])) {
-                if ($_GET['table'] == 'laboratories') {
-                    $id = $_GET['id'];
-                    $table = $_GET['table'];
-                    $user = $conn->query("SELECT * FROM `$table` WHERE `id`='$id'")->fetch_assoc();
-            ?>
-                    <table>
-                        <tr>
-                            <th>Laboratorio</th>
-                            <th>Computadoras</th>
-                            <th>Admin</th>
-                            <th>Opciones</th>
-                        </tr>
-                        <tr>
-                            <form action="../actions/update?id=<?php echo $user['id'] ?>&table=laboratories" method="post">
-                                <td><input type="text" name="name" value="<?php echo $user['id'] ?>" placeholder="Laboratorio"></td>
-                                <td><input type="number" min="0" max="20" name="computersQuantity" id="computers_quantity" placeholder="Cantidad de computadoras" value="<?php echo $user['computers_quantity'] ?>"></td>
-                                <td><select name="admin_id" id="admin_id">
-                                        <?php
-                                        $roles = $conn->query("SELECT id, name, surname FROM users WHERE rol_id=2");
-                                        if ($roles->num_rows > 0) {
-                                            while ($row = $roles->fetch_assoc()) {
-                                                echo "<option value='" . $row['id'] . "'>" . $row['name'] . " " . $row['surname'] . "</option>";
-                                            }
-                                        }
-                                        ?>
-                                    </select>
-                                </td>
-                                <td>
-                                    <div class="button-wrapper">
-                                        <button class='content-button status-button' type="submit" name="laboratories">Aceptar</button>
-                                    </div>
-                                </td>
-                            </form>
-                        </tr>
-                    </table>
-            <?php }
-            } ?>
-        </div>
-    </div>
-    <div class="content-wrapper" id="roles">
-        <div class="content-section">
-            <table>
-                <tr>
-                    <th>Roles</th>
-                    <th>Opciones</th>
-                </tr>
-                <?php
-                $result = $conn->query("SELECT name, id FROM roles");
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) { ?>
-                        <tr>
-                            <td><?php echo $row["name"] ?></td>
-                            <td>
-                                <div class="button-wrapper">
-                                    <a href="./?id=<?php echo $row['id'] ?>&table=roles#roles"><button class='content-button status-button'>Editar</button></a>
-                                    <div class="menu">
-                                        <button class="dropdown">
-                                            <ul>
-                                                <li><a href="../actions/delete?id=<?php echo $row["id"] ?>&table=roles">Borrar</a></li>
-                                            </ul>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                <?php }
-                }
-                ?>
-                <tr>
-                    <form action="../actions/create" method="post">
-                        <td><input type="text" name="name" id="name" placeholder="Nombre"></td>
-                        <td>
-                            <div class="button-wrapper">
-                                <button class='content-button status-button' type="submit">Agregar</button>
-                                <button type="reset">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
-                                        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
-                                    </svg>
-                                </button>
-                            </div>
-        </div>
-        </td>
-        </form>
-        </tr>
-        </table>
-    </div>
-    </div>
-    <div class="content-wrapper" id="name_materias">
-        <div class="content-section">
-            <table>
-                <tr>
-                    <th>Materia</th>
-                    <th>Opciones</th>
-                </tr>
-                <?php
-                $result = $conn->query("SELECT name, id FROM subjects_names");
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) { ?>
-                        <tr>
-                            <td><?php echo $row["name"] ?></td>
-                            <td>
-                                <div class="button-wrapper">
-                                    <a href="./?id=<?php echo $row['id'] ?>&table=roles#roles"><button class='content-button status-button'>Editar</button></a>
-                                    <div class="menu">
-                                        <button class="dropdown">
-                                            <ul>
-                                                <li><a href="../actions/delete?id=<?php echo $row["id"] ?>&table=roles">Borrar</a></li>
-                                            </ul>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                <?php }
-                }
-                ?>
-            </table>
-        </div>
-    </div>
-    </div>
-    </div>
     <div class="overlay-app"></div>
     </div>
     <script>
         let target = $(location).attr('hash').substring(0, $(location).attr('hash').indexOf("?")) || $(location).attr('hash') || '#usuarios';
         $('.main-container > div + div').not(target).hide();
         $(target).fadeIn(600);
-        $('.side-menu.admin a').on('click', function(e) {
+        $('.side-menu.admin a').on('click', function (e) {
             e.preventDefault();
             $('.main-header .header-menu a').addClass('is-active');
             $('.main-header .header-menu a').siblings().removeClass('is-active');
@@ -617,7 +806,7 @@ $notifications = $conn->query("
             $(target).fadeIn(600);
 
         });
-        $('.main-header .header-menu a').on('click', function(e) {
+        $('.main-header .header-menu a').on('click', function (e) {
             e.preventDefault();
             $(this).addClass('is-active');
             $(this).siblings().removeClass('is-active');
@@ -635,19 +824,19 @@ $notifications = $conn->query("
                 dropdown.classList.add("is-active");
             });
         });
-        $(document).click(function(e) {
+        $(document).click(function (e) {
             const container = $(".status-button");
             if (!container.is(e.target) && container.has(e.target).length === 0) {
                 $(".dropdown").removeClass("is-active");
             }
         });
 
-        $(function() {
-            $(".dropdown").on("click", function(e) {
+        $(function () {
+            $(".dropdown").on("click", function (e) {
                 $(".content-wrapper").addClass("overlay");
                 e.stopPropagation();
             });
-            $(document).on("click", function(e) {
+            $(document).on("click", function (e) {
                 if ($(e.target).is(".dropdown") === false) {
                     $(".content-wrapper").removeClass("overlay");
                 }
