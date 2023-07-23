@@ -24,7 +24,7 @@
         WHERE laboratories.admin_id = $id AND notifications.status_id = 1;
     ")->fetch_assoc();
     $laboratories = $conn->query("
-        SELECT laboratories.id
+        SELECT laboratories.id, GROUP_CONCAT(notifications.status_id SEPARATOR ',') AS estados
         FROM `laboratories` 
         INNER JOIN notifications ON laboratories.id = notifications.laboratory_id
         WHERE admin_id = $id
@@ -32,6 +32,7 @@
     ");
     $query = $conn->query("
     SELECT laboratories.id,
+        GROUP_CONCAT(notifications.id SEPARATOR ',') AS id_pc,
         GROUP_CONCAT(notifications.computer SEPARATOR ',') AS computadoras,
         GROUP_CONCAT(notifications.description SEPARATOR ',') AS descripciones,
         GROUP_CONCAT(notifications.status_id SEPARATOR ',') AS estados
@@ -185,11 +186,16 @@
                 <div class="main-header">
                     <a class="menu-link-main" href="#">Laboratorios</a>
                     <div class="header-menu">
-                    <?php while ($row = $laboratories -> fetch_assoc()){ ?><a class="main-header-link" href="#<?php echo $row['id'] ?>"><?php echo $row['id'] ?></a> <?php } ?>
+                    <?php while ($row = $laboratories -> fetch_assoc()){ 
+                        if(in_array(1, explode(",",$row["estados"]))){ ?>
+                            <a class="main-header-link notify" href="#<?php echo $row['id'] ?>"><?php echo $row['id'] ?></a> <?php 
+                        } else { ?>
+                            <a class="main-header-link" href="#<?php echo $row['id'] ?>"><?php echo $row['id'] ?></a> <?php
+                        }} ?>
                     </div>
                 </div>
                 <?php
-                    while ($row = $query -> fetch_assoc()) { ?>
+                    while ($row = $query -> fetch_assoc()) { $idPc = explode(",", $row["id_pc"]) ?>
                         <div class="content-wrapper" id="<?php echo $row['id'] ?>">
                             <div class="content-section">
                                 <ul>
@@ -199,25 +205,25 @@
                                         <div class="products">PC - <?php echo explode(",", $row["computadoras"])[$i] ?></div>
                                         <span class="status">
                                             <?php switch(explode(",", $row["estados"])[$i]){
-                                                case 1:print "<span class='status-circle red'></span>";break;
-                                                case 2:print "<span class='status-circle '></span>";break;
+                                                case 1: print "<span class='status-circle red'></span>";break;
+                                                case 2: print "<span class='status-circle '></span>";break;
                                                 case 3: print "<span class='status-circle green'></span>";break;
                                                 default: break;
                                             } echo explode(",", $row["descripciones"])[$i] ?>
                                         </span>
                                         <div class="button-wrapper">
                                             <?php switch(explode(",", $row["estados"])[$i]){
-                                                case 1: ?> <a href="../actions/update?id=<?php echo $row['id'] ?>&table=notifications&status_id=3"><button class='content-button status-button'>Resolver</button></a><?php break;
-                                                case 2:?> <a href="../actions/update?id=<?php echo $row['id'] ?>&table=notifications&status_id=3"><button class='content-button status-button'>Resolver</button></a><?php break;
-                                                case 3: ?> <a href="../actions/update?id=<?php echo $row['id'] ?>&table=notifications&status_id=1"><button class='content-button status-button open'>Resuelto</button></a><?php break;
+                                                case 1: ?> <a href="../actions/update?id=<?php echo $idPc[$i] ?>&table=notifications&status_id=3"><button class='content-button status-button'>Resolver</button></a><?php break;
+                                                case 2: ?> <a href="../actions/update?id=<?php echo $idPc[$i] ?>&table=notifications&status_id=3"><button class='content-button status-button'>Resolver</button></a><?php break;
+                                                case 3: ?> <a href="../actions/update?id=<?php echo $idPc[$i] ?>&table=notifications&status_id=1"><button class='content-button status-button open'>Resuelto</button></a><?php break;
                                                 default: break;
                                             }?>
                                             <div class="menu">
                                                 <button class="dropdown">
                                                     <ul>
-                                                        <li><a href="../actions/update?id=<?php echo $row['id'] ?>&table=notifications&status_id=2">En revision</a></li>
+                                                        <li><a href="../actions/update?id=<?php echo $idPc[$i] ?>&table=notifications&status_id=2">En revision</a></li>
                                                         <li><a href="#">Relevamiento</a></li>
-                                                        <li><a href="../actions/delete?id=<?php echo $row['id'] ?>&table=notifications">Borrar</a></li>
+                                                        <li><a href="../actions/delete?id=<?php echo $idPc[$i] ?>&table=notifications">Borrar</a></li>
                                                     </ul>
                                                 </button>
                                             </div>
