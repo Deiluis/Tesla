@@ -24,18 +24,22 @@
         WHERE laboratories.admin_id = $id AND notifications.status_id = 1;
     ")->fetch_assoc();
     $laboratories = $conn->query("
-        SELECT id AS laboratory
-        FROM `laboratories`
-        WHERE admin_id = $id;
+        SELECT laboratories.id
+        FROM `laboratories` 
+        INNER JOIN notifications ON laboratories.id = notifications.laboratory_id
+        WHERE admin_id = $id
+        GROUP BY laboratories.id 
     ");
     $query = $conn->query("
-        SELECT notifications.*, statuses_names.name
-        FROM laboratories
-        INNER JOIN notifications
-        ON laboratories.id = notifications.laboratory_id
-        INNER JOIN statuses_names
-        ON notifications.status_id = statuses_names.id
-        WHERE admin_id = $id ORDER BY laboratories.id, notifications.computer
+    SELECT laboratories.id,
+        GROUP_CONCAT(notifications.computer SEPARATOR ',') AS computadoras,
+        GROUP_CONCAT(notifications.description SEPARATOR ',') AS descripciones,
+        GROUP_CONCAT(notifications.status_id SEPARATOR ',') AS estados
+    FROM laboratories 
+    INNER JOIN notifications ON laboratories.id = notifications.laboratory_id 
+    WHERE admin_id = $id 
+    GROUP BY laboratories.id 
+    ORDER BY laboratories.id, notifications.computer;
     ");
 ?>
 <!DOCTYPE html>
@@ -88,7 +92,16 @@
                 <a href="#">
                     <svg viewBox="0 0 512 512" fill="currentColor">
                         <path d="M448.773 235.551A135.893 135.893 0 00451 211c0-74.443-60.557-135-135-135-47.52 0-91.567 25.313-115.766 65.537-32.666-10.59-66.182-6.049-93.794 12.979-27.612 19.013-44.092 49.116-45.425 82.031C24.716 253.788 0 290.497 0 331c0 7.031 1.703 13.887 3.006 20.537l.015.015C12.719 400.492 56.034 436 106 436h300c57.891 0 106-47.109 106-105 0-40.942-25.053-77.798-63.227-95.449z" />
-                    </svg></a>
+                    </svg>
+                </a>
+                <a href="../auth/logout">
+                    <svg viewBox="0 0 24 24" fill="currentColor" height="24" width="24" focusable="false"
+                        class="logout">
+                        <path
+                            d="M20 3v18H8v-1h11V4H8V3h12zm-8.9 12.1.7.7 4.4-4.4L11.8 7l-.7.7 3.1 3.1H3v1h11.3l-3.2 3.3z">
+                        </path>
+                    </svg>
+                </a>
             </div>
         </div>
         <div class="wrapper">
@@ -172,31 +185,31 @@
                 <div class="main-header">
                     <a class="menu-link-main" href="#">Laboratorios</a>
                     <div class="header-menu">
-                    <?php
-                        while ($row = $laboratories -> fetch_assoc()) { ?> <a class="main-header-link" href="#"><?php echo $row['laboratory'] ?></a><?php 
-                    } ?>
+                    <?php while ($row = $laboratories -> fetch_assoc()){ ?><a class="main-header-link" href="#<?php echo $row['id'] ?>"><?php echo $row['id'] ?></a> <?php } ?>
                     </div>
                 </div>
-                <div class="content-wrapper">
-                    <div class="content-section">
-                        <ul>
-                            <?php
-                                while ($row = $query -> fetch_assoc()) { ?>
+                <?php
+                    while ($row = $query -> fetch_assoc()) { ?>
+                        <div class="content-wrapper" id="<?php echo $row['id'] ?>">
+                            <div class="content-section">
+                                <ul>
+                                <?php for($i = 0; $i < count(explode(",", $row["computadoras"])); $i++){  ?>             
+
                                     <li class="adobe-product">
-                                        <div class="products"><?php echo $row['laboratory_id'] ?> PC - <?php echo $row['computer'] ?></div>
+                                        <div class="products">PC - <?php echo explode(",", $row["computadoras"])[$i] ?></div>
                                         <span class="status">
-                                            <?php switch($row['name']){
-                                                case 'Sin resolver':print "<span class='status-circle red'></span>";break;
-                                                case 'En revisión':print "<span class='status-circle '></span>";break;
-                                                case 'Resuelto': print "<span class='status-circle green'></span>";break;
+                                            <?php switch(explode(",", $row["estados"])[$i]){
+                                                case 1:print "<span class='status-circle red'></span>";break;
+                                                case 2:print "<span class='status-circle '></span>";break;
+                                                case 3: print "<span class='status-circle green'></span>";break;
                                                 default: break;
-                                            } echo $row['description'] ?>
+                                            } echo explode(",", $row["descripciones"])[$i] ?>
                                         </span>
                                         <div class="button-wrapper">
-                                            <?php switch($row['name']){
-                                                case 'Sin resolver': ?> <a href="../actions/update?id=<?php echo $row['id'] ?>&table=notifications&status_id=3"><button class='content-button status-button'>Resolver</button></a><?php break;
-                                                case 'En revisión':?> <a href="../actions/update?id=<?php echo $row['id'] ?>&table=notifications&status_id=3"><button class='content-button status-button'>Resolver</button></a><?php break;
-                                                case 'Resuelto': ?> <a href="../actions/update?id=<?php echo $row['id'] ?>&table=notifications&status_id=1"><button class='content-button status-button open'>Resuelto</button></a><?php break;
+                                            <?php switch(explode(",", $row["estados"])[$i]){
+                                                case 1: ?> <a href="../actions/update?id=<?php echo $row['id'] ?>&table=notifications&status_id=3"><button class='content-button status-button'>Resolver</button></a><?php break;
+                                                case 2:?> <a href="../actions/update?id=<?php echo $row['id'] ?>&table=notifications&status_id=3"><button class='content-button status-button'>Resolver</button></a><?php break;
+                                                case 3: ?> <a href="../actions/update?id=<?php echo $row['id'] ?>&table=notifications&status_id=1"><button class='content-button status-button open'>Resuelto</button></a><?php break;
                                                 default: break;
                                             }?>
                                             <div class="menu">
@@ -210,16 +223,29 @@
                                             </div>
                                         </div>
                                     </li>
-                                <?php 
-                            } ?>
-                        </ul>
-                    </div>
-                </div>
+                                    <?php } ?>
+                                </ul>
+                            </div>
+                        </div>
+                        <?php 
+                    } ?>
             </div>
         </div>
         <div class="overlay-app"></div>
     </div>
     <script>
+        $('.header-menu a:first-child').addClass('is-active');
+        $('.main-header .header-menu a').on('click', function (e) {
+            e.preventDefault();
+            $(this).addClass('is-active');
+            $(this).siblings().removeClass('is-active');
+            target = $(this).attr('href');
+
+            $('.main-container > div + div').not(target).hide();
+
+            $(target).fadeIn(600);
+
+        });
         document.querySelectorAll(".dropdown").forEach((dropdown) => {
             dropdown.addEventListener("click", (e) => {
             e.stopPropagation();
