@@ -3,12 +3,13 @@ session_start();
 include('../connection.php');
 $id = $_SESSION['user']['id'];
 $notifications = $conn->query("
-        SELECT COUNT(*)
-        FROM laboratories
-        INNER JOIN notifications
-        ON laboratories.id = notifications.laboratory_id 
-        WHERE laboratories.admin_id = '$id' AND notifications.status_id = 1;
+        SELECT COUNT(*), GROUP_CONCAT(laboratory_id,'.', computer,'.', description) AS computadoras 
+        FROM laboratories 
+        INNER JOIN notifications ON laboratories.id = notifications.laboratory_id 
+        WHERE laboratories.admin_id = 10 AND notifications.status_id = 1 
+        GROUP BY notifications.status_id;
     ")->fetch_assoc();
+$computadoras = explode(',',$notifications["computadoras"]);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,6 +60,20 @@ $notifications = $conn->query("
                         stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell">
                         <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" />
                     </svg>
+                    <button class="dropdown-notify">
+                        <ul><?php 
+                        if ($notifications['COUNT(*)'] > 0){
+                        for ($row = 0; $row < $notifications['COUNT(*)']; $row++) { $computadora = explode('.',$computadoras[$row]); ?>
+                        <li>
+                            <div class="products"><?php echo $computadora[0] . ' | PC-'. $computadora[1]?></div>
+                            <span class="status fit"><span class="status-circle red"></span><?php echo $computadora[2] ?></span>
+                        </li>
+                        <?php }}else{ ?>
+                            <li>
+                                <span class="status fit auto"><span class="status-circle green"></span>No hay notificaciones</span>
+                            </li>
+                        <?php } ?></ul>
+                    </button>
                 </div>
                 <a href="#">
                     <img class="profile-img"
@@ -218,8 +233,7 @@ $notifications = $conn->query("
                                                 <div class="menu">
                                                     <button class="dropdown">
                                                         <ul>
-                                                            <li><a href="../actions/delete?id=<?php echo $row["id"] ?>&table=users">Borrar</a>
-                                                            </li>
+                                                            <li><a href="../actions/delete?id=<?php echo $row["id"] ?>&table=users">Borrar</a></li>
                                                         </ul>
                                                     </button>
                                                 </div>
@@ -356,8 +370,7 @@ $notifications = $conn->query("
                                                 <div class="menu">
                                                     <button class="dropdown">
                                                         <ul>
-                                                            <li><a href="../actions/delete?id=<?php echo $row["id"] ?>&table=subjects">Borrar</a>
-                                                            </li>
+                                                            <li><a href="../actions/delete?id=<?php echo $row["id"] ?>&table=subjects">Borrar</a></li>
                                                         </ul>
                                                     </button>
                                                 </div>
@@ -819,10 +832,17 @@ $notifications = $conn->query("
                 dropdown.classList.add("is-active");
             });
         });
+        document.querySelector(".dropdown-notify").addEventListener("click", (e) => {
+            e.stopPropagation();
+            document.querySelector(".dropdown-notify").classList.toggle("is-active");
+        });
         $(document).click(function (e) {
             const container = $(".status-button");
             if (!container.is(e.target) && container.has(e.target).length === 0) {
                 $(".dropdown").removeClass("is-active");
+            }
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                $(".dropdown-notify").removeClass("is-active");
             }
         });
 

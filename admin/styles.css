@@ -255,10 +255,12 @@ body.light-mode .video-bg:before {
   width: 22px;
   color: #f9fafb;
   flex-shrink: 0;
+  position: absolute;
 }
 
 .notification {
   position: relative;
+  color: var(--theme-color);
 }
 .notification-number {
   position: absolute;
@@ -717,6 +719,41 @@ body.light-mode .video-bg:before {
   border: none;
   cursor: pointer;
 }
+.dropdown-notify {
+  position: relative;
+  height: 30px;
+  width: 30px;
+  top: -4px;
+  display: flex;
+  left: -5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.dropdown-notify ul {
+    position: absolute;
+    background: var(--dropdown-bg);
+    height: fit-content;
+    width: 300px;
+    right: -135px;
+    top: 10px;
+    pointer-events: none;
+    opacity: 0;
+    transform: translatey(10px);
+    transition: all 0.4s ease;
+    border-radius: 15px;
+    color: #fff;
+    padding: 0;
+}
+.status.fit{
+  width: fit-content;
+  white-space: normal;
+  text-align: left;
+  width: 50%;
+}
+.status.fit.auto{
+  margin: auto;
+}
 .dropdown ul {
   position: absolute;
   background: var(--dropdown-bg);
@@ -729,18 +766,29 @@ body.light-mode .video-bg:before {
   transform: translatey(10px);
   transition: all 0.4s ease;
 }
-.dropdown ul li a {
+.dropdown-notify ul li{
+  list-style: none;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  width: 100%;
+  height: 100%;
+  white-space: nowrap;
+  transition: 0.3s;
+}
+.dropdown ul li a, .dropdown-notify ul li a {
   text-decoration: none;
   color: var(--theme-color);
   font-size: 12px;
 }
 
-.dropdown.is-active ul {
+.dropdown.is-active ul, .dropdown-notify.is-active ul  {
   opacity: 1;
   pointer-events: all;
   transform: translatey(25px);
 }
-.dropdown.is-active ul li:hover {
+.dropdown.is-active ul li:hover, .dropdown-notify.is-active ul li:hover {
   background-color: var(--dropdown-hover);
 }
 
