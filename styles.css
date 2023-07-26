@@ -1021,7 +1021,7 @@ body.light-mode .video-bg:before {
 .checkbox:checked + label:before {
   background-color: #3a6df0;
   border-color: #3a6df0;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' class='feather feather-check'%3e%3cpath d='M20 6L9 17l-5-5'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' %3e%3cpath d='M20 6L9 17l-5-5'/%3e%3c/svg%3e");
   background-position: 50%;
   background-size: 12px;
   background-repeat: no-repeat;

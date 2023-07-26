@@ -6,8 +6,7 @@ $notifications = $conn->query("
         SELECT COUNT(*), GROUP_CONCAT(laboratory_id,'.', computer,'.', description) AS computadoras 
         FROM laboratories 
         INNER JOIN notifications ON laboratories.id = notifications.laboratory_id 
-        WHERE laboratories.admin_id = 10 AND notifications.status_id = 1 
-        GROUP BY notifications.status_id;
+        WHERE laboratories.admin_id = 10 AND notifications.status_id = 1;
     ")->fetch_assoc();
 $computadoras = explode(',',$notifications["computadoras"]);
 ?>
@@ -57,7 +56,7 @@ $computadoras = explode(',',$notifications["computadoras"]);
                         <?php echo $notifications['COUNT(*)']; ?>
                     </span>
                     <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell">
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" />
                     </svg>
                     <button class="dropdown-notify">

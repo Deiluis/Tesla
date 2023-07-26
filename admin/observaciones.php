@@ -17,12 +17,12 @@
     $surname = $_SESSION['user']['surname'];
     $rol = $_SESSION['user']['rol_id'];
     $notifications = $conn->query("
-        SELECT COUNT(*)
-        FROM laboratories
-        INNER JOIN notifications
-        ON laboratories.id = notifications.laboratory_id 
+        SELECT COUNT(*), GROUP_CONCAT(laboratory_id,'.', computer,'.', description) AS computadoras 
+        FROM laboratories 
+        INNER JOIN notifications ON laboratories.id = notifications.laboratory_id 
         WHERE laboratories.admin_id = $id AND notifications.status_id = 1;
     ")->fetch_assoc();
+    $computadoras = explode(',',$notifications["computadoras"]);
     $laboratories = $conn->query("
         SELECT laboratories.id, GROUP_CONCAT(notifications.status_id SEPARATOR ',') AS estados
         FROM `laboratories` 
@@ -90,13 +90,18 @@
                         <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" />
                     </svg>
                     <button class="dropdown-notify">
-                        <ul>
+                        <ul><?php 
+                        if ($notifications['COUNT(*)'] > 0){
+                        for ($row = 0; $row < $notifications['COUNT(*)']; $row++) { $computadora = explode('.',$computadoras[$row]); ?>
+                        <li>
+                            <div class="products"><?php echo $computadora[0] . ' | PC-'. $computadora[1]?></div>
+                            <span class="status fit"><span class="status-circle red"></span><?php echo $computadora[2] ?></span>
+                        </li>
+                        <?php }}else{ ?>
                             <li>
-                            <div class="products">PC - 7</div>
-                            <span class="status">
-                                            <span class="status-circle "></span>No arranca                                        </span>
+                                <span class="status fit auto"><span class="status-circle green"></span>No hay notificaciones</span>
                             </li>
-                        </ul>
+                        <?php } ?></ul>
                     </button>
                 </div>
                 <a href="#">
@@ -271,10 +276,17 @@
             dropdown.classList.add("is-active");
             });
         });
+        document.querySelector(".dropdown-notify").addEventListener("click", (e) => {
+            e.stopPropagation();
+            document.querySelector(".dropdown-notify").classList.toggle("is-active");
+        });
         $(document).click(function (e) {
             const container = $(".status-button");
             if (!container.is(e.target) && container.has(e.target).length === 0) {
                 $(".dropdown").removeClass("is-active");
+            }
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                $(".dropdown-notify").removeClass("is-active");
             }
         });
 
