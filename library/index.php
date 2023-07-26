@@ -50,15 +50,15 @@ $result = $conn -> query($query);
     <p>Elegí el curso al que queres acceder.</p>
     <div class="container">
     <?php
-    for ($i = 1; $i <= 7; $i++) { ?>
-        <a href="./divisions?courseId=<?php echo $i ?>">
-            <div class="card">
-                <img src="https://www.quimica-organica.com/wp-content/uploads/2017/12/la-materia-electron-atomo.png"/>
-                <span><?php echo $i ?>º año</span>
-            </div>
-        </a>
-    <?php
-    }
+        for ($i = 1; $i <= 7; $i++) { ?>
+            <a href="./divisions?courseId=<?php echo $i ?>">
+                <div class="card">
+                    <img src="https://www.quimica-organica.com/wp-content/uploads/2017/12/la-materia-electron-atomo.png"/>
+                    <span><?php echo $i ?>º año</span>
+                </div>
+            </a>
+        <?php
+        }
     ?>
     </div>
 </body>

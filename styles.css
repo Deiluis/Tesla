@@ -20,6 +20,7 @@
   --search-bg: #14162b;
   --overlay-bg: rgba(36, 39, 59, 0.3);
   --scrollbar-bg: rgb(1 2 3 / 40%);
+  --access-color: #3ea6ff;
 }
 
 .light-mode {
@@ -36,6 +37,7 @@
   --hover-menu-bg: rgba(255 255 255 / 35%);
   --scrollbar-bg: rgb(255 253 253 / 57%);
   --content-title-color: --theme-color;
+  --access-color: #065fd7;
 }
 
 html {
@@ -161,6 +163,10 @@ body.light-mode .video-bg:before {
   display: flex;
   align-items: center;
 }
+.header-menu h1 {
+  color: var(--theme-color);
+  margin: 0;
+}
 .header-menu a {
   padding: 17px 30px;
   text-decoration: none;
@@ -220,6 +226,10 @@ body.light-mode .video-bg:before {
   padding-left: 16px;
   border-radius: 4px;
 }
+.search-bar.fit{
+  margin-left: auto;
+  margin-right: 10px;
+}
 .search-bar input {
   width: 100%;
   height: 100%;
@@ -250,6 +260,31 @@ body.light-mode .video-bg:before {
   padding: 0 16px 0 40px;
   margin-left: auto;
   flex-shrink: 0;
+}
+.header-profile.fit {
+  padding: 0;
+  margin-left: 0;
+}
+.menu-circle.fit{
+  margin-right: 105px;
+}
+.header-profile .access{
+  text-decoration: none;
+}
+.header-profile .access button{
+  color: var(--access-color);
+  width: 100px;
+  padding: 4px 7px;
+  border-radius: 30px;
+  border: 1px var(--border-color) solid;
+  background: none;
+  outline: none;
+  font-family: Poppins;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600; 
+  cursor: pointer;
 }
 .header-profile .notification svg {
   width: 22px;
