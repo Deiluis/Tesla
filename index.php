@@ -81,8 +81,7 @@
             </div>
             <div class="content-wrapper" id="biblioteca">
                 <div class="content-section">
-                    <ul>
-                        <?php if(isset($_GET["courseId"]) && isset($_GET["divisionId"])){
+                        <?php if(isset($_GET["courseId"]) && isset($_GET["divisionId"])){ print("<ul>");
                                 if ($result -> num_rows > 0) {
                                     while ($row = $result -> fetch_assoc()) { ?>
                                         <li><a href="?file_id=<?php echo $row['id'] ?>"><span><?php echo $row["name"] ?></span></a></li>
@@ -90,65 +89,57 @@
                                     }
                                 }
                                 ?>
-                        <?php  } else if (isset($_GET["file_id"])) { ?>
+                        <?php  print("</ul>");} else if (isset($_GET["file_id"])) { ?>
                             <table>
       <tr>
         <th>Nombre</th>
-        <th>Tipo de archivo</th>
-        <th>Opciones</th>
+        <th style="width: 14%">Tipo de archivo</th>
+        <th style="width: 11%">Opciones</th>
       </tr>
       <?php
       if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) { ?>
           <tr>
             <td><?php echo $row["name"] ?></td>
-            <td><?php echo $row["file_type"] ?></td>
+            <td><?php echo strtoupper($row["file_type"]) ?></td>
             <td>
-              <?php
-                if (in_array($row['file_type'], $validExt)) {
-              ?>
-            <a href="#" class="link--visualizar" id="<?php echo $row['id'] ?>">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-                </svg>
-            </a>
-              <?php
-                }else{
-              ?>
-              <a href="#" class="link--disabled" title="Este archivo no se puede visualizar"">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
-                  <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"/>
-                  <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z"/>
-                </svg>
-              </a>
-              <?php
-                }
-              ?>
-            <a href="./uploads/<?php echo $row['name'] ?>.<?php echo $row['file_type'] ?>" download class="link--descargar" title="Descargar">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cloud-download-fill" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8 0a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 4.095 0 5.555 0 7.318 0 9.366 1.708 11 3.781 11H7.5V5.5a.5.5 0 0 1 1 0V11h4.188C14.502 11 16 9.57 16 7.773c0-1.636-1.242-2.969-2.834-3.194C12.923 1.999 10.69 0 8 0zm-.354 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V11h-1v3.293l-2.146-2.147a.5.5 0 0 0-.708.708l3 3z"/>
-                </svg>
-            </a>
-            <a href="../actions/delete.php?id=<?php echo $row['id'] ?>&table=files&id_materia=<?php echo $_GET['file_id'] ?>"
-                class="link--eliminar link_delete"
-                title="Eliminar">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                  <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
-                </svg>
-            </a>
+                <div class="button-wrapper">
+                <?php
+                    if (in_array($row['file_type'], $validExt)) {
+                ?>
+                    <a href="#" id="<?php echo $row['id'] ?>">
+                        <button class='content-button status-button' style="display: flex;">
+                            <svg style="margin:0" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16"><path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/><path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/></svg>
+                        </button>
+                    </a>
+                <?php } else { ?>
+                    <a href="#" id="<?php echo $row['id'] ?>">
+                        <button class='content-button status-button' style="display: flex;">
+                            <svg style="margin:0" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16"><path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/><path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/></svg>
+                        </button>
+                    </a> 
+                <?php } ?>
+                    <div class="menu">
+                        <button class="dropdown">
+                            <ul>
+                                <li><a href="./uploads/<?php echo $row['name'] ?>.<?php echo $row['file_type'] ?>" download class="link--descargar" title="Descargar">Descargar</a></li>
+                                <li><a href="../actions/delete.php?id=<?php echo $row['id'] ?>&table=files&id_materia=<?php echo $_GET['file_id'] ?>">Borrar</a></li>
+                            </ul>
+                        </button>
+                    </div>
+                </div>
             </td>
           </tr>
       <?php }
       }
       ?>
     </table>
-                        <?php }else{ for ($c = 1; $c <= 7; $c++) { ?>
+                        <?php }else{ print("<ul>"); for ($c = 1; $c <= 7; $c++) { ?>
                             <li class="adobe-product"><span><?php echo $c ?>º año</span></li>
                             <ul>
                                 <?php
                                 for ($d = 1; $d <= 6; $d++) { 
-                                    if ($d == 7 && $d > 4)
+                                    if ($c == 7 && $d > 4)
                                         break;
                                     ?>
                                     <li>
@@ -163,8 +154,8 @@
                                 ?>
                             </ul>
                         <?php }
-                        } ?>
-                    </ul>
+                        print("</ul>"); } ?>
+                    <!-- </ul> -->
                 </div>
             </div>
             <div class="content-wrapper" id="exposicion">
@@ -190,6 +181,19 @@
                 document.querySelectorAll(".content-section ul li").forEach((c) => c.classList.remove("is-active"));
                 dropdown.classList.add("is-active");
             });
+        });
+        document.querySelectorAll(".dropdown").forEach((dropdown) => {
+            dropdown.addEventListener("click", (e) => {
+                e.stopPropagation();
+                document.querySelectorAll(".dropdown").forEach((c) => c.classList.remove("is-active"));
+                dropdown.classList.add("is-active");
+            });
+        });
+        $(document).click(function (e) {
+            const container = $(".status-button");
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                $(".dropdown").removeClass("is-active");
+            }
         });
         document.querySelector('.dark-light').addEventListener('click', () => {
             document.body.classList.toggle('light-mode');
