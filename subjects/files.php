@@ -344,6 +344,7 @@ $validExt = array('png', 'jpg', 'jpeg', 'svg', 'pdf', 'mp3', 'wav' ,'mp4');
               e.preventDefault();
               modal.classList.add("modal--show");
               modalContainer.classList.add("container--show");
+              
               obtainFileById(button.id);
           });
       });

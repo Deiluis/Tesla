@@ -1,7 +1,7 @@
 <?php
 session_start();
 include('../connection.php');
-$target_dir = "../subjects/uploads/";
+$target_dir = "../uploads/";
 $target_file = $target_dir . basename($_FILES["file"]["name"]);
 $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 $file = '';
@@ -14,7 +14,7 @@ if (file_exists($target_file)) {
 
 // Chequea que no haya errores
 if ($uploadOk == 0) {
-    header('Location: ../subjects');
+    header('Location: ../?file_id='. $subject);
     // Agregar error en submit
 } else {
     if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
@@ -25,7 +25,7 @@ if ($uploadOk == 0) {
             VALUES (NULL,'$file', '$fileType', '$target_file', '$subject')
             "
         )) {
-            header('Location: ../subjects/files?id='. $subject);
+            header('Location: ../?file_id='. $subject);
         }
         $conn->close();
     } else {

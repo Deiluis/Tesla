@@ -1,13 +1,13 @@
 <?php
     session_start();
-    if (isset($_SESSION['user'])) {
-        echo '
-            <script>
-                window.location = "./dashboard";
-            </script>
-        ';
-        exit;
-    }
+    // if (isset($_SESSION['user'])) {
+    //     echo '
+    //         <script>
+    //             window.location = "./dashboard";
+    //         </script>
+    //     ';
+    //     exit;
+    // }
     if(isset($_GET['courseId']) && isset($_GET['divisionId'])){
         include('./connection.php');
         $curso = $_GET['courseId'];
@@ -91,50 +91,59 @@
                                 ?>
                         <?php  print("</ul>");} else if (isset($_GET["file_id"])) { ?>
                             <table>
-      <tr>
-        <th>Nombre</th>
-        <th style="width: 14%">Tipo de archivo</th>
-        <th style="width: 11%">Opciones</th>
-      </tr>
-      <?php
-      if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) { ?>
-          <tr>
-            <td><?php echo $row["name"] ?></td>
-            <td><?php echo strtoupper($row["file_type"]) ?></td>
-            <td>
-                <div class="button-wrapper">
-                <?php
-                    if (in_array($row['file_type'], $validExt)) {
-                ?>
-                    <a href="#" id="<?php echo $row['id'] ?>">
-                        <button class='content-button status-button' style="display: flex;">
-                            <svg style="margin:0" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16"><path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/><path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/></svg>
-                        </button>
-                    </a>
-                <?php } else { ?>
-                    <a href="#" id="<?php echo $row['id'] ?>">
-                        <button class='content-button status-button' style="display: flex;">
-                            <svg style="margin:0" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16"><path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/><path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/></svg>
-                        </button>
-                    </a> 
-                <?php } ?>
-                    <div class="menu">
-                        <button class="dropdown">
-                            <ul>
-                                <li><a href="./uploads/<?php echo $row['name'] ?>.<?php echo $row['file_type'] ?>" download class="link--descargar" title="Descargar">Descargar</a></li>
-                                <li><a href="../actions/delete.php?id=<?php echo $row['id'] ?>&table=files&id_materia=<?php echo $_GET['file_id'] ?>">Borrar</a></li>
-                            </ul>
-                        </button>
-                    </div>
-                </div>
-            </td>
-          </tr>
-      <?php }
-      }
-      ?>
-    </table>
-                        <?php }else{ print("<ul>"); for ($c = 1; $c <= 7; $c++) { ?>
+                            <tr>
+                                <th>Nombre</th>
+                                <th style="width: 14%">Tipo de archivo</th>
+                                <th style="width: 14%">Opciones</th>
+                            </tr>
+                            <?php
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) { ?>
+                                <tr>
+                                    <td><?php echo $row["name"] ?></td>
+                                    <td><?php echo strtoupper($row["file_type"]) ?></td>
+                                    <td>
+                                        <div class="button-wrapper">
+                                        <?php
+                                            if (in_array($row['file_type'], $validExt)) {
+                                        ?>
+                                            <a href="#" id="<?php echo $row['id'] ?>">
+                                                <button class='content-button status-button' style="display: flex;">
+                                                    <svg style="margin:0" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16"><path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/><path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/></svg>
+                                                </button>
+                                            </a>
+                                        <?php } else { ?>
+                                            <a href="#" id="<?php echo $row['id'] ?>">
+                                                <button class='content-button status-button' style="display: flex;">
+                                                    <svg style="margin:0" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16"><path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/><path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/></svg>
+                                                </button>
+                                            </a> 
+                                        <?php } ?>
+                                            <div class="menu">
+                                                <button class="dropdown">
+                                                    <ul>
+                                                        <li><a href="./uploads/<?php echo $row['name'] ?>.<?php echo $row['file_type'] ?>" download class="link--descargar" title="Descargar">Descargar</a></li>
+                                                        <li><a href="../actions/delete.php?id=<?php echo $row['id'] ?>&table=files&id_materia=<?php echo $_GET['file_id'] ?>">Borrar</a></li>
+                                                    </ul>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php }
+                            }
+                            ?>
+                            <?php if(isset($rol)){ ?>
+                                <tr>
+                                    <form action="./actions/upload" method="POST" enctype="multipart/form-data">
+                                        <td><input type="file" name="file" id="file" required></td>
+                                        <td><input type="text" name="subject_id" value="<?php echo $_GET['file_id'] ?>" hidden></td>
+                                        <td><input class="content-button status-button button--larger" type="submit" value="Subir Archivo"></td>
+                                    </form>
+                                </tr>
+                            <?php } ?>
+                            </table>
+                            <?php }else{ print("<ul>"); for ($c = 1; $c <= 7; $c++) { ?>
                             <li class="adobe-product"><span><?php echo $c ?>º año</span></li>
                             <ul>
                                 <?php
@@ -163,7 +172,26 @@
             </div>
         </div>
     </div>
+    <div class="modal">
+      <div class="background"></div>
+      <div class="container"></div>
+      <div href="#" class="close-button">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+        </svg>
+      </div>
+    </div>
     <script>
+        function obtainFileById(idFile) {
+            $.ajax({
+                type:"POST",
+                data:"id-file="+idFile,
+                url:"./actions/obtain-file.php",
+                success:function(res){
+                    $('.modal .container').html(res);
+                }
+            });
+        }
         $('.main-header .header-menu a').on('click', function (e) {
             e.preventDefault();
             $(this).addClass('is-active');
@@ -181,6 +209,23 @@
                 document.querySelectorAll(".content-section ul li").forEach((c) => c.classList.remove("is-active"));
                 dropdown.classList.add("is-active");
             });
+        });
+        document.querySelectorAll('table a').forEach(button => {
+          button.addEventListener("click", (e) => {
+              e.preventDefault();
+              document.querySelector(".modal").classList.add("modal--show");
+              document.querySelector(".modal .container").classList.add("container--show");
+              obtainFileById(button.id);
+          });
+        });
+        document.querySelector(".modal .close-button").addEventListener("click", () => {
+            console.log('cli')
+            document.querySelector(".modal").classList.remove("modal--show");
+            document.querySelector(".modal .container").classList.remove("container--show");
+            const modalAudio = document.querySelector(".modal .content--audio");
+            const modalVideo = document.querySelector(".modal .content--video");
+            if (modalAudio != null) modalAudio.pause();
+            if (modalVideo != null) modalVideo.pause();
         });
         document.querySelectorAll(".dropdown").forEach((dropdown) => {
             dropdown.addEventListener("click", (e) => {

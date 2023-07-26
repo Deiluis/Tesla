@@ -11,7 +11,6 @@ function obtainFile($id_file) {
     switch($extension){
         case 'png':
             return '<img src="'.$path.'" class="content--img">';
-            break;
         case 'jpg':
             return '<img src="'.$path.'" class="content--img">';
             break;
