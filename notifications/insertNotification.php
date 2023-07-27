@@ -18,6 +18,6 @@
                 </script>
             ';
         } else
-            echo $conn -> error;
+            echo $conn->error;
     }
 ?>
