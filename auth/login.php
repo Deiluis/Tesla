@@ -14,7 +14,7 @@
     if (isset($user['id'])) {
         if (password_verify($password, $user['password'])) {
             $_SESSION['user'] = $user;
-            header('Location: ../dashboard');
+            header('Location: ../');
         } else {
             echo '
                 <script>

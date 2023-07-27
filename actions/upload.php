@@ -30,6 +30,7 @@ if ($uploadOk == 0) {
         $conn->close();
     } else {
         // echo "Sorry, there was an error uploading your file.";
+        header('Location: ../?file_id='. $subject);
     }
 }
 ?>
