@@ -932,7 +932,7 @@ body.light-mode .video-bg:before {
     transform: translatey(10px);
     transition: all 0.4s ease;
     border-radius: 15px;
-    color: #fff;
+    color: var(--theme-color);
     padding: 0;
 }
 .status.fit{

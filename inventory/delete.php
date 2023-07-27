@@ -5,7 +5,7 @@
     $laboratory = $_GET['laboratory'];
 
     if ($conn->query("DELETE FROM inventory WHERE `id`='$id'")){
-        header("Location: ../inventory/items?id=$laboratory");
+        header("Location: ../?items_id=$laboratory#inventario");
     } else {
         echo $conn->error;
     }
