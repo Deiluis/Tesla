@@ -269,13 +269,10 @@ body.light-mode .video-bg:before {
 .menu-circle.fit{
   margin-right: 105px;
 }
-.header-profile .access{
-  text-decoration: none;
-}
-.header-profile .access button{
+.header-profile .access > button{
   color: var(--access-color);
-  width: 100px;
   padding: 4px 7px;
+  width: 135px;
   border-radius: 30px;
   border: 1px var(--border-color) solid;
   background: none;

@@ -1,0 +1,32 @@
+.modal-register {
+    background-color: var(--content-bg);
+    border: 1px solid var(--theme-bg-color);
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    top: 50%;
+    width: 400px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    pointer-events: none;
+    border-radius: 14px;
+    padding: 1rem;
+    transition: opacity .5s;
+}
+
+.modal-register--show {
+    opacity: 1;
+    pointer-events: unset;
+}
+
+.modal-register input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: var(--popup-bg);
+    border: none;
+    color: var(--theme-color);
+    font-family: var(--body-font);
+    border-radius: 5px;
+}

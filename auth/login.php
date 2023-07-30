@@ -15,11 +15,12 @@
         if (password_verify($password, $user['password'])) {
             $_SESSION['user'] = $user;
             header('Location: ../');
+            exit;
         } else {
             echo '
                 <script>
                     alert("Usuario no existe, verifique los datos ingresados");
-                    window.location = "./";
+                    window.location = "../";
                 </script>
             ';
             session_destroy();
@@ -28,7 +29,7 @@
         echo '
             <script>
                 alert("Usuario no existe, verifique los datos ingresados");
-                window.location = "./";
+                window.location = "../";
             </script>
         ';
         session_destroy();
