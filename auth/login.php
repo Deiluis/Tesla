@@ -17,22 +17,20 @@
             header('Location: ../');
             exit;
         } else {
-            echo '
+            $_SESSION['error'] = 'La contraseña es incorrecta <a href="#">¿Olvidaste tu contraseña?</a>';
+            return print('
                 <script>
-                    alert("Usuario no existe, verifique los datos ingresados");
                     window.location = "../";
                 </script>
-            ';
-            session_destroy();
+            ');
         }
     } else {
-        echo '
+        $_SESSION['error'] = 'El usuario y contraseña no corresponde a ningún usuario';
+        print('
             <script>
-                alert("Usuario no existe, verifique los datos ingresados");
                 window.location = "../";
             </script>
-        ';
-        session_destroy();
+        ');
     }
     exit;
 ?>

@@ -2,20 +2,26 @@
     session_start();
     include('../connection.php');
     if (!isset($_SESSION['user'])) {
-        echo '
+        $_SESSION['error']   = 'Usuario inexistente';
+        return print('
             <script>
-                alert("Usuario no existe, verifique los datos ingresados");
-                window.location = "./";
+                window.location = "../";
             </script>
-        ';
-        session_destroy();
-        exit;
+        ');
     }
-
+    if ($_SESSION['user']['rol_id'] < 2) {
+        $_SESSION['error']   = 'Error 404: Pagina no disponible';
+        return print('
+            <script>
+                window.location = "../";
+            </script>
+        ');
+    }
     $id = $_SESSION['user']['id'];
     $name = $_SESSION['user']['name'];
     $surname = $_SESSION['user']['surname'];
     $rol = $_SESSION['user']['rol_id'];
+    echo $rol;
     $notifications = $conn->query("
         SELECT COUNT(*), GROUP_CONCAT(laboratory_id,'.', computer,'.', description) AS computadoras 
         FROM laboratories 
@@ -258,55 +264,8 @@
     </div>
     <script>
         $('.header-menu a:first-child').addClass('is-active');
-        $('.main-header .header-menu a').on('click', function (e) {
-            e.preventDefault();
-            $(this).addClass('is-active');
-            $(this).siblings().removeClass('is-active');
-            target = $(this).attr('href');
-
-            $('.main-container > div + div').not(target).hide();
-
-            $(target).fadeIn(600);
-
-        });
-        document.querySelectorAll(".dropdown").forEach((dropdown) => {
-            dropdown.addEventListener("click", (e) => {
-            e.stopPropagation();
-            document.querySelectorAll(".dropdown").forEach((c) => c.classList.remove("is-active"));
-            dropdown.classList.add("is-active");
-            });
-        });
-        document.querySelector(".dropdown-notify").addEventListener("click", (e) => {
-            e.stopPropagation();
-            document.querySelector(".dropdown-notify").classList.toggle("is-active");
-        });
-        $(document).click(function (e) {
-            const container = $(".status-button");
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                $(".dropdown").removeClass("is-active");
-            }
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                $(".dropdown-notify").removeClass("is-active");
-            }
-        });
-
-        $(function () {
-            $(".dropdown").on("click", function (e) {
-                $(".content-wrapper").addClass("overlay");
-                e.stopPropagation();
-            });
-            $(document).on("click", function (e) {
-                if ($(e.target).is(".dropdown") === false) {
-                $(".content-wrapper").removeClass("overlay");
-            }
-            });
-        });
-
-
-        document.querySelector('.dark-light').addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-        });
     </script>
+    <script src="../assets/js/admin.js"></script>
 </body>
 
 </html>

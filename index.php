@@ -54,15 +54,8 @@
             VALUES (NULL, '$laboratory', '$computer', '$description', 1)
         ");
 
-        if ($result) {
-            echo '
-                <script>
-                    alert("Observación enviada exitosamente.");
-                    window.location = "./";
-                </script>
-            ';
-        } else
-            echo $conn->error;
+        if ($result) $_SESSION['success'] = 'Observación añadida exitosamente';
+                else $_SESSION['error']   = 'Ocurrio un error al enviar la observación, intentelo de nuevo mas tarde o contacte a un administrador';
     }
 ?>
 
@@ -79,12 +72,12 @@
     <title>Tesla</title>
 </head>
 <body>
-    <div class="video-bg">
+    <!-- <div class="video-bg">
         <video width="320" height="240" autoplay loop muted>
             <source src="https://assets.codepen.io/3364143/7btrrd.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-    </div>
+    </div> -->
 
     <div class="dark-light">
         <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"
@@ -92,9 +85,17 @@
             <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
         </svg>
     </div>
-
+    <?php if(isset($_SESSION['success'])){ ?>
+        <div id="success-notification">
+            <span><?php echo $_SESSION['success'] ?></span>
+        </div>
+    <?php } ?>
+    <?php if(isset($_SESSION['error'])){ ?>
+        <div id="success-notification" class="red">
+            <span><?php echo $_SESSION['error'] ?></span>
+        </div>
+    <?php } ?>
     <div class="app">
-
         <header class="header">
             <div class="menu-circle"></div>
 
@@ -250,7 +251,7 @@
             </div>
         </div>
         <div class="container">
-            <p>Completa los siguientes datos para registrarte. En los proximos días un administrador habilitará tu cuenta.</p>
+            <p>Completa los siguientes datos para registrarte. En los próximos días un administrador habilitará tu cuenta.</p>
             <form action="" method="POST">
                 <input type="text" placeholder="Nombre y apellido">
                 <input type="text" placeholder="Nombre de usuario">
@@ -297,6 +298,11 @@
     } 
     ?>
     <script>
+        <?php if(isset($_SESSION['success']) || isset($_SESSION['error'])){ ?>
+            setInterval(()=>{
+                document.querySelector('#success-notification').style.opacity = 0;
+            }, 2500)
+        <?php unset($_SESSION['success']);unset($_SESSION['error']);} ?>
         /**
          * Obtiene el archivo y devuelve una string que
          * muestra en el modal la posición y el tipo de archivo a most
@@ -335,7 +341,6 @@
 
         document.querySelectorAll('table .library-items').forEach(button => {
           button.addEventListener("click", (e) => {
-            console.log(1);
               e.preventDefault();
               document.querySelector(".modal").classList.add("modal--show");
               document.querySelector(".modal .container").classList.add("container--show");

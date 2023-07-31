@@ -1,6 +1,22 @@
 <?php
 session_start();
 include('../connection.php');
+if (!isset($_SESSION['user'])) {
+    $_SESSION['error']   = 'Usuario inexistente';
+    return print('
+        <script>
+            window.location = "../";
+        </script>
+    ');
+}
+if ($_SESSION['user']['rol_id'] < 2) {
+    $_SESSION['error']   = 'Error 404: Pagina no disponible';
+    return print('
+        <script>
+            window.location = "../";
+        </script>
+    ');
+}
 $id = $_SESSION['user']['id'];
 $notifications = $conn->query("
         SELECT COUNT(*), GROUP_CONCAT(laboratory_id,'.', computer,'.', description) AS computadoras 
@@ -205,7 +221,7 @@ $computadoras = explode(',',$notifications["computadoras"]);
                                 <th>Email</th>
                                 <th style="width: 17%;">Autenticidad?</th>
                                 <th style="width: 13%;">Rol</th>
-                                <th style="width: 16%;">Opciones</th>
+                                <th style="width: 150px;">Opciones</th>
                             </tr>
                             <?php
                             $result = $conn->query("SELECT users.*, roles.name AS roles FROM users INNER JOIN roles ON roles.id = users.rol_id");
@@ -284,9 +300,7 @@ $computadoras = explode(',',$notifications["computadoras"]);
                         <?php
                         if (isset($_GET['id']) || isset($_GET['table'])) {
                             if ($_GET['table'] == 'users') {
-                                $id = $_GET['id'];
-                                $table = $_GET['table'];
-                                $user = $conn->query("SELECT * FROM `$table` WHERE `id`=$id")->fetch_assoc();
+                                $user = $conn->query("SELECT * FROM `users` WHERE `id`=$_GET[id]")->fetch_assoc();
                                 ?>
                                 <table>
                                     <tr>
@@ -387,9 +401,7 @@ $computadoras = explode(',',$notifications["computadoras"]);
                                             <?php $result = $conn->query("SELECT * FROM subjects_names");
                                             if ($result->num_rows > 0) {
                                                 while ($row = $result->fetch_assoc()) {
-                                                    echo "
-                                                                <option value='" . $row['id'] . "'>" . $row['name'] . "</option>
-                                                                ";
+                                                    echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
                                                 }
                                             } ?>
                                         </select>
@@ -441,9 +453,7 @@ $computadoras = explode(',',$notifications["computadoras"]);
                         <?php
                         if (isset($_GET['id']) || isset($_GET['table'])) {
                             if ($_GET['table'] == 'subjects') {
-                                $id = $_GET['id'];
-                                $table = $_GET['table'];
-                                $user = $conn->query("SELECT * FROM `$table` WHERE `id`=$id")->fetch_assoc();
+                                $user = $conn->query("SELECT * FROM `subjects` WHERE `id`=$_GET[id]")->fetch_assoc();
                                 ?>
                                 <table>
                                     <tr>
@@ -588,9 +598,7 @@ $computadoras = explode(',',$notifications["computadoras"]);
                         <?php
                         if (isset($_GET['id']) || isset($_GET['table'])) {
                             if ($_GET['table'] == 'laboratories') {
-                                $id = $_GET['id'];
-                                $table = $_GET['table'];
-                                $user = $conn->query("SELECT * FROM `$table` WHERE `id`='$id'")->fetch_assoc();
+                                $user = $conn->query("SELECT * FROM `laboratories` WHERE `id`=$_GET[id]")->fetch_assoc();
                                 ?>
                                 <table>
                                     <tr>
@@ -687,9 +695,7 @@ $computadoras = explode(',',$notifications["computadoras"]);
                         <?php
                         if (isset($_GET['id']) || isset($_GET['table'])) {
                             if ($_GET['table'] == 'roles') {
-                                $id = $_GET['id'];
-                                $table = $_GET['table'];
-                                $user = $conn->query("SELECT * FROM `$table` WHERE `id`=$id")->fetch_assoc();
+                                $user = $conn->query("SELECT * FROM `roles` WHERE `id`=$_GET[id]")->fetch_assoc();
                                 ?>
                                 <table>
                                     <tr>
@@ -769,9 +775,7 @@ $computadoras = explode(',',$notifications["computadoras"]);
                         <?php
                         if (isset($_GET['id']) || isset($_GET['table'])) {
                             if ($_GET['table'] == 'subjects_names') {
-                                $id = $_GET['id'];
-                                $table = $_GET['table'];
-                                $user = $conn->query("SELECT * FROM `$table` WHERE `id`=$id")->fetch_assoc();
+                                $user = $conn->query("SELECT * FROM `subjects_name` WHERE `id`=$_GET[id]")->fetch_assoc();
                                 ?>
                                 <table>
                                     <tr>
@@ -813,53 +817,8 @@ $computadoras = explode(',',$notifications["computadoras"]);
             $(target).fadeIn(600);
 
         });
-        $('.main-header .header-menu a').on('click', function (e) {
-            e.preventDefault();
-            $(this).addClass('is-active');
-            $(this).siblings().removeClass('is-active');
-            target = $(this).attr('href');
-
-            $('.main-container > div + div').not(target).hide();
-
-            $(target).fadeIn(600);
-
-        });
-        document.querySelectorAll(".dropdown").forEach((dropdown) => {
-            dropdown.addEventListener("click", (e) => {
-                e.stopPropagation();
-                document.querySelectorAll(".dropdown").forEach((c) => c.classList.remove("is-active"));
-                dropdown.classList.add("is-active");
-            });
-        });
-        document.querySelector(".dropdown-notify").addEventListener("click", (e) => {
-            e.stopPropagation();
-            document.querySelector(".dropdown-notify").classList.toggle("is-active");
-        });
-        $(document).click(function (e) {
-            const container = $(".status-button");
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                $(".dropdown").removeClass("is-active");
-            }
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                $(".dropdown-notify").removeClass("is-active");
-            }
-        });
-
-        $(function () {
-            $(".dropdown").on("click", function (e) {
-                $(".content-wrapper").addClass("overlay");
-                e.stopPropagation();
-            });
-            $(document).on("click", function (e) {
-                if ($(e.target).is(".dropdown") === false) {
-                    $(".content-wrapper").removeClass("overlay");
-                }
-            });
-        });
-        document.querySelector('.dark-light').addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-        });
     </script>
+    <script src="../assets/js/admin.js"></script>
 </body>
 
 </html>

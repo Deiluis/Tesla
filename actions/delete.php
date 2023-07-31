@@ -9,7 +9,7 @@
     if ($conn->query("DELETE FROM $table WHERE `id`=$id")){
         if(isset($_GET['id_materia'])){
             $subject = $_GET['id_materia'];
-            unlink('../subjects/uploads/'. $file['name'] .'.'. $file['file_type']);
+            unlink('../uploads/'. $file['name'] .'.'. $file['file_type']);
             return header("Location: ../?file_id=$subject");
         }
         header('Location: ../admin');
