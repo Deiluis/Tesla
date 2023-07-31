@@ -10,7 +10,7 @@
         if(isset($_GET['id_materia'])){
             $subject = $_GET['id_materia'];
             unlink('../subjects/uploads/'. $file['name'] .'.'. $file['file_type']);
-            return header("Location: ../subjects/files?id=$subject");
+            return header("Location: ../?file_id=$subject");
         }
         header('Location: ../admin');
     }else{

@@ -42,7 +42,6 @@
 
     if (isset($_GET['file_id'])) {
         $result = $conn->query("SELECT * FROM files WHERE subject_id = $_GET[file_id]");
-        $validExt = array('png', 'jpg', 'jpeg', 'svg', 'pdf', 'mp3', 'wav' ,'mp4');
     }
     
     if (isset($_POST['laboratory']) || isset($_POST['computer']) || isset($_POST['description']) ){
@@ -175,7 +174,7 @@
                             if ($items -> num_rows > 0) { ?>
                                 <tr>
                                     <th>Nombre</th>
-                                    <th>Descripcion</th>
+                                    <th>Descripción</th>
                                     <th style="width:9%">Cantidad</th>
                                     <th style="width:10%">Opciones</th>
                                 </tr> <?php
@@ -336,6 +335,7 @@
 
         document.querySelectorAll('table .library-items').forEach(button => {
           button.addEventListener("click", (e) => {
+            console.log(1);
               e.preventDefault();
               document.querySelector(".modal").classList.add("modal--show");
               document.querySelector(".modal .container").classList.add("container--show");
