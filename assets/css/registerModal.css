@@ -1,5 +1,5 @@
 .modal-register {
-    background-color: var(--content-bg);
+    background-color: var(--dropdown-bg);
     border: 1px solid var(--theme-bg-color);
     display: flex;
     position: absolute;
@@ -11,15 +11,31 @@
     opacity: 0;
     pointer-events: none;
     border-radius: 14px;
-    padding: 1rem;
+    padding: 1rem 2rem;
     transition: opacity .5s;
+    color: var(--theme-color);
 }
-
 .modal-register--show {
     opacity: 1;
     pointer-events: unset;
 }
-
+.modal-register .header-menu{
+    justify-content: space-between;
+}
+.modal-register .header-menu span {
+    font-size: 2rem;
+    font-weight: bold;
+}
+.modal-register .container p {
+    font-size: 1.5rem;
+}
+.modal-register .close-button {
+    color: #fff;
+    padding: 1rem;
+    opacity: 0.7;
+    cursor: pointer;
+    display: flex;
+}
 .modal-register input {
     width: 100%;
     padding: 10px;
@@ -29,4 +45,20 @@
     color: var(--theme-color);
     font-family: var(--body-font);
     border-radius: 5px;
+}
+.modal-register button {
+    margin-top: 5px;
+    color: var(--access-color);
+    padding: 4px 26px;
+    border-radius: 30px;
+    border: 1px var(--border-color) solid;
+    background: none;
+    outline: none;
+    font-family: var(--body-font);
+    font-size: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
 }

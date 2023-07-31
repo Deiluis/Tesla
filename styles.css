@@ -262,6 +262,9 @@ body.light-mode .video-bg:before {
   margin-left: auto;
   flex-shrink: 0;
 }
+.header-profile a{
+  text-decoration: none;
+}
 .header-profile.fit {
   padding: 0;
   margin-left: 0;
@@ -570,7 +573,7 @@ body.light-mode .video-bg:before {
   transition: opacity .5s;
 }
 .modal-notification {
-  background-color: var(--content-bg);
+  background-color: var(--dropdown-bg);
   border: 1px solid var(--theme-bg-color);
   display: flex;
   position: fixed;
@@ -595,22 +598,30 @@ body.light-mode .video-bg:before {
   font-size: 1.5rem;
 }
 .modal-notification .container form select,  .modal-notification .container form input, .modal-notification .container form textarea{
-  border-radius:5px;
-  width: 100%; 
   font-size: 1.6rem;
-  background-color: #394167; 
-  border:none; 
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  background-color: var(--popup-bg);
+  border: none;
+  color: var(--theme-color);
   font-family: var(--body-font);
-  color:white;
+  border-radius: 5px;
 }
 .modal-notification .container form button{
-  border-radius:5px;
-  margin-top: 8px;
-  background-color: #394167; 
+  margin-top: 5px;
+  color: var(--access-color);
+  padding: 4px 26px;
+  border-radius: 30px;
+  border: 1px var(--border-color) solid;
+  background: none;
   outline: none;
-  border:none; 
   font-family: var(--body-font);
-  color:white;
+  font-size: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 600;
+  cursor: pointer;
 }
 .modal-notification .header-menu{
   justify-content: space-between;

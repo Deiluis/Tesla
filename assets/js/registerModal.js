@@ -2,9 +2,10 @@ const modalRegister = $(".modal-register");
 const registerButton = $("#register");
 
 registerButton.click(() => {
+    $(".login-form").removeClass("login-form--show");
     $(".modal-register").addClass("modal-register--show");
     
-    $(".modal-register__close-button").click(() => {
+    $(".modal-register .close-button").click(() => {
         modalRegister.removeClass("modal-register--show");
     });
     
