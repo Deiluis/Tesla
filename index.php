@@ -40,8 +40,8 @@
         ");
     }
 
-    if (isset($_GET['file_id'])) {
-        $result = $conn->query("SELECT * FROM files WHERE subject_id = $_GET[file_id]");
+    if (isset($_GET['subject_id'])) {
+        $result = $conn->query("SELECT * FROM files WHERE subject_id = $_GET[subject_id]");
     }
     
     if (isset($_POST['laboratory']) || isset($_POST['computer']) || isset($_POST['description']) ){
@@ -54,8 +54,10 @@
             VALUES (NULL, '$laboratory', '$computer', '$description', 1)
         ");
 
-        if ($result) $_SESSION['success'] = 'Observación añadida exitosamente';
-                else $_SESSION['error']   = 'Ocurrio un error al enviar la observación, intentelo de nuevo mas tarde o contacte a un administrador';
+        if ($result) 
+            $_SESSION['success'] = 'Observación añadida exitosamente';
+        else 
+            $_SESSION['error']   = 'Ocurrio un error al enviar la observación, intentelo de nuevo mas tarde o contacte a un administrador';
     }
 ?>
 

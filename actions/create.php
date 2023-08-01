@@ -23,10 +23,21 @@
         $professor = $_POST['professor'];
         $laboratory = $_POST['laboratory'];
 
-        if ($conn->query("INSERT INTO `subjects` (`id`, `name_id`, `course`, `division`, `group`, `professor_id`, `laboratory_id`) VALUES (NULL, $name, $course , $division, '$group', $professor, '$laboratory')")) {
+        $query = "
+        INSERT INTO `subjects` (`id`, `name_id`, `course`, `division`, `group`, `professor_id`, `laboratory_id`) 
+        VALUES (NULL, $name, $course , $division, '$group', $professor, '$laboratory')
+        ";
+
+        if ($conn -> query($query)) {
+
+            // Al crear la materia, crea también la carpeta donde se alojarán sus archivos.
+            $new_subject_id = $conn -> insert_id;
+            $folderPath = "../uploads/subject-$new_subject_id";
+            mkdir($folderPath);
+
             header('Location: ../admin');
         } else {
-            echo $conn->error;
+            echo $conn -> error;
         }
     }
     if (isset($_POST['roles'])) {
