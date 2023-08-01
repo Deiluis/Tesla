@@ -17,7 +17,7 @@
             header('Location: ../');
             exit;
         } else {
-            $_SESSION['error'] = 'La contraseña es incorrecta <a href="#">¿Olvidaste tu contraseña?</a>';
+            $_SESSION['error'] = 'El usuario o la contraseña son incorrectos. <a href="#">¿Olvidaste tu contraseña?</a>';
             return print('
                 <script>
                     window.location = "../";
@@ -25,7 +25,7 @@
             ');
         }
     } else {
-        $_SESSION['error'] = 'El usuario y contraseña no corresponde a ningún usuario';
+        $_SESSION['error'] = 'La contraseña es incorrecta <a href="#">¿Olvidaste tu contraseña?</a>';
         print('
             <script>
                 window.location = "../";

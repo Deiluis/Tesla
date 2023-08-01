@@ -255,6 +255,7 @@
             <form action="" method="POST">
                 <input type="text" placeholder="Nombre y apellido">
                 <input type="text" placeholder="Nombre de usuario">
+                <input type="email" placeholder="Correo electrónico">
                 <input type="password" placeholder="Contraseña">
                 <input type="password" placeholder="Confirmar contraseña">
                 <button>Registrarse</button>
@@ -335,7 +336,7 @@
         document.querySelectorAll(".content-section ul li").forEach((dropdown) => {
             dropdown.addEventListener("click", (e) => {
                 e.stopPropagation();
-                dropdown.classList.add("is-active");
+                dropdown.classList.toggle("is-active");
             });
         });
 

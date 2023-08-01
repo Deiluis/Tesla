@@ -1,4 +1,7 @@
-<?php $validExt = array('png', 'jpg', 'jpeg', 'svg', 'pdf', 'mp3', 'wav' ,'mp4');?>
+<?php 
+$validExt = array('png', 'jpg', 'jpeg', 'svg', 'pdf', 'mp3', 'wav' ,'mp4');
+?>
+
 <div class="content-wrapper" id="biblioteca">
     <div class="content-section">
         <?php if(isset($_GET["courseId"]) && isset($_GET["divisionId"])){ print("<ul>");
