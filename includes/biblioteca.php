@@ -55,7 +55,7 @@ $validExt = array('png', 'jpg', 'jpeg', 'svg', 'pdf', 'mp3', 'wav' ,'mp4');
                                                 
                                                 if($rol_id > 0) { ?>
                                                     <li>
-                                                        <a href="./actions/delete.php?id=<?php echo $row['id'] ?>&table=files&subject_id=<?php echo $_GET['subject_id'] ?>">Borrar</a>
+                                                        <a href="./actions/delete.php?id=<?php echo $row['id'] ?>&table=files">Borrar</a>
                                                     </li> <?php 
                                                 } ?>
                                             </ul>
