@@ -6,9 +6,6 @@ function obtainFile($id_file) {
     $extension = $file_data['file_type'];
     $path = $file_data['path'];
 
-    
-
-    // Arreglar con if
     switch($extension){
         case 'png': return '<img src="'.$path.'" class="content--img">';
         case 'jpg': return '<img src="'.$path.'" class="content--img">';

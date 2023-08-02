@@ -14,6 +14,7 @@
   --content-title-color: #999ba5;
   --content-bg: rgb(146 151 179 / 13%);
   --button-inactive: rgb(249 250 251 / 55%);
+  --svg-fill: #f7f7f7;
   --dropdown-bg: #21242d;
   --dropdown-hover: rgb(42 46 60);
   --popup-bg: rgb(22 25 37);
@@ -31,6 +32,7 @@
   --button-inactive: #3c3a3a;
   --search-bg: rgb(255 255 255 / 31%);
   --dropdown-bg: #f7f7f7;
+  --svg-fill: #21242d;
   --overlay-bg: rgb(255 255 255 / 30%);
   --dropdown-hover: rgb(236 236 236);
   --border-color: rgb(255 255 255 / 35%);
@@ -291,7 +293,7 @@ body.light-mode .video-bg:before {
 }
 .header-profile .notification svg {
   width: 22px;
-  color: #f9fafb;
+  color: var(--svg-fill);
   flex-shrink: 0;
   position: absolute;
 }
@@ -360,7 +362,7 @@ body.light-mode .video-bg:before {
   display: block;
   width: 100%; 
   height: 100%;
-  color: #f9fafb;
+  color: var(--svg-fill);
   flex-shrink: 0;
 }
 .wide .header-menu,

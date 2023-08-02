@@ -57,7 +57,7 @@
         if ($result) 
             $_SESSION['success'] = 'Observación añadida exitosamente';
         else 
-            $_SESSION['error']   = 'Ocurrio un error al enviar la observación, intentelo de nuevo mas tarde o contacte a un administrador';
+            $_SESSION['error']   = 'Ocurrió un error al enviar la observación, inténtelo de nuevo mas tarde o contacte a un administrador';
     }
 ?>
 
