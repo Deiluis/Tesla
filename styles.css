@@ -744,6 +744,7 @@ body.light-mode .video-bg:before {
   width: 100%;
   border: 1px solid var(--theme-bg-color);
   border-spacing:0; /* Removes the cell spacing via CSS */
+  margin: 2rem 0;
 }
 .content-section table tr {
   text-align: left;

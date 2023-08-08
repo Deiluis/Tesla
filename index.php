@@ -41,7 +41,7 @@
     }
 
     if (isset($_GET['subject_id'])) {
-        $result = $conn->query("SELECT * FROM files WHERE subject_id = $_GET[subject_id]");
+        $result = $conn -> query("SELECT * FROM files WHERE subject_id = $_GET[subject_id]");
     }
     
     if (isset($_POST['laboratory']) || isset($_POST['computer']) || isset($_POST['description']) ){

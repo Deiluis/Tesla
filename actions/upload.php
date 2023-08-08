@@ -2,7 +2,13 @@
 session_start();
 include('../connection.php');
 $subject_id = $_POST['subject_id'];
-$target_dir = "../uploads/subject-$subject_id/";
+$dir_name = $_POST['dir_name'];
+
+if ($dir_name)
+    $target_dir = "../uploads/subject-$subject_id/$dir_name/";
+else 
+    $target_dir = "../uploads/subject-$subject_id/";
+
 $file_path = $target_dir . basename($_FILES["file"]["name"]);
 $fileType = strtolower(pathinfo($file_path, PATHINFO_EXTENSION));
 $file = '';
