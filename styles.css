@@ -910,6 +910,11 @@ body.light-mode .video-bg:before {
   justify-content: space-between;
   font-weight: 600;
   cursor: pointer;
+  margin-right: 10px;
+}
+#controls button.active{
+  background-color: #00aba7;
+  color: black;
 }
 .products {
   display: flex;
@@ -1258,4 +1263,15 @@ body.light-mode .video-bg:before {
 ::-webkit-scrollbar-thumb {
   background: var(--scrollbar-bg);
   border-radius: 10px;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }

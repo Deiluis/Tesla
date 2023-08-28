@@ -1,13 +1,14 @@
 <div class="content-wrapper" id="exposicion">
     <div id="controls"></div>
     <div id="emitir" style="display: none">
-        <button onclick="emitir()" style="margin-bottom: 5px">Emitir</button>
         <video id="video" style="width: 100%; height: 100%" autoplay="true"></video>
         <canvas id="preview" style="display:none"></canvas>
+        <button onclick="emitir()" style="margin-bottom: 5px">Emitir</button>
     </div>
     <script>
         const socket = io("http://localhost:7777");
         const controls = document.querySelector('#controls');
+        const streamConfig = { video: {cursor: "always"}, audio: false }
         const video = document.getElementById('video');
         const canvas = document.getElementById('preview');
         const context = canvas.getContext('2d');
@@ -20,6 +21,10 @@
             document.querySelector('h2').innerHTML = "Error en conexion";
         });
         let roomId;
+        function audioChange(e){
+            streamConfig.audio = !streamConfig.audio;
+            e.classList.toggle('active');
+        }
         function joinRoom(){
             if (document.querySelector('#room').value === '') {
                 return alert('Please type a room ID');
@@ -36,7 +41,7 @@
         }
 
         function emitir(){
-            navigator.mediaDevices.getDisplayMedia({video: {cursor: "always"}, audio: false}).then(loadCam).catch(() => {
+            navigator.mediaDevices.getDisplayMedia(streamConfig).then(loadCam).catch(() => {
                 console.log('errors with the media device')
             })
             const intervalo = setInterval(() => {
@@ -47,7 +52,8 @@
         socket.on("connect", () => {
             controls.innerHTML = `
                 <input id="room" type="number">
-                <button type="submit" onClick=joinRoom()>Entrar a la sala</button>
+                <button type="submit" onClick=joinRoom()>Crear sala</button>
+                <button onClick="audioChange(this)">Audio</button>
             `;
         });
 
