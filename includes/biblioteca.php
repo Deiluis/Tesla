@@ -56,7 +56,6 @@ if (isset($_GET["subject_id"])) {
                 <ul> <?php 
                     // Incluye las tablas de cada directorio de la materia.
                     $index = 0;
-
                     foreach ($full_name_dirs as $dir) { 
                         if ($selectable_dirs[$index] !== ".") { 
                             if(count(scandir($dir)) > 2){ ?>

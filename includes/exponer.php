@@ -41,7 +41,7 @@
             })
             const intervalo = setInterval(() => {
                 context.drawImage(video, 0, 0, context.width, context.height);
-                socket.emit('stream', { video: canvas.toDataURL('image/webp'), roomId});
+                socket.emit('stream', { stream: canvas.toDataURL('image/webp'), roomId});
             }, 1000)
         }
         socket.on("connect", () => {
