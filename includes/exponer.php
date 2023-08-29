@@ -56,6 +56,5 @@
                 <button onClick="audioChange(this)">Audio</button>
             `;
         });
-
     </script>
 </div>

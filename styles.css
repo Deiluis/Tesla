@@ -861,6 +861,36 @@ body.light-mode .video-bg:before {
   margin-right: 16px;
   flex-shrink: 0;
 }
+#rooms{
+  display: flex;
+  background: var(--search-bg);
+  flex-direction: column;
+  width: 500px;
+  border-radius: 20px;
+  margin: auto;
+}
+#rooms .room{
+  background: var(--overlay-bg);
+  display: flex;
+  justify-content: space-between;
+  border-radius: 20px;
+  align-items: center;
+  padding: 6px 8px;
+  margin: 6px;
+  font-size: 20px;
+}
+#rooms button{
+  color: var(--access-color);
+  padding: 4px 15px;
+  border-radius: 30px;
+  border: 1px var(--border-color) solid;
+  background: none;
+  outline: none;
+  font-family: var(--body-font);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
 #controls{
   width: 100%;
   height: 80%;
