@@ -20,7 +20,7 @@
         socket.on("connect_error", (error) => {
             document.querySelector('h2').innerHTML = "Error en conexion";
         });
-        let roomId;
+        const room = {id: '', name: ''}
         function audioChange(e){
             streamConfig.audio = !streamConfig.audio;
             e.classList.toggle('active');
@@ -29,11 +29,12 @@
             if (document.querySelector('#room').value === '') {
                 return alert('Please type a room ID');
             }
-            roomId = document.querySelector('#room').value
+            room.id = document.querySelector('#room').value
+            room.name = document.querySelector('#roomName').value
             controls.innerHTML += ``;
             controls.style.display = `none`;
             document.querySelector('#emitir').style.display = `block`;
-            return socket.emit('room', roomId);
+            return socket.emit('room', room);
         }
 
         function loadCam(stream) {
@@ -46,12 +47,13 @@
             })
             const intervalo = setInterval(() => {
                 context.drawImage(video, 0, 0, context.width, context.height);
-                socket.emit('stream', { stream: canvas.toDataURL('image/webp'), roomId});
+                socket.emit('stream', { stream: canvas.toDataURL('image/webp'), roomId: room.id});
             }, 1000)
         }
         socket.on("connect", () => {
             controls.innerHTML = `
-                <input id="room" type="number">
+                <input id="room" type="number" placeholder="ID de la Sala">
+                <input id="roomName" type="text" placeholder="Nombre">
                 <button type="submit" onClick=joinRoom()>Crear sala</button>
                 <button onClick="audioChange(this)">Audio</button>
             `;

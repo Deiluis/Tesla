@@ -9,16 +9,16 @@
         socket.on("connect_error", (error) => {
             document.querySelector('h2').innerHTML = "Error en conexion";
         });
-        let roomId;
-        function joinRoom(room){
-            if (room < 1 && document.querySelector('#room').value === '') {
+        const room = {id: ''}
+        function joinRoom(roomSelect){
+            if (roomSelect < 1 && document.querySelector('#room').value === '') {
                 return alert('Escribe el ID de una sala');
             }
-            roomId = document.querySelector('#room').value || room.toString()
+            room.id = document.querySelector('#room').value || roomSelect.toString()
             controls.innerHTML = ``;
             rooms.innerHTML = ``;
             controls.style.display = `none`;
-            return socket.emit('room', roomId);
+            return socket.emit('room', room);
         }
         function reloadRooms(){
             return socket.emit('reloadRooms');
@@ -35,11 +35,11 @@
             })
             socket.on("reloadRooms", (rooms) => {
                 salas.innerHTML = `<button onClick="reloadRooms()">Recargar salas</button>`;
-                for (let value of rooms) {
+                for (let e of rooms) {
                     salas.innerHTML += `
                         <div class="room">
-                            <span> ${value.room} - ${value.users}/10</span>
-                            <button type="submit" onClick=joinRoom(${value.room})>Entrar a la sala</button>
+                            <span> ${e.name} - ${e.size}/10</span>
+                            <button type="submit" onClick=joinRoom(${e.id})>Entrar a la sala</button>
                         </div>
                     `;
                 }
