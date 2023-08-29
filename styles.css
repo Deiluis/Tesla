@@ -227,7 +227,7 @@ body.light-mode .video-bg:before {
   height: 40px;
   display: flex;
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
   padding-left: 16px;
   border-radius: 4px;
 }
@@ -357,7 +357,6 @@ body.light-mode .video-bg:before {
 }
 .logout{
   margin-left: 10px;
-  margin-bottom: 5px; 
   pointer-events: none;
   display: block;
   width: 100%; 
