@@ -899,6 +899,12 @@ body.light-mode .video-bg:before {
   justify-content: center;
   align-items: center;
 }
+#controls.emitir{
+  position: absolute;
+  bottom: 0;
+  height: fit-content;
+  z-index: 10;
+}
 #exposicion button{
   color: var(--access-color);
   padding: 4px 15px;

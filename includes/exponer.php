@@ -1,9 +1,8 @@
-<div class="content-wrapper" id="exposicion">
+<div class="content-wrapper" id="exposicion" style="padding: 0">
     <div id="controls"></div>
     <div id="emitir" style="display: none">
         <video id="video" style="width: 100%; height: 100%" autoplay="true"></video>
         <canvas id="preview" style="display:none"></canvas>
-        <button onclick="emitir()" style="margin-bottom: 5px">Emitir</button>
     </div>
     <script>
         const socket = io("http://localhost:7777");
@@ -18,7 +17,7 @@
         context.height = canvas.height;
 
         socket.on("connect_error", (error) => {
-            document.querySelector('h2').innerHTML = "Error en conexion";
+            document.querySelector('h2').innerHTML = "Error en conexión";
         });
         const room = {id: '', name: ''}
         function audioChange(e){
@@ -31,24 +30,27 @@
             }
             room.id = document.querySelector('#room').value
             room.name = document.querySelector('#roomName').value
-            controls.innerHTML += ``;
-            controls.style.display = `none`;
+            controls.innerHTML = `
+                <button onclick="emitir(this)" style="margin-bottom: 5px">Emitir</button>
+                <button onclick="stop(this)" style="margin-bottom: 5px; display: none;" id="stopEmit">Dejar de transmitir</button>
+            `;
+            controls.classList.add('emitir');
             document.querySelector('#emitir').style.display = `block`;
             return socket.emit('room', room);
         }
 
-        function loadCam(stream) {
-            video.srcObject = stream
-        }
-
-        function emitir(){
-            navigator.mediaDevices.getDisplayMedia(streamConfig).then(loadCam).catch(() => {
-                console.log('errors with the media device')
-            })
+        function emitir(e){
+            navigator.mediaDevices.getDisplayMedia(streamConfig).then((stream) => {video.srcObject = stream;e.nextElementSibling.style.display = "block";}).catch(() => {console.log('Error en emisión')})
             const intervalo = setInterval(() => {
                 context.drawImage(video, 0, 0, context.width, context.height);
                 socket.emit('stream', { stream: canvas.toDataURL('image/webp'), roomId: room.id});
             }, 1000)
+        }
+        function stop(e){
+            e.style.display = "none";
+            let tracks = video.srcObject.getTracks();
+            tracks.forEach(track => track.stop());
+            video.srcObject = null;
         }
         socket.on("connect", () => {
             controls.innerHTML = `

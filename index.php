@@ -109,7 +109,7 @@
                 if ($rol_id == PROFESSOR_ROLE) { ?>
                     <a class="menu-link" href="#exposicion">Exponer</a> <?php
                 } else { ?>
-                    <a class="menu-link" href="#ver-exposicion">Ver exposición</a> <?php 
+                    <a class="menu-link" href="#ver-exposicion" onclick="reloadRooms()">Ver exposición</a> <?php 
                 } ?>
             </div>
 
