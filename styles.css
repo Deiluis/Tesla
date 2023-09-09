@@ -597,6 +597,43 @@ body.light-mode .video-bg:before {
   pointer-events: none;
   transition: opacity .5s;
 }
+.modal-pc{
+  width: 500px;
+  color: #fff;
+}
+.modal-pc .container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+}
+.modal-pc .container .objects{
+  display: grid;
+  height: 100%;
+}
+.modal-pc .pc{
+  background-color: #d2e4fb;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px 5px 10px;
+  justify-content: center;
+  align-items: center;
+}
+.modal-pc .pc span {
+  color: #000;
+}
+.modal-pc .container .objects span{
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 10px;
+  background-color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .modal-notification {
   background-color: var(--dropdown-bg);
   border: 1px solid var(--theme-bg-color);
@@ -1081,7 +1118,7 @@ body.light-mode .video-bg:before {
   top: 20px;
   pointer-events: none;
   opacity: 0;
-  transform: translatey(10px);
+  transform: translateY(10px);
   transition: all 0.4s ease;
 }
 .dropdown-notify ul li{
@@ -1104,7 +1141,7 @@ body.light-mode .video-bg:before {
 .dropdown.is-active ul, .dropdown-notify.is-active ul  {
   opacity: 1;
   pointer-events: all;
-  transform: translatey(25px);
+  transform: translateY(25px);
 }
 .dropdown.is-active ul li:hover, .dropdown-notify.is-active ul li:hover {
   background-color: var(--dropdown-hover);
