@@ -599,14 +599,15 @@ body.light-mode .video-bg:before {
 }
 .modal-pc{
   width: 500px;
+  height: 400px;
+  overflow-y: auto;
   color: #fff;
 }
 .modal-pc .container{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-items: center;
-  height: 100%;
+  height: fit-content;
 }
 .modal-pc .container .objects{
   display: grid;
@@ -620,6 +621,11 @@ body.light-mode .video-bg:before {
   padding: 0 10px 5px 10px;
   justify-content: center;
   align-items: center;
+  position: sticky;
+  margin-top: 10px;
+  top: 10px;
+  height: fit-content;
+  width: fit-content;
 }
 .modal-pc .pc span {
   color: #000;
@@ -1253,6 +1259,7 @@ body.light-mode .video-bg:before {
 .content-button-wrapper {
   margin-top: auto;
   margin-left: auto;
+  transition: 1s ease;
 }
 .content-button-wrapper .open {
   margin-right: 8px;
