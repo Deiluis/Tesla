@@ -2,14 +2,16 @@
   <a href="https://bun.sh"><img src="https://cdn-icons-png.flaticon.com/512/50/50024.png" alt="Logo" height=170></a>
 </p>
 <h1 align="center">Tesla</h1>
-<p align="center">
-<img width=30 src="https://www.php.net/images/logos/new-php-logo.svg" alt="php"/> ㅤ 
-<img width=20 src="https://cdn.worldvectorlogo.com/logos/logo-javascript.svg" alt="javascript" /> ㅤ
-<img width=20 src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/800px-HTML5_logo_and_wordmark.svg.png" /> ㅤ
-<img width=20
-src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CSS3_logo_and_wordmark.svg/1200px-CSS3_logo_and_wordmark.svg.png" />
-</p>
+## Tecnologías:
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white&labelColor=101010)
+![Node.JS](https://img.shields.io/badge/Node.JS-339933?style=for-the-badge&logo=node.js&logoColor=white&labelColor=101010)
+![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white&labelColor=101010)
+![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white&labelColor=101010)
+![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white&labelColor=101010)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white&labelColor=101010)
 
+### Funciones
+- Base de datos
+- Streaming
 ### Información
-- Plataforma Web, basada en PHP, HTML, CSS, JavaScript
 - Proyecto escolar para la materia PDISC.
