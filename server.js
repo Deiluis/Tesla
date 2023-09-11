@@ -9,6 +9,19 @@ const io = require("socket.io")(server, {
   }
 });
 const rooms = []
+let allData = "";
+app.post('/api/computers', function(req, res) {
+  let data = '';
+  req.on('data', chunk => {
+    data += chunk;
+  });
+  req.on('end', () => {
+    const json_data = JSON.parse(data);
+    console.log(json_data);
+    allData += data;
+  });
+  res.end('OK');
+});
 io.on('connection', (socket) => {
   socket.on('room', (room) => {
     let roomFind = rooms.find((e) => e.id === room.id);
