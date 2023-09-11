@@ -209,9 +209,9 @@
                                         </span>
                                         <div class="button-wrapper">
                                             <?php switch(explode(",", $row["estados"])[$i]){
-                                                case 1: ?> <a href="../actions/update?id=<?php echo $idPc[$i] ?>&table=notifications&status_id=3"><button class='content-button status-button'>Resolver</button></a><?php break;
-                                                case 2: ?> <a href="../actions/update?id=<?php echo $idPc[$i] ?>&table=notifications&status_id=3"><button class='content-button status-button'>Resolver</button></a><?php break;
-                                                case 3: ?> <a href="../actions/update?id=<?php echo $idPc[$i] ?>&table=notifications&status_id=1"><button class='content-button status-button open'>Resuelto</button></a><?php break;
+                                                case 1: ?> <a onClick="update(this)" data-update="<?php echo $idPc[$i] ?>,notifications,3"><button class='content-button status-button'>Resolver</button></a><?php break;
+                                                case 2: ?> <a onClick="update(this)" data-update="<?php echo $idPc[$i] ?>,notifications,3"><button class='content-button status-button'>Resolver</button></a><?php break;
+                                                case 3: ?> <a onClick="update(this)" data-update="<?php echo $idPc[$i] ?>,notifications,1"><button class='content-button status-button open'>Resuelto</button></a><?php break;
                                                 default: break;
                                             }?>
                                             <div class="menu">
@@ -251,6 +251,26 @@
         document.querySelector(".modal-pc .close-button").addEventListener("click", (e) => {
             document.querySelector(".modal-pc").classList.remove("modal--show");
         });
+        function update(e){
+            const data = e.getAttribute("data-update").split(',');
+            $.ajax({
+                type:"GET",
+                url: "../actions/update.php",
+                data: { id: data[0], table: data[1] , status_id: data[2] },
+                success: () => {
+                    if(data[2] == '3'){
+                        e.parentElement.parentElement.children[1].children[0].classList.remove('red')
+                        e.parentElement.parentElement.children[1].children[0].classList.add('green')
+                        e.innerHTML = `<button class="content-button status-button open">Resuelto</button>`
+                    }
+                    if(data[2] == '1'){
+                        e.parentElement.parentElement.children[1].children[0].classList.add('red')
+                        e.parentElement.parentElement.children[1].children[0].classList.remove('green')
+                        e.innerHTML = `<button class="content-button status-button">Resolver</button>`
+                    }
+                }
+            })
+        }
         function relevamiento(e){
             $.ajax({
                 type: "POST",
@@ -271,6 +291,9 @@
                         information.forEach(e => {
                             if(e.slice(-10) == 'Windows 10'){
                                 return document.querySelector(".modal-pc .container .objects").innerHTML += `<span> ${e} <img src="https://logodownload.org/wp-content/uploads/2016/03/windows-10-logo-2.png" width="26" /></span>`
+                            }
+                            if(e == ''){
+                                return;
                             }
                             document.querySelector(".modal-pc .container .objects").innerHTML += `<span> ${e}</span>`
                         });
