@@ -2,6 +2,7 @@
   <a href="https://bun.sh"><img src="https://cdn-icons-png.flaticon.com/512/50/50024.png" alt="Logo" height=170></a>
 </p>
 <h1 align="center">Tesla</h1>
+
 ## Tecnologías:
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white&labelColor=101010)
 ![Node.JS](https://img.shields.io/badge/Node.JS-339933?style=for-the-badge&logo=node.js&logoColor=white&labelColor=101010)
