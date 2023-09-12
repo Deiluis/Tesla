@@ -19,27 +19,30 @@ const io = require("socket.io")(server, {
   }
 });
 const rooms = []
-const allData = [];
+let allData = [];
 app.post('/api/computers', function(req, res) {
   let data = '';
   req.on('data', chunk => {
     data += chunk;
   });
   req.on('end', () => {
-    allData.push(data);
-    let sql = `INSERT INTO computers (pc, laboratory_id, information) VALUE (4, 'B106', '${data}')`;
-    conn.query(sql, function (err, res) {
-      if (err) throw err;
-      console.log("1 record inserted");
-    });
+    let pc = JSON.parse(data).Host.split('-');
+    let info = [`${pc[0]}`, `${pc[1]}`, `${data}`];
+    allData.push(info);
   });
   res.end('OK');
 });
 app.get('/api/computers', function(req, res){
   const json = [];
-  allData.forEach(e => {
-    json.push(JSON.parse(e));
+  allData.forEach((e) => {
+    json.push(JSON.parse(e[2]));
   });
+  console.log(allData)
+  conn.query("INSERT INTO computers (laboratory_id, pc, information) VALUES ?", [allData], function (err, res) {
+    if (err) throw err;
+    console.log("Number of records inserted: " + res.affectedRows);
+  });
+  allData = [];
   res.send(json);
 })
 io.on('connection', (socket) => {
