@@ -1,50 +1,31 @@
-import os
-import subprocess
+import platform
+from cpuinfo import get_cpu_info
 import requests
 import json
 import psutil
+import datetime
 
-# Global Variables
-sysData = None
+cpuinfo = get_cpu_info()
 
-def systemData():
-    sysData = os.popen('systeminfo').read()
-    return sysData
+def Storage():
+    disks = [];
+    for disk in psutil.disk_partitions():
+        disks.append({
+            "name": disk.device,
+            "memory": "{:.0f} GB".format(psutil.disk_usage(disk.device).total / (1024**3))
+        })
+    return disks
 
-def dataStorage():
-    particion = psutil.disk_partitions()[0].device
-    total_espacio = psutil.disk_usage(particion).total
-    total_espacio_gb = total_espacio / (1024**3)
-    return "{:.2f} GB".format(total_espacio_gb)
-
-def dataRam(sysData):
-    ram_info = subprocess.check_output(['systeminfo'], shell=True).decode('utf-8')
-    total_ram = None
-    for line in ram_info.splitlines():
-        if "Total Physical Memory" in line:
-            total_ram = line.split(":")[1].strip()
-            break
-    return total_ram
-
-def dataSO(sysData):
-    so_info = subprocess.check_output(['systeminfo'], shell=True).decode('utf-8')
-    so = None
-    for line in so_info.splitlines():
-        if "OS Name" in line:
-            so = line.split(":")[1].strip()
-            break
-    return so
-
-if 1 == 1:
-    sysData = systemData()
-    storage_info = dataStorage()
-    ram_info = dataRam(sysData)
-    so_info = dataSO(sysData)   
-    
-    data = {
-        "SO":so_info,
-        "RAM":ram_info,
-        "Storage":storage_info,
+data =   {
+            "Host": platform.node(),
+            "SO": {
+                    "name" :f"{platform.system()} {platform.release()}",
+                    "arch" : cpuinfo['arch']
+                },
+            "Procesador": cpuinfo["brand_raw"],
+            "RAM":"{:.0f} GB".format(psutil.virtual_memory().total / (1024**3)),
+            "Storage": Storage(),
+            "Hora del sistema": datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
         }
-    headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-    response = requests.post('http://localhost:7777/api/computers', data=json.dumps(data), headers=headers)
+headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+response = requests.post('http://localhost:7777/api/computers', data=json.dumps(data), headers=headers)
