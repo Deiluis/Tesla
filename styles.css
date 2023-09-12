@@ -600,7 +600,7 @@ body.light-mode .video-bg:before {
 .modal-pc{
   width: 742px;
   height: 519px;
-  overflow-y: auto;
+  overflow-y: scroll;
   color: #fff;
 }
 .modal-pc .container{
@@ -608,10 +608,13 @@ body.light-mode .video-bg:before {
   flex-direction: row;
   justify-content: space-around;
   height: fit-content;
+  padding: 0 1rem 0 1rem;
 }
 .modal-pc .container .objects{
   display: grid;
   height: 100%;
+  min-width: 500px;
+  margin: 0px 10px 0 10px;
 }
 .modal-pc .container .objects .programs.active > span + span{
   display: block;
