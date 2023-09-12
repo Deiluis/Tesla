@@ -1,7 +1,7 @@
 /uploads/*.*
 /uploads/*/*.*
 /uploads/*/*/*.*
-
+/python/app/*
 # Numerous always-ignore extensions
 *.diff
 *.err

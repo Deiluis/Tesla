@@ -1,6 +1,16 @@
-const { Console } = require('console');
 const express = require('express')
 const app = express()
+const sql = require('mysql')
+const conn = sql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "tesla"
+});
+conn.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
 const server = require('http').createServer(app)
 const port = process.env.PORT || 7777
 const io = require("socket.io")(server, {
@@ -9,16 +19,20 @@ const io = require("socket.io")(server, {
   }
 });
 const rooms = []
-let allData = "";
+const allData = [];
 app.post('/api/computers', function(req, res) {
   let data = '';
   req.on('data', chunk => {
     data += chunk;
   });
   req.on('end', () => {
-    const json_data = JSON.parse(data);
-    console.log(json_data);
-    allData += data;
+    // const json_data = JSON.parse(data);
+    // allData.push(data);
+    let sql = `INSERT INTO computers (pc, laboratory_id, information) VALUE (4, 'B106', '${data}')`;
+    conn.query(sql, function (err, res) {
+      if (err) throw err;
+      console.log("1 record inserted");
+    });
   });
   res.end('OK');
 });
