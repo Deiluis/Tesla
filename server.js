@@ -26,8 +26,7 @@ app.post('/api/computers', function(req, res) {
     data += chunk;
   });
   req.on('end', () => {
-    // const json_data = JSON.parse(data);
-    // allData.push(data);
+    allData.push(data);
     let sql = `INSERT INTO computers (pc, laboratory_id, information) VALUE (4, 'B106', '${data}')`;
     conn.query(sql, function (err, res) {
       if (err) throw err;
@@ -36,6 +35,13 @@ app.post('/api/computers', function(req, res) {
   });
   res.end('OK');
 });
+app.get('/api/computers', function(req, res){
+  const json = [];
+  allData.forEach(e => {
+    json.push(JSON.parse(e));
+  });
+  res.send(json);
+})
 io.on('connection', (socket) => {
   socket.on('room', (room) => {
     let roomFind = rooms.find((e) => e.id === room.id);
