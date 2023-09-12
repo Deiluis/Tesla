@@ -40,7 +40,6 @@ app.get('/api/computers', function(req, res){
   console.log(allData)
   conn.query("INSERT INTO computers (laboratory_id, pc, information) VALUES ?", [allData], function (err, res) {
     if (err) throw err;
-    console.log("Number of records inserted: " + res.affectedRows);
   });
   allData = [];
   res.send(json);
