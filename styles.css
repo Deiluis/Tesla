@@ -598,8 +598,8 @@ body.light-mode .video-bg:before {
   transition: opacity .5s;
 }
 .modal-pc{
-  width: 500px;
-  height: 400px;
+  width: 742px;
+  height: 519px;
   overflow-y: auto;
   color: #fff;
 }
@@ -612,6 +612,12 @@ body.light-mode .video-bg:before {
 .modal-pc .container .objects{
   display: grid;
   height: 100%;
+}
+.modal-pc .container .objects .programs.active > span + span{
+  display: block;
+}
+.modal-pc .container .objects .programs > span + span{
+  display: none;
 }
 .modal-pc .pc{
   background-color: #d2e4fb;

@@ -1,11 +1,12 @@
 import platform
+import subprocess
 import requests
 import json
 import psutil
 import datetime
 
 def Storage():
-    disks = [];
+    disks = []
     for disk in psutil.disk_partitions():
         disks.append({
             "name": disk.device + "\\",
@@ -96,6 +97,16 @@ def Arch():
         raise Exception("Arquitectura desconocida")
     return f"{arch} - {bits} bits"
 
+def programs():
+    data = str(subprocess.check_output(['wmic', 'product', 'get', 'name']))
+    text = []
+    try:
+        for i in range(len(data) - 2):
+            text.append(data.split("\\r\\r\\n")[6:][i].strip())
+    except IndexError as e:
+        print("Listo")
+    return text
+
 if __name__ == '__main__':
     data =   {
                 "host": platform.node(),
@@ -106,7 +117,8 @@ if __name__ == '__main__':
                 "cpu": CpuInfo(),
                 "ram":"{:.0f} GB".format(psutil.virtual_memory().total / (1024**3)),
                 "storage": Storage(),
+                "programs": programs(),
                 "timestamp": datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
             }
     headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-    requests.post('http://192.168.193.119:7777/api/computers', data=json.dumps(data), headers=headers)
+    requests.post('http://10.5.138.11:7777/api/computers', data=json.dumps(data), headers=headers)
