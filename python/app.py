@@ -98,15 +98,15 @@ def Arch():
 
 if __name__ == '__main__':
     data =   {
-                "Host": platform.node(),
-                "SO":   {
+                "host": platform.node(),
+                "so":   {
                             "name" :f"{platform.system()} {platform.release()}",
                             "arch" : Arch()
                         },
-                "Procesador": CpuInfo(),
-                "RAM":"{:.0f} GB".format(psutil.virtual_memory().total / (1024**3)),
-                "Storage": Storage(),
-                "Hora del sistema": datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
+                "cpu": CpuInfo(),
+                "ram":"{:.0f} GB".format(psutil.virtual_memory().total / (1024**3)),
+                "storage": Storage(),
+                "timestamp": datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
             }
     headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
     requests.post('http://192.168.193.119:7777/api/computers', data=json.dumps(data), headers=headers)

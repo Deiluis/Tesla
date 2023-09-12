@@ -26,7 +26,7 @@ app.post('/api/computers', function(req, res) {
     data += chunk;
   });
   req.on('end', () => {
-    let pc = JSON.parse(data).Host.split('-');
+    let pc = JSON.parse(data).host.split('-');
     let info = [`${pc[0]}`, `${pc[1]}`, `${data}`];
     allData.push(info);
   });
