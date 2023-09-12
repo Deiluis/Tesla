@@ -37,9 +37,8 @@ app.get('/api/computers', function(req, res){
   allData.forEach((e) => {
     json.push(JSON.parse(e[2]));
   });
-  console.log(allData)
   conn.query("INSERT INTO computers (laboratory_id, pc, information) VALUES ?", [allData], function (err, res) {
-    if (err) throw err;
+    if (err) console.log('Hubo un error al subir los records', err);
   });
   allData = [];
   res.send(json);
