@@ -279,7 +279,6 @@
                 success: function(response) {
                     const res = JSON.parse(response)
                     if(res){
-                        let information = res.information.split(',');
                         document.querySelector(".modal-pc .container").innerHTML = 
                         `
                             <div class="pc">
@@ -287,16 +286,16 @@
                                 <span>${res.laboratory_id} - ${res.pc}</span>
                             </div>
                             <div class="objects"></div>
-                        ` 
-                        information.forEach(e => {
-                            if(e.slice(-10) == 'Windows 10'){
-                                return document.querySelector(".modal-pc .container .objects").innerHTML += `<span> ${e} <img src="https://logodownload.org/wp-content/uploads/2016/03/windows-10-logo-2.png" width="26" /></span>`
-                            }
-                            if(e == ''){
-                                return;
-                            }
-                            document.querySelector(".modal-pc .container .objects").innerHTML += `<span> ${e}</span>`
-                        });
+                        `
+                        const info = JSON.parse(res.information);
+                        document.querySelector(".modal-pc .container .objects").innerHTML += `
+                            <span> ${info.so.name} / ${info.timestamp} <img src="https://logodownload.org/wp-content/uploads/2016/03/windows-10-logo-2.png" width="26" /></span>
+                            <span> ${info.cpu} RAM</span>
+                            <span> ${info.ram}</span>
+                        `
+                        info.storage.forEach(e => {
+                            document.querySelector(".modal-pc .container .objects").innerHTML += `<span> ${e.name} - ${e.memory}</span>`;
+                        })
                         document.querySelector(".modal-pc").classList.add('modal--show')
                     }
                 }

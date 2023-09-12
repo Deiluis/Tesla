@@ -1,6 +1,16 @@
-const { Console } = require('console');
 const express = require('express')
 const app = express()
+const sql = require('mysql')
+const conn = sql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "tesla"
+});
+conn.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
 const server = require('http').createServer(app)
 const port = process.env.PORT || 7777
 const io = require("socket.io")(server, {
@@ -9,19 +19,30 @@ const io = require("socket.io")(server, {
   }
 });
 const rooms = []
-let allData = "";
+let allData = [];
 app.post('/api/computers', function(req, res) {
   let data = '';
   req.on('data', chunk => {
     data += chunk;
   });
   req.on('end', () => {
-    const json_data = JSON.parse(data);
-    console.log(json_data);
-    allData += data;
+    let pc = JSON.parse(data).host.split('-');
+    let info = [`${pc[0]}`, `${pc[1]}`, `${data}`];
+    allData.push(info);
   });
   res.end('OK');
 });
+app.get('/api/computers', function(req, res){
+  const json = [];
+  allData.forEach((e) => {
+    json.push(JSON.parse(e[2]));
+  });
+  conn.query("INSERT INTO computers (laboratory_id, pc, information) VALUES ?", [allData], function (err, res) {
+    if (err) console.log('Hubo un error al subir los records', err);
+  });
+  allData = [];
+  res.send(json);
+})
 io.on('connection', (socket) => {
   socket.on('room', (room) => {
     let roomFind = rooms.find((e) => e.id === room.id);
