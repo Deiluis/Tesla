@@ -4,6 +4,7 @@
 /python/build/*
 /python/dist/*
 /python/app.spec
+/public/*.exe
 # Numerous always-ignore extensions
 *.diff
 *.err

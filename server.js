@@ -21,30 +21,32 @@ const io = require("socket.io")(server, {
 });
 const rooms = []
 let allData = [];
-app.post('/api/computers', function(req, res) {
-  let data = '';
-  req.on('data', chunk => {
-    data += chunk;
+app.use(express.static('public'));
+app.route('/api/computers')
+  .get(function(req, res){
+    const json = [];
+    allData.forEach((e) => {
+      json.push(JSON.parse(e[2]));
+    });
+    conn.query("INSERT INTO computers (laboratory_id, pc, information) VALUES ?", [allData], function (err, res) {
+      if (err) console.log('Hubo un error al subir los records', err);
+    });
+    allData = [];
+    res.send(json);
+  })
+  .post(function(req, res) {
+    let data = '';
+    req.on('data', chunk => {
+      data += chunk;
+    });
+    req.on('end', () => {
+      let pc = JSON.parse(data).host.split('-');
+      let info = [`${pc[0]}`, `${parseInt(pc[1].replace('PC', ''))}`, `${data}`];
+      allData.push(info);
+      console.log(JSON.parse(data))
+    });
+    res.end('OK');
   });
-  req.on('end', () => {
-    let pc = JSON.parse(data).host.split('-');
-    let info = [`${pc[0]}`, `${parseInt(pc[1].replace('PC', ''))}`, `${data}`];
-    allData.push(info);
-    console.log(JSON.parse(data))
-  });
-  res.end('OK');
-});
-app.get('/api/computers', function(req, res){
-  const json = [];
-  allData.forEach((e) => {
-    json.push(JSON.parse(e[2]));
-  });
-  conn.query("INSERT INTO computers (laboratory_id, pc, information) VALUES ?", [allData], function (err, res) {
-    if (err) console.log('Hubo un error al subir los records', err);
-  });
-  allData = [];
-  res.send(json);
-})
 io.on('connection', (socket) => {
   socket.on('room', (room) => {
     let roomFind = rooms.find((e) => e.id === room.id);
