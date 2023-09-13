@@ -636,6 +636,11 @@ body.light-mode .video-bg:before {
   height: fit-content;
   width: fit-content;
 }
+.modal-pc .pc #timestamp{
+  text-align: center;
+  white-space: normal;
+  width: 122px;
+}
 .modal-pc .pc span {
   color: #000;
 }

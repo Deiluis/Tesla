@@ -24,6 +24,18 @@ def CpuInfo():
     winreg.CloseKey(key)
     return value
 
+def RAMInfo():
+    data = str(subprocess.check_output(['wmic', 'memorychip', 'get', 'manufacturer', ',' ,'speed']))
+    ddr = str(subprocess.check_output(['wmic', 'memorychip', 'get', 'memorytype'])).split("\\r\\r\\n")[1].replace(' ', '');
+    if(ddr == '24'):
+        ddr = 'DDR3'
+    else: 
+        ddr = 'DDR4'
+    return  {
+                "memory": "{:.0f} GB".format(psutil.virtual_memory().total / (1024**3)),
+                "model": data.split("\\r\\r\\n")[1].replace('   ', ' ').replace('  ', ' ') + "MHz " +ddr
+            }
+
 def Arch():
     import re
 
@@ -97,12 +109,12 @@ def Arch():
         raise Exception("Arquitectura desconocida")
     return f"{arch} - {bits} bits"
 
-def programs():
+def Programs():
     data = str(subprocess.check_output(['wmic', 'product', 'get', 'name']))
     text = []
     try:
-        for i in range(len(data) - 2):
-            text.append(data.split("\\r\\r\\n")[6:][i].strip())
+        for i in range(len(data)):
+            text.append(data.split("\\r\\r\\n")[1:][i].strip())
     except IndexError as e:
         print("Listo")
     return text
@@ -115,10 +127,13 @@ if __name__ == '__main__':
                             "arch" : Arch()
                         },
                 "cpu": CpuInfo(),
-                "ram":"{:.0f} GB".format(psutil.virtual_memory().total / (1024**3)),
+                "ram": RAMInfo(),
                 "storage": Storage(),
-                "programs": programs(),
-                "timestamp": datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
+                "programs": Programs(),
+                "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "varios": {
+                            "lastboot": datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
+                          }
             }
     headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-    requests.post('http://10.5.138.11:7777/api/computers', data=json.dumps(data), headers=headers)
+    requests.post('http://181.45.18.185:7777/api/computers', data=json.dumps(data), headers=headers)

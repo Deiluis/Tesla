@@ -1,11 +1,12 @@
 const express = require('express')
 const app = express()
 const sql = require('mysql')
+require('dotenv').config()
 const conn = sql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "tesla"
+  host: process.env.DB_HOST || "localhost",
+  user: process.env.DB_USER ||  "root",
+  password: process.env.DB_PASS ||  "",
+  database: process.env.DB_DATABASE ||  "tesla"
 });
 conn.connect(function(err) {
   if (err) throw err;
@@ -29,6 +30,7 @@ app.post('/api/computers', function(req, res) {
     let pc = JSON.parse(data).host.split('-');
     let info = [`${pc[0]}`, `${pc[1]}`, `${data}`];
     allData.push(info);
+    console.log(JSON.parse(data))
   });
   res.end('OK');
 });

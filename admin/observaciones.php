@@ -282,19 +282,20 @@
                 success: function(response) {
                     const res = JSON.parse(response)
                     if(res){
+                        const info = JSON.parse(res.information);
                         document.querySelector(".modal-pc .container").innerHTML = 
                         `
                             <div class="pc">
                                 <img src="https://images.vexels.com/media/users/3/157318/isolated/preview/2782b0b66efa5815b12c9c637322aff3-computadora-de-escritorio-icono-computadora.png" width="100" />
                                 <span>${res.laboratory_id} - ${res.pc}</span>
+                                <span id="timestamp">${info.timestamp}</span>
                             </div>
                             <div class="objects"></div>
                         `
-                        const info = JSON.parse(res.information);
                         document.querySelector(".modal-pc .container .objects").innerHTML += `
-                        <span> ${info.so.name} / ${info.timestamp} <img src="https://logodownload.org/wp-content/uploads/2016/03/windows-10-logo-2.png" width="26" /></span>
-                        <span> ${info.cpu} RAM</span>
-                        <span> ${info.ram}</span>
+                        <span> ${info.so.name} <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Windows_logo_-_2012.png" width="26" /></span>
+                        <span> ${info.cpu}</span>
+                        <span> ${info.ram.memory} ${info.ram.model}</span>
                         `
                         info.storage.forEach(e => {
                             document.querySelector(".modal-pc .container .objects").innerHTML += `<span> ${e.name} - ${e.memory}</span>`;
@@ -304,6 +305,7 @@
                             if(e == "" || e == "'") return;
                             document.querySelector(".modal-pc .container .objects .programs").innerHTML += `<span>${e}</span>`
                         })
+                        document.querySelector(".modal-pc .container .objects").innerHTML += `<span>Tiempo de encendido: ${info.varios.lastboot}</span>`
                         document.querySelector(".modal-pc").classList.add('modal--show')
                     }
                 }
