@@ -28,7 +28,7 @@ app.post('/api/computers', function(req, res) {
   });
   req.on('end', () => {
     let pc = JSON.parse(data).host.split('-');
-    let info = [`${pc[0]}`, `${pc[1]}`, `${data}`];
+    let info = [`${pc[0]}`, `${parseInt(pc[1].replace('PC', ''))}`, `${data}`];
     allData.push(info);
     console.log(JSON.parse(data))
   });
