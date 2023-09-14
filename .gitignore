@@ -1,9 +1,6 @@
 /uploads/*.*
 /uploads/*/*.*
 /uploads/*/*/*.*
-/python/build/*
-/python/dist/*
-/python/app.spec
 /public/*.exe
 # Numerous always-ignore extensions
 *.diff
@@ -32,7 +29,6 @@ Thumbs.db
 
 # Node modules
 /node_modules
-/assets
 /vscode
 
 *.txt
