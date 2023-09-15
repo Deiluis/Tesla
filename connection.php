@@ -1,5 +1,5 @@
 <?php
-    error_reporting(0);
+    // error_reporting(0);
     /*
       Conexión a la base datos, primer datos ingresado es la dirección IP
       el segundo dato es el usuario, el tercero es la contraseña y
