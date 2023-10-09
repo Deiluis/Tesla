@@ -175,6 +175,7 @@ body.light-mode .video-bg:before {
 .header-menu a {
   padding: 17px 30px;
   text-decoration: none;
+  white-space: nowrap;
   color: var(--inactive-color);
   border-bottom: 2px solid transparent;
   transition: 0.3s;
@@ -449,7 +450,7 @@ body.light-mode .video-bg:before {
   flex-shrink: 0;
 }
 .main-header .header-menu {
-  margin-left: 150px;
+  margin-left: 50px;
 }
 @media screen and (max-width: 1055px) {
   .main-header .header-menu {
@@ -458,6 +459,7 @@ body.light-mode .video-bg:before {
 }
 .main-header .header-menu a {
   padding: 17px 24px;
+
 }
 
 .main-container {
@@ -600,7 +602,6 @@ body.light-mode .video-bg:before {
 .modal-pc{
   width: 742px;
   height: 519px;
-  overflow-y: scroll;
   color: #fff;
 }
 .modal-pc .container{
@@ -611,8 +612,8 @@ body.light-mode .video-bg:before {
   padding: 0 1rem 0 1rem;
 }
 .modal-pc .container .objects{
-  display: grid;
-  height: 100%;
+  height: 450px;
+  overflow: auto;
   min-width: 500px;
   margin: 0px 10px 0 10px;
 }
@@ -622,6 +623,23 @@ body.light-mode .video-bg:before {
 .modal-pc .container .objects .programs > span + span{
   display: none;
 }
+.modal-pc .left-cont{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.modal-pc .history{
+    position: absolute;
+    top: 0;
+    width: 171px;
+    background: var(--dropdown-bg);
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    transform: translateZ(-1px);
+    transition: cubic-bezier(0.93, -0.24, 0.2, 1) 1s;
+    flex-direction: column;
+}
 .modal-pc .pc{
   background-color: #d2e4fb;
   border-radius: 20px;
@@ -630,9 +648,7 @@ body.light-mode .video-bg:before {
   padding: 0 10px 5px 10px;
   justify-content: center;
   align-items: center;
-  position: sticky;
   margin-top: 10px;
-  top: 10px;
   height: fit-content;
   width: fit-content;
 }
@@ -644,8 +660,39 @@ body.light-mode .video-bg:before {
 .modal-pc .pc span {
   color: #000;
 }
-.modal-pc .container .objects span{
+.modal-pc .notes{
+  background: var(--theme-bg-color);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
   width: 100%;
+}
+.modal-pc .history span {
+  background: var(--theme-bg-color);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  padding: 10px;
+  width: 85%;
+}
+.modal-pc .notes span {
+  color: white;
+}
+.modal-pc .history-btn{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: var(--theme-bg-color);
+  border-radius: 10px;
+  padding: 10px;
+  white-space: nowrap;
+}
+.modal-pc .container .objects span{
   padding: 10px;
   border-radius: 10px;
   margin: 10px;
@@ -724,6 +771,8 @@ body.light-mode .video-bg:before {
 .modal--show{
   opacity: 1;
   pointer-events: unset;
+  transition: left cubic-bezier(0.93, -0.24, 0.2, 1) 1s;
+  transform-style: preserve-3d;
 }
 .modal .container {
   display: flex;
@@ -860,7 +909,6 @@ body.light-mode .video-bg:before {
   padding-left: 0;
   border-radius: 14px;
   border: 1px solid var(--theme-bg-color);
-  cursor: pointer;
 }
 
 .content-section ul li {
@@ -873,6 +921,7 @@ body.light-mode .video-bg:before {
   height: 100%;
   white-space: nowrap;
   transition: 0.3s;
+  cursor: pointer;
 }
 .content-section ul li a{
   text-decoration: none;
@@ -1139,7 +1188,7 @@ body.light-mode .video-bg:before {
   pointer-events: none;
   opacity: 0;
   transform: translateY(10px);
-  transition: all 0.4s ease;
+  transition: all 0.2s ease;
 }
 .dropdown-notify ul li{
   list-style: none;

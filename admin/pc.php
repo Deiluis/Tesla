@@ -3,8 +3,8 @@
     $lab = $_POST['lab'];
     $pc_id = $_POST['pc_id'];
     $pc = $conn->query("
-        SELECT pc, laboratory_id, information
+        SELECT id,computer, laboratory_id, information
         FROM `computers` 
-        WHERE pc = $pc_id AND laboratory_id = '$lab'
+        WHERE computer = $pc_id AND laboratory_id = '$lab'
     ")->fetch_assoc();
     print(json_encode($pc));

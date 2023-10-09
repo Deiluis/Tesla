@@ -28,7 +28,7 @@ app.route('/api/computers')
     allData.forEach((e) => {
       json.push(JSON.parse(e[2]));
     });
-    conn.query("INSERT INTO computers (laboratory_id, pc, information) VALUES ?", [allData], function (err, res) {
+    conn.query("INSERT INTO notifications (laboratory_id, computer, information) VALUES ?", [allData], function (err, res) {
       if (err) console.log('Hubo un error al subir los records', err);
     });
     allData = [];

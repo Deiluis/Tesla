@@ -56,13 +56,14 @@ $computadoras = explode(',',$notifications["computadoras"]);
         <div class="header">
             <div class="menu-circle"></div>
             <div class="header-menu">
+                <a class="menu-link is-active">Panel de Administración</a>
                 <?php if ($notifications['COUNT(*)'] > 0) {
                     ?> <a class="menu-link notify" href="observaciones">Observaciones</a>
                     <?php
                 } else {
                     ?> <a class="menu-link " href="observaciones">Observaciones</a>
                 <?php } ?>
-                <a class="menu-link is-active">Panel de Administración</a>
+                <a class="menu-link " href="relevamiento">Relevamiento</a>
             </div>
             <div class="search-bar">
                 <input type="text" placeholder="Search">
@@ -93,7 +94,7 @@ $computadoras = explode(',',$notifications["computadoras"]);
                 </div>
                 <a href="#">
                     <img class="profile-img"
-                        src="https://images.unsplash.com/photo-1600353068440-6361ef3a86e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                        src="../assets/account.png"
                         alt="">
                 </a>
                 <a href="../auth/logout">
@@ -416,12 +417,10 @@ $computadoras = explode(',',$notifications["computadoras"]);
                                 ?>
                                 <table>
                                     <tr>
-                                        <th style="width:35%">Materia</th>
+                                        <th style="width:40%">Materia</th>
                                         <th>Profesor</th>
-                                        <th style="width:7%">Curso</th>
-                                        <th style="width:7%">Division</th>
-                                        <th style="width:7%">Grupo</th>
-                                        <th style="width:12%">Laboratorio</th>
+                                        <th style="width:10%">Curso</th>
+                                        <th style="width:14%">Laboratorio</th>
                                         <th style="width:12%">Opciones</th>
                                     </tr>
                                     <tr>
@@ -449,10 +448,10 @@ $computadoras = explode(',',$notifications["computadoras"]);
                                                 </select>
                                             </td>
                                             <td><input type="text" name="course" id="course" placeholder="Curso"
-                                                    value="<?php echo $user['course'] ?>"></td>
-                                            <td><input type="text" name="division" id="division" placeholder="Division"
-                                                    value="<?php echo $user['division'] ?>"></td>
-                                            <td><input type="text" name="group" id="group" placeholder="Grupo"
+                                                    value="<?php echo $user['course'] ?>">
+                                            <input type="text" name="division" id="division" placeholder="Division"
+                                                    value="<?php echo $user['division'] ?>">
+                                            <input type="text" name="group" id="group" placeholder="Grupo"
                                                     value="<?php echo $user['group'] ?>"></td>
                                             <td><select name="laboratory" id="laboratory_edit">
                                                     <?php

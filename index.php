@@ -363,7 +363,7 @@ mysqli_report(MYSQLI_REPORT_OFF);
         <?php unset($_SESSION['success']);unset($_SESSION['error']);} ?>
         /**
          * Obtiene el archivo y devuelve una string que
-         * muestra en el modal la posición y el tipo de archivo a most
+         * muestra en el modal la posición y el tipo de archivo a mostrar
          */
         function obtainFileById(idFile) {
             $.ajax({

@@ -110,7 +110,7 @@
                 <div class="content-section">
                     <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-around">
                         <div class="account" style="display: flex; align-items: center; justify-content: center; flex-direction: column; width: 200px; height: 400px;">
-                            <img src="https://download.logo.wine/logo/Microsoft_account/Microsoft_account-Logo.wine.png" alt="" style="width: 256px;">
+                            <img src="../assets/account.png" alt="" style="width: 256px;">
                             <span><?php echo $user_name ?></span>
                             <div class="w-12 h-1 bg-pink-500 rounded mt-2 mb-4"></div>
                             <p class="text-base text-gray-400"><?php echo $rol ?></p>

@@ -29,23 +29,27 @@
     ")->fetch_assoc();
     $computadoras = explode(',',$notifications["computadoras"]);
     $laboratories = $conn->query("
-        SELECT laboratories.id, GROUP_CONCAT(notifications.status_id SEPARATOR ',') AS estados
-        FROM `laboratories` 
-        INNER JOIN notifications ON laboratories.id = notifications.laboratory_id
-        WHERE admin_id = $id
-        GROUP BY laboratories.id 
+        SELECT laboratories.id
+        FROM `laboratories`
+        INNER JOIN computers ON laboratories.id = computers.laboratory_id
+        GROUP BY laboratories.id
     ");
     $query = $conn->query("
-        SELECT laboratories.id,
-            GROUP_CONCAT(notifications.id SEPARATOR ',') AS id_pc,
-            GROUP_CONCAT(notifications.computer SEPARATOR ',') AS computadoras,
-            GROUP_CONCAT(notifications.description SEPARATOR ',') AS descripciones,
-            GROUP_CONCAT(notifications.status_id SEPARATOR ',') AS estados
-        FROM laboratories 
-        INNER JOIN notifications ON laboratories.id = notifications.laboratory_id 
-        WHERE admin_id = $id 
-        GROUP BY laboratories.id 
-        ORDER BY laboratories.id, notifications.computer;
+    SELECT laboratories.id,
+        GROUP_CONCAT(computers.id SEPARATOR ',') AS id_pc,
+        GROUP_CONCAT(computers.computer SEPARATOR ',') AS computadoras,
+        GROUP_CONCAT(
+            notifications.description SEPARATOR ','
+        ) AS descripciones
+    FROM
+        laboratories
+    INNER JOIN computers ON computers.laboratory_id = laboratories.id
+    LEFT JOIN notifications ON notifications.computer = computers.computer AND notifications.laboratory_id = computers.laboratory_id
+    GROUP BY
+        computers.laboratory_id
+    ORDER BY
+        laboratories.id,
+        computers.computer;
     ");
 ?>
 <!DOCTYPE html>
@@ -57,17 +61,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles.css">
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    <title>&lt; \ Tesla \ Observaciones &gt;</title>
+    <title>&lt; \ Tesla \ Relevamiento &gt;</title>
     <link rel="shortcut icon" href="../assets/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
-    <div class="video-bg">
-        <video width="320" height="240" autoplay loop muted>
-            <source src="https://assets.codepen.io/3364143/7btrrd.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
     <div class="dark-light">
         <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
@@ -79,13 +77,10 @@
             <div class="header-menu">
                 <a class="menu-link" href="./">Panel de Administración</a>
                 <?php if ($notifications['COUNT(*)'] > 0){
-                    ?> <a class="menu-link is-active notify" href="./observaciones">Observaciones</a> <?php
+                    ?> <a class="menu-link notify" href="./observaciones">Observaciones</a> <?php
                 }else{
-                    ?> <a class="menu-link is-active" href="./observaciones">Observaciones</a> <?php } ?>
-                <a class="menu-link" href="./relevamiento">Relevamiento</a>
-            </div>
-            <div class="search-bar">
-                <input type="text" placeholder="Search">
+                    ?> <a class="menu-link" href="./observaciones">Observaciones</a> <?php } ?>
+                <a class="menu-link is-active" href="./relevamiento">Relevamiento</a>
             </div>
             <div class="header-profile">
                 <div class="notification">
@@ -101,8 +96,8 @@
                         if ($notifications['COUNT(*)'] > 0){
                         for ($row = 0; $row < $notifications['COUNT(*)']; $row++) { $computadora = explode('.',$computadoras[$row]); ?>
                         <li>
-                            <div class="products"><?php echo $computadora[0] . ' | PC-'. $computadora[1]?></div>
-                            <span class="status fit"><span class="status-circle red"></span><?php echo $computadora[2] ?></span>
+                            <div class="products"><?php echo $computadora[0] . ' - '. $computadora[1]?></div>
+                            <span class="status fit"></span><?php echo explode('|',$computadora[2])[key(array_slice(explode('|',$computadora[2]), -1, 1, true))] ?></span>
                         </li>
                         <?php }}else{ ?>
                             <li>
@@ -184,12 +179,9 @@
                 <div class="main-header">
                     <a class="menu-link-main" href="#">Laboratorios</a>
                     <div class="header-menu">
-                    <?php while ($row = $laboratories -> fetch_assoc()){ 
-                        if(in_array(1, explode(",",$row["estados"]))){ ?>
-                            <a class="main-header-link notify" href="#<?php echo $row['id'] ?>"><?php echo $row['id'] ?></a> <?php 
-                        } else { ?>
-                            <a class="main-header-link" href="#<?php echo $row['id'] ?>"><?php echo $row['id'] ?></a> <?php
-                        }} ?>
+                    <?php while ($row = $laboratories -> fetch_assoc()){ ?>
+                            <a class="main-header-link" href="#<?php echo $row['id'] ?>"><?php echo $row['id'] ?></a>
+                    <?php } ?>
                     </div>
                 </div>
                 <?php
@@ -197,30 +189,17 @@
                         <div class="content-wrapper" id="<?php echo $row['id'] ?>">
                             <div class="content-section">
                                 <ul>
-                                <?php for($i = 0; $i < count(explode(",", $row["computadoras"])); $i++){  ?>             
-
+                                    <?php for($i = 0; $i < count(explode(",", $row["computadoras"])); $i++){  ?>             
                                     <li class="adobe-product">
                                         <div class="products">PC - <?php echo explode(",", $row["computadoras"])[$i] ?></div>
                                         <span class="status">
-                                            <?php switch(explode(",", $row["estados"])[$i]){
-                                                case 1: print "<span class='status-circle red'></span>";break;
-                                                case 2: print "<span class='status-circle '></span>";break;
-                                                case 3: print "<span class='status-circle green'></span>";break;
-                                                default: break;
-                                            } echo explode(",", $row["descripciones"])[$i] ?>
+                                            <?php echo explode("|",explode(",", $row["descripciones"])[$i])[0]; ?>
                                         </span>
                                         <div class="button-wrapper">
-                                            <?php switch(explode(",", $row["estados"])[$i]){
-                                                case 1: ?> <a onClick="update(this)" data-update="<?php echo $idPc[$i] ?>,notifications,3"><button class='content-button status-button'>Resolver</button></a><?php break;
-                                                case 2: ?> <a onClick="update(this)" data-update="<?php echo $idPc[$i] ?>,notifications,3"><button class='content-button status-button'>Resolver</button></a><?php break;
-                                                case 3: ?> <a onClick="update(this)" data-update="<?php echo $idPc[$i] ?>,notifications,1"><button class='content-button status-button open'>Resuelto</button></a><?php break;
-                                                default: break;
-                                            }?>
+                                            <a onClick="relevamiento(this)" data-pc="<?php echo explode(",", $row["computadoras"])[$i] ?>" data-lab="<?php echo $row['id'] ?>"><button class='content-button status-button'>Relevamiento</button></a>
                                             <div class="menu">
                                                 <button class="dropdown">
                                                     <ul>
-                                                        <li><a href="../actions/update?id=<?php echo $idPc[$i] ?>&table=notifications&status_id=2">En revision</a></li>
-                                                        <li><a onClick="relevamiento(this)" data-pc="<?php echo explode(",", $row["computadoras"])[$i] ?>" data-lab="<?php echo $row['id'] ?>">Relevamiento</a></li>
                                                         <li><a href="../actions/delete?id=<?php echo $idPc[$i] ?>&table=notifications">Borrar</a></li>
                                                     </ul>
                                                 </button>
@@ -244,13 +223,17 @@
                     </div>
                 </div>
                 <div class="container"></div>
+                <div class="history" style="left: 0px"></div>
             </div>
         </div>
         <div class="overlay-app"></div>
     </div>
     <script>
+        // $('.header-menu a:first-child').addClass('is-active');
         document.querySelector(".modal-pc .close-button").addEventListener("click", (e) => {
             document.querySelector(".modal-pc").classList.remove("modal--show");
+            document.querySelector(".modal-pc .history").style.left = "0px"
+            document.querySelector(".modal-pc").style.left = "50%"
         });
         function update(e){
             const data = e.getAttribute("data-update").split(',');
@@ -288,7 +271,7 @@
                         `
                             <div class="pc">
                                 <img src="https://images.vexels.com/media/users/3/157318/isolated/preview/2782b0b66efa5815b12c9c637322aff3-computadora-de-escritorio-icono-computadora.png" width="100" />
-                                <span>${res.laboratory_id} - ${res.pc}</span>
+                                <span>${res.laboratory_id} - ${res.id}</span>
                                 <span id="timestamp">${info.timestamp}</span>
                             </div>
                             <div class="objects"></div>
