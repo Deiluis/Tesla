@@ -211,9 +211,9 @@
                                         </span>
                                         <div class="button-wrapper">
                                             <?php switch(explode(",", $row["estados"])[$i]){
-                                                case 1: ?> <a onClick="update(this)" data-update="<?php echo $idPc[$i] ?>,notifications,3"><button class='content-button status-button'>Resolver</button></a><?php break;
-                                                case 2: ?> <a onClick="update(this)" data-update="<?php echo $idPc[$i] ?>,notifications,3"><button class='content-button status-button'>Resolver</button></a><?php break;
-                                                case 3: ?> <a onClick="update(this)" data-update="<?php echo $idPc[$i] ?>,notifications,1"><button class='content-button status-button open'>Resuelto</button></a><?php break;
+                                                case 1: ?> <a onClick="update(this)" data-update="<?php echo $idPc[$i] ?>,notifications,3,<?php echo explode(",", $row["descripciones"])[$i]?>"><button class='content-button status-button'>Resolver</button></a><?php break;
+                                                case 2: ?> <a onClick="update(this)" data-update="<?php echo $idPc[$i] ?>,notifications,3,<?php echo explode(",", $row["descripciones"])[$i]?>"><button class='content-button status-button'>Resolver</button></a><?php break;
+                                                case 3: ?> <a onClick="update(this)" data-update="<?php echo $idPc[$i] ?>,notifications,1,<?php echo explode(",", $row["descripciones"])[$i]?>"><button class='content-button status-button open'>Resuelto</button></a><?php break;
                                                 default: break;
                                             }?>
                                             <div class="menu">
@@ -221,7 +221,7 @@
                                                     <ul>
                                                         <li><a href="../actions/update?id=<?php echo $idPc[$i] ?>&table=notifications&status_id=2">En revision</a></li>
                                                         <li><a onClick="relevamiento(this)" data-pc="<?php echo explode(",", $row["computadoras"])[$i] ?>" data-lab="<?php echo $row['id'] ?>">Relevamiento</a></li>
-                                                        <li><a href="../actions/delete?id=<?php echo $idPc[$i] ?>&table=notifications">Borrar</a></li>
+                                                        <li onClick="borrar(this)" data-delete="<?php echo $idPc[$i] ?>"><a>Borrar</a></li>
                                                     </ul>
                                                 </button>
                                             </div>
@@ -252,6 +252,18 @@
         document.querySelector(".modal-pc .close-button").addEventListener("click", (e) => {
             document.querySelector(".modal-pc").classList.remove("modal--show");
         });
+        function borrar(e){
+            const data = e.getAttribute("data-delete");
+            $.ajax({
+                type:"GET",
+                url: "../actions/delete.php",
+                data: { id: data, table: 'notifications'},
+                success: () => {
+                    e.parentElement.parentElement.parentElement.parentElement.parentElement.outerHTML = ''
+                    $(".content-wrapper").removeClass("overlay");
+                }
+            })
+        }
         function update(e){
             const data = e.getAttribute("data-update").split(',');
             $.ajax({
@@ -260,14 +272,12 @@
                 data: { id: data[0], table: data[1] , status_id: data[2] },
                 success: () => {
                     if(data[2] == '3'){
-                        e.parentElement.parentElement.children[1].children[0].classList.remove('red')
-                        e.parentElement.parentElement.children[1].children[0].classList.add('green')
-                        e.innerHTML = `<button class="content-button status-button open">Resuelto</button>`
+                        e.parentElement.parentElement.children[1].innerHTML = `<span class='status-circle green'></span>${data[3]}`
+                        e.outerHTML = `<a onClick=\"update(this)\" data-update=\"${data[0]},notifications,1,${data[3]}\"><button class='content-button status-button open'>Resuelto</button></a>`
                     }
                     if(data[2] == '1'){
-                        e.parentElement.parentElement.children[1].children[0].classList.add('red')
-                        e.parentElement.parentElement.children[1].children[0].classList.remove('green')
-                        e.innerHTML = `<button class="content-button status-button">Resolver</button>`
+                        e.parentElement.parentElement.children[1].innerHTML = `<span class='status-circle red'></span>${data[3]}`
+                        e.outerHTML = `<a onClick="update(this)" data-update="${data[0]},notifications,3,${data[3]}"><button class='content-button status-button'>Resolver</button></a>`
                     }
                 }
             })
