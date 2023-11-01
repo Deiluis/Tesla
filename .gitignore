@@ -29,7 +29,7 @@ Thumbs.db
 
 # Node modules
 /node_modules
-/assets
+
 /vscode
 
 *.txt
