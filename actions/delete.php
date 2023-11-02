@@ -1,12 +1,14 @@
 <?php
     include('../connection.php');
 
+    session_start();
+
     $id = $_GET['id'];
     $table = $_GET['table'];
     
     // Elimina archivos del sistema de archivos.
     if ($table === "files") {
-        $file = $conn -> query("SELECT path, subject_id FROM files WHERE id = $id") -> fetch_assoc();
+        $file = $conn -> query("SELECT `path`, `subject_id`, `name`, `file_type` FROM files WHERE id = $id") -> fetch_assoc();
         unlink("." . $file['path']);
     }
 
@@ -25,6 +27,7 @@
         }
 
         if ($table === 'files') {
+            $_SESSION['success'] = "El archivo " . $file['name'] . "." . $file['file_type'] . " fue eliminado exitosamente.";
             return header("Location: ../?subject_id=" . $file['subject_id']);
         }
 
