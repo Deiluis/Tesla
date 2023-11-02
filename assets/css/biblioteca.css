@@ -12,6 +12,10 @@
     font-size: 2rem;
 } */
 
+.subject__professor {
+    margin: 0;
+}
+
 .delete-modal .modal__container,
 .files-modal .modal__container,
 .rename-modal .modal__container {

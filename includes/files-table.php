@@ -35,7 +35,7 @@
                                         <a href="<?php echo $dir ?>/<?php echo $file['name'] ?>.<?php echo $file['file_type'] ?>" download class="link--descargar" title="Descargar">Descargar</a>
                                     </li> <?php 
                                     
-                                    if($rol_id > 0) { ?>
+                                    if($rol_id == PROFESSOR_ROLE && $professor_id == $user_id) { ?>
                                         <li>
                                             <a href="./actions/delete.php?id=<?php echo $file['id'] ?>&table=files">Borrar</a>
                                         </li> <?php 

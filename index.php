@@ -5,6 +5,8 @@ mysqli_report(MYSQLI_REPORT_OFF);
     define("PROFESSOR_ROLE", 1);
     define("ADMIN_ROLE", 2);
 
+    $professor_id = 0;
+
     if (isset($_SESSION['user'])) {
         $rol_id = $_SESSION['user']['rol_id'];
         $user_id = $_SESSION['user']['id'];
@@ -27,21 +29,41 @@ mysqli_report(MYSQLI_REPORT_OFF);
         $rol_id = 0;
     }
 
+    /* 
+    
+    SELECT subjects.*, 
+    subjects_names.name, 
+    users.name AS professor_name, 
+    users.surname AS professor_surname
+    FROM subjects_names 
+    INNER JOIN subjects AS s1 ON s1.name_id = subjects_names.id
+    INNER JOIN users ON s1.professor_id = users.id
+    WHERE course = $curso AND division = $division;
+    
+    */
+
     if (isset($_GET['courseId']) && isset($_GET['divisionId'])) {
         
         $curso = $_GET['courseId'];
         $division = $_GET['divisionId'];
-        $result = $conn->query("
-            SELECT subjects.*, subjects_names.name
+        $result = $conn -> query("
+            SELECT subjects.*, 
+            subjects_names.name, 
+            users.name AS professor_name, 
+            users.surname AS professor_surname
             FROM subjects_names 
-            INNER JOIN subjects
-            ON subjects.name_id = subjects_names.id
-            WHERE course = $curso AND division = $division
+            INNER JOIN subjects ON subjects.name_id = subjects_names.id
+            INNER JOIN users ON subjects.professor_id = users.id
+            WHERE course = $curso AND division = $division;
         ");
     }
 
     if (isset($_GET['subject_id'])) {
         $result = $conn -> query("SELECT * FROM files WHERE subject_id = $_GET[subject_id]");
+
+        $result_subject = $conn -> query("SELECT `professor_id` FROM `subjects` WHERE id = " . $_GET['subject_id']);
+        $row = $result_subject -> fetch_assoc();
+        $professor_id = $row['professor_id'];
     }
     
     if (isset($_POST['laboratory']) || isset($_POST['computer']) || isset($_POST['description']) ){
@@ -118,13 +140,16 @@ mysqli_report(MYSQLI_REPORT_OFF);
 
             <div class="header-profile"> <?php 
 
-                if ($rol_id == PROFESSOR_ROLE) { ?>
+                if ($rol_id == PROFESSOR_ROLE && $professor_id == $user_id && isset($_GET['subject_id'])) { ?>
                     <a class="access" id="add-files">
                         <button style="width: fit-content; margin-right:15px" class="add-files">
                             Añadir archivos 
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" style="margin-left: 5px;" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/></svg>
                         </button>
-                    </a>
+                    </a> <?php
+                }
+
+                if ($rol_id == PROFESSOR_ROLE) { ?>
                     <a class="access" id="create-notification">
                         <button  style="width: fit-content; margin-right:15px">
                             Crear observación 
