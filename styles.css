@@ -169,10 +169,15 @@ body.light-mode .video-bg:before {
   align-items: center;
 }
 .header-menu h1 {
-  color: var(--theme-color);
   margin: 0 30px 0 0;
 }
-.header-menu a {
+
+.header-menu h1 a {
+  color: var(--theme-color);
+  text-decoration: none;
+}
+
+.header-menu .menu-link {
   padding: 17px 30px;
   text-decoration: none;
   white-space: nowrap;
@@ -181,11 +186,11 @@ body.light-mode .video-bg:before {
   transition: 0.3s;
 }
 @media screen and (max-width: 610px) {
-  .header-menu a:not(.main-header-link) {
+  .header-menu .menu-link:not(.main-header-link) {
     display: none;
   }
 }
-.header-menu a.is-active, .header-menu a:hover {
+.header-menu .menu-link.is-active, .header-menu .menu-link:hover {
   color: var(--theme-color);
   border-bottom: 2px solid var(--theme-color);
 }
@@ -457,7 +462,7 @@ body.light-mode .video-bg:before {
     margin: auto;
   }
 }
-.main-header .header-menu a {
+.main-header .header-menu .menu-link {
   padding: 17px 24px;
 
 }
@@ -755,71 +760,6 @@ body.light-mode .video-bg:before {
   cursor: pointer;
   display: flex;
 }
-<<<<<<< HEAD
-.modal--show{
-  opacity: 1;
-  pointer-events: unset;
-  transition: left cubic-bezier(0.93, -0.24, 0.2, 1) 1s;
-  transform-style: preserve-3d;
-}
-.modal .container {
-  display: flex;
-  align-items: center;
-  max-width: 100%;
-  width: auto;
-  max-height: 75%;
-  height: auto;
-  opacity: 0;
-  z-index: 12;
-  margin: auto;
-  transition: opacity .5s;
-}
-.modal .background{
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  z-index: 11;
-}
-.modal .container--show{
-  opacity: 1;
-}
-.modal .content--img {
-  width: 120rem;
-  height: 70rem;
-  object-fit: contain;
-}
-
-.modal .content--pdf {
-  width: 120rem;
-  height: 65rem;
-}
-
-.modal .content--audio {
-  width: 50rem;
-}
-
-.modal .content--video {
-  width: 120rem;
-  overflow: scroll;
-}
-
-.modal .close-button{
-  color: #fff;
-  padding: 1.5rem 1.5rem;
-  font-size: 4rem;
-  opacity: 0.7;
-  cursor: pointer;
-  position: absolute;
-  display: flex;
-  top: 0;
-  right: 0;
-  z-index: 15;
-}
-.close-button:hover {
-  opacity: 1;
-}
-=======
->>>>>>> 25210b23bb70db0e467cb0974d5123c23a0f378c
 
 .content-section {
   margin-top: 0;
@@ -916,7 +856,7 @@ body.light-mode .video-bg:before {
   transition: 0.3s;
   cursor: pointer;
 }
-.content-section ul li a{
+.content-section ul li a {
   text-decoration: none;
   color:white;
 }

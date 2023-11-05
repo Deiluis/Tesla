@@ -1,114 +1,29 @@
-/* .delete-modal .modal__container {
-    background-color: var(--dropdown-bg);
-    border: 1px solid var(--theme-bg-color);
-    display: flex;
-    flex-direction: column;
-    border-radius: 14px;
-    padding: 1rem 2rem;
-    color: var(--theme-color);
-} */
-
-/* .delete-modal .modal__title {
-    font-size: 2rem;
-} */
-
 .subject__professor {
     margin: 0;
 }
 
-.delete-modal .modal__container,
-.files-modal .modal__container,
-.rename-modal .modal__container {
-	align-items: center;
-    display: flex;
-    flex-direction: column;
-	max-width: 100%;
-	width: auto;
-	max-height: 75%;
-	height: auto;
-	z-index: 12;
-	margin: auto;
-	background-color: var(--dropdown-bg);
-    border: 1px solid var(--theme-bg-color);
-    border-radius: 14px;
-    padding: 1rem 2rem;
+.library__go-back {
     color: var(--theme-color);
-}
-
-.delete-modal .modal__close-button,
-.files-modal .modal__close-button,
-.rename-modal .modal__close-button {
-    display: flex;
-    justify-content: flex-end;
-    align-self: flex-end;
-	color: #fff;
-	font-size: 4rem;
-	opacity: 0.7;
-	cursor: pointer;
-	z-index: 15;
-}
-
-.delete-modal .modal__button,
-.files-modal .modal__button,
-.rename-modal .modal__button {
-    margin-top: 5px;
-    color: var(--access-color);
-    padding: 4px 26px;
-    border-radius: 30px;
-    border: 1px var(--border-color) solid;
-    background: none;
-    outline: none;
-    font-family: var(--body-font);
-    font-size: 15px;
-    margin-left: auto;
-    margin-right: auto;
-    font-weight: 600;
-    cursor: pointer;
-    text-align: center;
     text-decoration: none;
-}
-
-.files-modal .modal__form,
-.rename-modal .modal__form {
     display: flex;
-    flex-direction: column;
-    margin: 2rem 0;
+    align-items: center;
+    margin-top: 2rem;
 }
 
-.files-modal .modal__form input, 
-.files-modal .modal__form select,
-.rename-modal .modal__form input,
-.rename-modal .modal__form select {
-    font-size: 1.6rem;
-    width: 100%;
-    padding: 5px;
-    margin-bottom: 10px;
-    background-color: var(--popup-bg);
-    border: none;
-    color: var(--theme-color);
-    font-family: var(--body-font);
-    border-radius: 5px;
+.library__go-back svg {
+    margin-right: 1rem;
 }
 
-/*  */
+#register-modal .modal__container {
+    max-width: 45rem;
+}
 
-.view-modal {
+#view-modal {
     align-items: center; /* Centra horizontalmente */
     justify-content: center; /* Centra verticalmente */
 }
 
-/* .view-modal .modal__close-button {
-    color: #fff;
-	font-size: 4rem;
-	opacity: 0.7;
-	cursor: pointer;
-	z-index: 15;
-    position: absolute;
-    top: 10px;
-    right: 10px
-} */
-
-.view-modal .modal__container {
+#view-modal .modal__container {
     display: flex;
     flex-direction: column;
     width: 90%;
@@ -118,7 +33,7 @@
     color: var(--theme-color);
   }
 
-.view-modal .modal__close-button {
+#view-modal .modal__close-button {
     color: #fff;
 	padding: 1.5rem 1.5rem;
 	font-size: 4rem;
@@ -131,23 +46,23 @@
 	z-index: 15;
 }
 
-.view-modal .content--img {
+#view-modal .content--img {
     max-width: 100%; /* Las imágenes no sobresaldrán del modal container */
     max-height: 100%; /* Las imágenes no sobresaldrán del modal container */
     object-fit: contain; /* Mantendrá la relación de aspecto y ajustará la imagen al espacio disponible sin cortarla */
 }
   
 
-.view-modal .content--pdf {
+#view-modal .content--pdf {
 	width: 120rem;
 	height: 65rem;
 }
 
-.view-modal .content--audio {
+#view-modal .content--audio {
 	width: 50rem;
 }
 
-.view-modal .content--video {
+#view-modal .content--video {
 	width: 120rem;
 	overflow: scroll;
 }

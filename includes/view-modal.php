@@ -1,4 +1,4 @@
-<div class="modal view-modal">
+<div class="modal" id="view-modal">
     <div class="modal__background"></div>
     <div class="modal__container"></div>
     <div href="#" class="modal__close-button">

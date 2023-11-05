@@ -9,11 +9,29 @@ $selected_subject = array();
 
 $selected_dir = "";
 
+
+if ($rol_id == PROFESSOR_ROLE) {
+    $result_professor_subjects = $conn -> query("
+        SELECT subjects.*, 
+        subjects_names.name 
+        FROM subjects_names 
+        INNER JOIN subjects ON subjects.name_id = subjects_names.id
+        INNER JOIN users ON subjects.professor_id = $user_id
+        WHERE users.id = $user_id
+    ");
+
+    $professor_subjects = array();
+
+    if ($result_professor_subjects -> num_rows > 0) {
+        foreach ($result_professor_subjects as $subject)
+            $professor_subjects[] = $subject;
+    }
+}
+
+
 if (isset($_GET["courseId"]) && isset($_GET["divisionId"])) {
     foreach ($result as $subject)
         $subjects[] = $subject;
-
-    $_SESSION['subjects'] = $subjects;
 }
 
 if (isset($_GET["subject_id"])) {
@@ -23,7 +41,26 @@ if (isset($_GET["subject_id"])) {
     foreach ($result as $file)
         $files[] = $file;
 
-    foreach ($_SESSION['subjects'] as $subject) {
+    $result_course_division = $conn -> query("
+        SELECT subjects.course, subjects.division
+        FROM subjects
+        WHERE id = $subject_id;
+    ");
+
+    $subject_data = $result_course_division -> fetch_assoc();
+
+    $result_subject = $conn -> query("
+        SELECT subjects.*, 
+        subjects_names.name, 
+        users.name AS professor_name, 
+        users.surname AS professor_surname
+        FROM subjects_names 
+        INNER JOIN subjects ON subjects.name_id = subjects_names.id
+        INNER JOIN users ON subjects.professor_id = users.id
+        WHERE course = " . $subject_data['course'] . " AND division = " . $subject_data['division']
+    );
+
+    foreach ($result_subject as $subject) {
         if ($subject['id'] == $subject_id)
             $selected_subject = $subject;
     }
@@ -49,6 +86,17 @@ if (isset($_GET["subject_id"])) {
     <div class="content-section" style="margin-top: 0;"> <?php
         
         if ($selected_subject) { ?>
+
+            <a 
+                href="./?courseId=<?php echo $selected_subject['course'] ?>&divisionId=<?php echo $selected_subject['division'] ?>" 
+                class="library__go-back"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                </svg>
+                Atras
+            </a>
+
             <h2 class="subject__name">
                 <?php echo $selected_subject['name'] . " - ".  $selected_subject['course'] . "°"  .  $selected_subject['division'] . " " .  $selected_subject['group']?>
             </h2>
@@ -59,16 +107,16 @@ if (isset($_GET["subject_id"])) {
 
         if (isset($_GET["courseId"]) && isset($_GET["divisionId"])) { ?>
 
-            <h2 class="subject__name">
-                <?php echo "Materias de " . $_GET["courseId"] . "°"  .  $_GET["divisionId"] ?>
-            </h2> 
-            
-            <a href="./">
+            <a href="./" class="library__go-back">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
                 </svg>
                 Atras
-            </a> <?php
+            </a>
+
+            <h2 class="subject__name">
+                <?php echo "Materias de " . $_GET["courseId"] . "°"  .  $_GET["divisionId"] ?>
+            </h2> <?php
 
             if (count($subjects) > 0) { ?>
                 <ul> <?php
@@ -91,7 +139,13 @@ if (isset($_GET["subject_id"])) {
 
         } else if (isset($_GET["subject_id"])) { 
             $dir = $full_name_dirs[0];
-            include("./includes/files-table.php"); ?>
+
+            // Analiza si hay archivos o carpetas cargados en la materia. Si no los hay muestra dicho mensaje.
+            if (count(scandir($dir)) > 2) {
+                include("./includes/files-table.php");
+            } else { ?>
+                <p>Aún no hay archivos ni carpetas cargadas.</p> <?php
+            } ?>
 
             <ul> <?php 
                 // Incluye las tablas de cada directorio de la materia.
@@ -185,7 +239,33 @@ if (isset($_GET["subject_id"])) {
             </ul> <?php
 
         } else { ?>
-            <h2>Biblioteca</h2>
+            <h2>Biblioteca</h2> <?php
+
+            if ($rol_id == PROFESSOR_ROLE) { ?> 
+            
+                <h3>Tus materias</h3> <?php
+                
+                if (count($professor_subjects) > 0) { ?>
+                    <ul> <?php
+                        foreach ($professor_subjects as $subject) { ?>
+                            <li>
+                                <a href="?subject_id=<?php echo $subject['id'] ?>"> <?php
+                                    if ($subject["group"]) { ?>
+                                        <span><?php echo $subject["name"] . " " . $subject["course"] . "°" . $subject["division"] . " - " . "Grupo " . $subject["group"] ?></span> <?php
+                                    } else { ?>
+                                        <span><?php echo $subject["name"] ?></span> <?php
+                                    } ?>
+                                </a>
+                            </li> <?php
+                        } ?>
+                    </ul> <?php
+    
+                } else { ?>
+                    <p>Aún no tenes materias cargadas.</p> <?php
+                } ?>
+
+                <h3>Toda la biblioteca</h3> <?php
+            } ?>
 
             <ul> <?php
                 for ($c = 1; $c <= 7; $c++) { ?>

@@ -1,4 +1,4 @@
-<div class="modal files-modal">
+<div class="modal" id="files-modal">
     <div class="modal__background"></div>
 
     <div class="modal__container">

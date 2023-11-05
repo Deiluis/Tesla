@@ -1,22 +1,38 @@
-// const modalsBackground = document.querySelectorAll(".modal__background");
-// const modalsCloseBtn = document.querySelectorAll(".modal__close-button");
+import { deleteActions, renameActions, filesActions, viewActions, registerActions, notificationActions } from "./modal-actions.js";
 
-// modalsBackground.forEach((background) => {
-//     const modalId = background.getAttribute("data-modal");
-//     background.addEventListener("click", () => closeModal(modalId));
-// });
+const modals = document.querySelectorAll(".modal");
 
-// modalsCloseBtn.forEach((closeBtn) => {
-//     const modalId = closeBtn.getAttribute("data-modal");
-//     closeBtn.addEventListener("click", () => closeModal(modalId));
-// });
+modals.forEach(modal => {
+    const modalBackground = document.querySelector(`#${modal.id} .modal__background`);
+    const modalCloseBtn = document.querySelector(`#${modal.id} .modal__close-button`);
 
-// const closeModal = (modalId) => {
-//     const modal = document.querySelector(`#${modalId}`);
-//     modal.classList.remove("modal--show");
+    const closeModal = () => {
+        modal.classList.remove("modal--show");
 
-//     // const modalAudio = document.querySelector(".modal .content--audio");
-//     // const modalVideo = document.querySelector(".modal .content--video");
-//     // if (modalAudio != null) modalAudio.pause();
-//     // if (modalVideo != null) modalVideo.pause();
-// };
+        const modalAudio = document.querySelector(`#${modal.id} .content--audio`);
+        const modalVideo = document.querySelector(`#${modal.id} .content--video`);
+        if (modalAudio != null) modalAudio.pause();
+        if (modalVideo != null) modalVideo.pause();
+    };
+
+    modalBackground?.addEventListener("click", closeModal);
+    modalCloseBtn?.addEventListener("click", closeModal);
+
+    if (modal.id === "delete-modal")
+        deleteActions({ modal, closeModal });
+
+    if (modal.id === "rename-modal")
+        renameActions({ modal });
+
+    if (modal.id === "files-modal")
+        filesActions({ modal });
+
+    if (modal.id === "view-modal")
+        viewActions({ modal });
+
+    if (modal.id === "register-modal")
+        registerActions({ modal });
+
+    if (modal.id === "notification-modal")
+        notificationActions({ modal });
+});

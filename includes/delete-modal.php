@@ -1,5 +1,5 @@
 <!-- Modal de eliminacion de carpetas -->
-<div class="modal delete-modal">
+<div class="modal" id="delete-modal">
     <div class="modal__background"></div>
     <div class="modal__container">
         <div class="modal__close-button">
