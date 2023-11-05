@@ -1,6 +1,7 @@
 <?php
-mysqli_report(MYSQLI_REPORT_OFF);
+    mysqli_report(MYSQLI_REPORT_OFF);
     session_start();
+
     include('./connection.php');
     define("PROFESSOR_ROLE", 1);
     define("ADMIN_ROLE", 2);
@@ -29,25 +30,11 @@ mysqli_report(MYSQLI_REPORT_OFF);
         $rol_id = 0;
     }
 
-    if (isset($_GET['courseId']) && isset($_GET['divisionId'])) {
-        
-        $curso = $_GET['courseId'];
-        $division = $_GET['divisionId'];
-        $result = $conn -> query("
-            SELECT subjects.*, 
-            subjects_names.name, 
-            users.name AS professor_name, 
-            users.surname AS professor_surname
-            FROM subjects_names 
-            INNER JOIN subjects ON subjects.name_id = subjects_names.id
-            INNER JOIN users ON subjects.professor_id = users.id
-            WHERE course = $curso AND division = $division;
-        ");
-    }
+    if (isset($_GET["subject_id"])) {
 
-    if (isset($_GET['subject_id'])) {
         $result = $conn -> query("SELECT * FROM files WHERE subject_id = $_GET[subject_id]");
-
+        $subject_id = $_GET["subject_id"];
+    
         $result_subject = $conn -> query("SELECT `professor_id` FROM `subjects` WHERE id = " . $_GET['subject_id']);
         $row = $result_subject -> fetch_assoc();
         $professor_id = $row['professor_id'];
@@ -256,12 +243,15 @@ mysqli_report(MYSQLI_REPORT_OFF);
         include("./includes/notification-modal.php");  
     } ?>
 
-    <script>
-        <?php if(isset($_SESSION['success']) || isset($_SESSION['error'])){ ?>
-            setInterval(()=>{
+    <script> <?php 
+        if (isset($_SESSION['success']) || isset($_SESSION['error'])) { ?>
+            setInterval(() => {
                 document.querySelector('#success-notification').style.opacity = 0;
-            }, 2500)
-        <?php unset($_SESSION['success']);unset($_SESSION['error']);} ?>
+            }, 2500); <?php 
+            
+            unset($_SESSION['success']);
+            unset($_SESSION['error']);
+        } ?>
         
         /**
          * Recibe el hash _#biblioteca_ u otro y carga el container con ese ID, para mostrarlo al entrar en un link

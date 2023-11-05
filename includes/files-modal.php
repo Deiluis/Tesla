@@ -25,7 +25,7 @@
         <span class="modal__title">Añadir archivos</span>
 
         <form action="./actions/upload" method="POST" enctype="multipart/form-data" class="modal__form">
-            <input type="file" name="file" id="file" required>
+            <input type="file" name="files[]" id="files" multiple required>
             <input type="text" name="subject_id" value="<?php echo $_GET['subject_id'] ?>" hidden>
             <select name="dir_name"> <?php
                 for ($i = 0; $i < count($selectable_dirs); $i++) {

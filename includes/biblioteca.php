@@ -9,7 +9,7 @@ $selected_subject = array();
 
 $selected_dir = "";
 
-
+// Obtiene todas las materias que tiene el profesor actualmente.
 if ($rol_id == PROFESSOR_ROLE) {
     $result_professor_subjects = $conn -> query("
         SELECT subjects.*, 
@@ -28,15 +28,25 @@ if ($rol_id == PROFESSOR_ROLE) {
     }
 }
 
-
 if (isset($_GET["courseId"]) && isset($_GET["divisionId"])) {
+    $curso = $_GET['courseId'];
+    $division = $_GET['divisionId'];
+    $result = $conn -> query("
+        SELECT subjects.*, 
+        subjects_names.name, 
+        users.name AS professor_name, 
+        users.surname AS professor_surname
+        FROM subjects_names 
+        INNER JOIN subjects ON subjects.name_id = subjects_names.id
+        INNER JOIN users ON subjects.professor_id = users.id
+        WHERE course = $curso AND division = $division;
+    ");
+
     foreach ($result as $subject)
         $subjects[] = $subject;
 }
 
 if (isset($_GET["subject_id"])) {
-
-    $subject_id = $_GET["subject_id"];
 
     foreach ($result as $file)
         $files[] = $file;
@@ -253,7 +263,7 @@ if (isset($_GET["subject_id"])) {
                                     if ($subject["group"]) { ?>
                                         <span><?php echo $subject["name"] . " " . $subject["course"] . "°" . $subject["division"] . " - " . "Grupo " . $subject["group"] ?></span> <?php
                                     } else { ?>
-                                        <span><?php echo $subject["name"] ?></span> <?php
+                                        <span><?php echo $subject["name"] . " " . $subject["course"] . "°" . $subject["division"] ?></span> <?php
                                     } ?>
                                 </a>
                             </li> <?php
@@ -261,7 +271,7 @@ if (isset($_GET["subject_id"])) {
                     </ul> <?php
     
                 } else { ?>
-                    <p>Aún no tenes materias cargadas.</p> <?php
+                    <p>Aún no tenes materias asignadas.</p> <?php
                 } ?>
 
                 <h3>Toda la biblioteca</h3> <?php
