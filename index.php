@@ -53,6 +53,7 @@
     <link rel="stylesheet" href="./assets/css/registerModal.css">
     <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="./assets/css/biblioteca.css">
+    <link rel="stylesheet" href="./assets/css/ver-exposicion.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
     <title>&lt; \ Tesla &gt;</title>
@@ -154,76 +155,9 @@
                     include('./includes/exponer.php');
                 else
                     include('./includes/ver-exposicion.php');
+
+                include('./includes/inventario.php');
             ?>
-
-            <div class="content-wrapper" id="inventario">
-                <div class="content-section"> <?php
-
-                    if(isset($_GET['items_id'])) { 
-                        $items = $conn-> query("
-                            SELECT * FROM inventory 
-                            WHERE laboratory_id = '$_GET[items_id]'
-                        "); ?>
-
-                        <table> <?php 
-
-                            if ($items -> num_rows > 0) { ?>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Descripción</th>
-                                    <th style="width:9%">Cantidad</th>
-                                    <th style="width:10%">Opciones</th>
-                                </tr> <?php
-
-                                while ($row = $items->fetch_assoc()) { ?>
-
-                                    <tr>
-                                        <td><?php echo $row["name"] ?></td>
-                                        <td><?php echo $row["description"] ?></td>
-                                        <td><?php echo $row["quantity"] ?></td>
-                                        <td>
-                                            <div class="button-wrapper">
-                                                <a href="#" id="<?php echo $row['id'] ?>">
-                                                    <button class='content-button status-button' style="display: flex;">
-                                                        <svg style="margin:0" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16"><path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/><path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/></svg>
-                                                    </button>
-                                                </a> <?php 
-
-                                                if ($rol_id > 0) { ?>
-
-                                                    <div class="menu">
-                                                        <button class="dropdown">
-                                                            <ul>
-                                                                <li>
-                                                                    <a href="./inventory/delete?id=<?php echo $row['id'] ?>&laboratory=<?php echo $_GET['items_id'] ?>">Borrar</a>
-                                                                </li>
-                                                            </ul>
-                                                        </button>
-                                                    </div> <?php 
-                                                } ?>
-                                            </div>
-                                        </td>
-                                    </tr> <?php 
-                                }
-
-                            } else ?>
-                                <tr><span>No hay items en este laboratorio.</span></tr>
-                        </table> <?php 
-
-                    } else { 
-                        print('<ul>');
-                        $labs = $conn -> query("SELECT id from laboratories");
-
-                        while ($row = $labs -> fetch_assoc()) { ?>
-                            <li>
-                                <a href="?items_id=<?php echo $row['id'] ?>#inventario"><?php echo $row["id"] ?></a>
-                            </li> <?php 
-                        } 
-                        print('<ul>'); 
-                    } ?>
-
-                </div>
-            </div>
         </main>
 
     </div>
