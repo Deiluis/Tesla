@@ -56,6 +56,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../assets/css/modal.css">
+    <link rel="stylesheet" href="../assets/css/pc-modal.css">
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <title>&lt; \ Tesla \ Observaciones &gt;</title>
     <link rel="shortcut icon" href="../assets/favicon.ico" type="image/x-icon">
@@ -233,25 +235,15 @@
                         </div>
                         <?php 
                     } ?>
-            </div>
-            <div class="modal-pc modal-notification">
-                <div class="header-menu">
-                    <span>Computadora</span>
-                    <div href="#" class="close-button">
-                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                        </svg>
-                    </div>
-                </div>
-                <div class="container"></div>
-            </div>
+            </div> <?php
+                    
+            include("../includes/pc-modal.php"); ?>
+
         </div>
         <div class="overlay-app"></div>
     </div>
     <script>
-        document.querySelector(".modal-pc .close-button").addEventListener("click", (e) => {
-            document.querySelector(".modal-pc").classList.remove("modal--show");
-        });
+        
         function borrar(e){
             const data = e.getAttribute("data-delete");
             $.ajax({
@@ -285,45 +277,11 @@
         function active(e){
             e.classList.toggle('active')
         }
-        function relevamiento(e){
-            $.ajax({
-                type: "POST",
-                url: 'pc.php',
-                data: { lab: e.getAttribute("data-lab"), pc_id: e.getAttribute("data-pc") },
-                success: function(response) {
-                    const res = JSON.parse(response)
-                    if(res){
-                        const info = JSON.parse(res.information);
-                        document.querySelector(".modal-pc .container").innerHTML = 
-                        `
-                            <div class="pc">
-                                <img src="https://images.vexels.com/media/users/3/157318/isolated/preview/2782b0b66efa5815b12c9c637322aff3-computadora-de-escritorio-icono-computadora.png" width="100" />
-                                <span>${res.laboratory_id} - ${res.pc}</span>
-                                <span id="timestamp">${info.timestamp}</span>
-                            </div>
-                            <div class="objects"></div>
-                        `
-                        document.querySelector(".modal-pc .container .objects").innerHTML += `
-                        <span> ${info.so.name} <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Windows_logo_-_2012.png" width="26" /></span>
-                        <span> ${info.cpu}</span>
-                        <span> ${info.ram.memory} ${info.ram.model}</span>
-                        `
-                        info.storage.forEach(e => {
-                            document.querySelector(".modal-pc .container .objects").innerHTML += `<span> ${e.name} - ${e.memory}</span>`;
-                        })
-                        document.querySelector(".modal-pc .container .objects").innerHTML += `<div class="programs" onclick="active(this)"><span>Programas <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16"><path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg></span></div>`
-                        info.programs.forEach(e => {
-                            if(e == "" || e == "'") return;
-                            document.querySelector(".modal-pc .container .objects .programs").innerHTML += `<span>${e}</span>`
-                        })
-                        document.querySelector(".modal-pc .container .objects").innerHTML += `<span>Tiempo de encendido: ${info.varios.lastboot}</span>`
-                        document.querySelector(".modal-pc").classList.add('modal--show')
-                    }
-                }
-            });
-        }
+        
     </script>
+    <script src="../assets/js/admin-functions.js"></script>
     <script src="../assets/js/admin.js"></script>
+    <script src="../assets/js/modal.js" type="module"></script>
 </body>
 
 </html>

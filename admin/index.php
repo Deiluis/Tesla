@@ -34,6 +34,8 @@ $computadoras = explode(',',$notifications["computadoras"]);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../assets/css/modal.css">
+    <link rel="stylesheet" href="../assets/css/pc-modal.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <title>&lt; \ Tesla \ Admin &gt;</title>
     <link rel="shortcut icon" href="../assets/favicon.ico" type="image/x-icon">
