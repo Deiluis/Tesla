@@ -36,6 +36,8 @@ $computadoras = explode(',',$notifications["computadoras"]);
     <link rel="stylesheet" href="../styles.css">
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
     <script src="../assets/js/jquery.js"></script>
+    <link rel="stylesheet" href="../assets/css/modal.css">
+    <link rel="stylesheet" href="../assets/css/pc-modal.css">
     <title>&lt; \ Tesla \ Admin &gt;</title>
     <link rel="shortcut icon" href="../assets/favicon.ico" type="image/x-icon">
 </head>

@@ -170,7 +170,11 @@ if (isset($_GET["subject_id"])) {
                                 </svg> <?php
                                 echo $selectable_dirs[$index]; 
                                 
-                                if ($rol_id == PROFESSOR_ROLE && $professor_id == $user_id) { ?>
+                                if (
+                                    ($rol_id == PROFESSOR_ROLE && $professor_id == $user_id)
+                                    ||
+                                    $rol_id == AREA_CHIEF_ROLE
+                                ) { ?>
                                     <div class="menu">
                                         <button class="dropdown">
                                             <ul>
@@ -212,7 +216,11 @@ if (isset($_GET["subject_id"])) {
                                 </svg> <?php
                                 echo $selectable_dirs[$index];
 
-                                if ($rol_id == PROFESSOR_ROLE && $professor_id == $user_id) { ?>
+                                if (
+                                    ($rol_id == PROFESSOR_ROLE && $professor_id == $user_id)
+                                    ||
+                                    $rol_id == AREA_CHIEF_ROLE
+                                ) { ?>
                                     <div class="menu">
                                         <button class="dropdown">
                                             <ul>

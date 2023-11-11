@@ -5,6 +5,7 @@
     include('./connection.php');
     define("PROFESSOR_ROLE", 1);
     define("ADMIN_ROLE", 2);
+    define("AREA_CHIEF_ROLE", 3);
 
     $professor_id = 0;
 
@@ -16,14 +17,7 @@
             header("Location: ./admin"); 
             exit;
         } else {
-            $notifications = $conn -> query("
-                SELECT laboratories.id 
-                FROM laboratories 
-                INNER JOIN subjects 
-                ON subjects.laboratory_id = laboratories.id 
-                WHERE professor_id = $user_id 
-                GROUP BY laboratories.id
-            ");
+            $notifications = $conn -> query("SELECT laboratories.id FROM laboratories");
         }
 
     } else {
@@ -94,8 +88,17 @@
 
             <div class="header-profile"> <?php 
 
-                if ($rol_id == PROFESSOR_ROLE && $professor_id == $user_id && isset($_GET['subject_id'])) { ?>
-                    <a class="access" id="add-files">
+                if (
+                    ($rol_id == PROFESSOR_ROLE && 
+                    $professor_id == $user_id && 
+                    isset($_GET['subject_id']))
+                    ||
+                    (
+                        $rol_id == AREA_CHIEF_ROLE &&
+                        isset($_GET['subject_id'])
+                    )
+                ) { ?>
+                    <a class="access" id="add-files" onclick="console.log('hola')">
                         <button style="width: fit-content; margin-right:15px" class="add-files">
                             Añadir archivos 
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" style="margin-left: 5px;" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/></svg>
@@ -103,7 +106,7 @@
                     </a> <?php
                 }
 
-                if ($rol_id == PROFESSOR_ROLE) { ?>
+                if ($rol_id == PROFESSOR_ROLE || $rol_id == AREA_CHIEF_ROLE) { ?>
                     <a class="access" id="create-notification">
                         <button  style="width: fit-content; margin-right:15px">
                             Crear observación 
@@ -165,7 +168,7 @@
     include("./includes/rename-modal.php");
 
 
-    if ($rol_id == PROFESSOR_ROLE) { 
+    if ($rol_id == PROFESSOR_ROLE || $rol_id == AREA_CHIEF_ROLE) { 
         if (isset($_GET['subject_id']))
             include("./includes/files-modal.php");   
 

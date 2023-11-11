@@ -88,6 +88,7 @@ export const filesActions = ({ modal }) => {
     const addFilesBtn = document.querySelector(".add-files");
 
     addFilesBtn?.addEventListener('click', () => {
+        console.log("hola");
         modal.classList.add("modal--show");
     });
 };
@@ -132,5 +133,37 @@ export const notificationActions = ({ modal }) => {
 
     createNotificationButton.addEventListener("click", () => {
         modal.classList.add("modal--show");
+    });
+};
+
+export const pcActions = ({ modal, closeModal }) => {
+
+    const modalBackground = document.querySelector(`#${modal.id} .modal__background`);
+    const modalCloseBtn = document.querySelector(`#${modal.id} .modal__close-button`);
+
+    console.log(modalCloseBtn);
+
+    // modalBackground.addEventListener("click", () => {
+    //     document.querySelector(`${modal.id} .modal__container`).innerHTML = "";
+    //     closeModal();
+    // });
+
+    //modalBackground.removeEventListener("click", closeModal);
+    // modalCloseBtn.removeEventListener("click", closeModal);
+
+    // console.log("aaaaaaaaaaaaaaaaaaa");
+
+    modalBackground.addEventListener("click", () => {
+        console.log("aaa");
+
+        document.querySelector(`#${modal.id} .modal__container`).innerHTML = 
+        `
+            <div class="modal__close-button">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg>
+            </div>
+        `;
+        closeModal();
     });
 };

@@ -1,4 +1,12 @@
-import { deleteActions, renameActions, filesActions, viewActions, registerActions, notificationActions } from "./modal-actions.js";
+import { 
+    deleteActions, 
+    renameActions, 
+    filesActions, 
+    viewActions, 
+    registerActions, 
+    notificationActions, 
+    pcActions,
+} from "./modal-actions.js";
 
 const modals = document.querySelectorAll(".modal");
 
@@ -13,6 +21,8 @@ modals.forEach(modal => {
         const modalVideo = document.querySelector(`#${modal.id} .content--video`);
         if (modalAudio != null) modalAudio.pause();
         if (modalVideo != null) modalVideo.pause();
+
+        console.log("se toco cerrar");
     };
 
     modalBackground?.addEventListener("click", closeModal);
@@ -35,4 +45,7 @@ modals.forEach(modal => {
 
     if (modal.id === "notification-modal")
         notificationActions({ modal });
+
+    if (modal.id === "pc-modal")
+        pcActions({ modal, closeModal });
 });
