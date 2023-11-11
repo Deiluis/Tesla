@@ -178,7 +178,15 @@ body.light-mode .video-bg:before {
 }
 
 .header-menu .menu-link {
-  padding: 17px 30px;
+  padding: 19px 30px;
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--inactive-color);
+  border-bottom: 2px solid transparent;
+  transition: 0.3s;
+}
+.header-menu .main-header-link {
+  padding: 19px 30px;
   text-decoration: none;
   white-space: nowrap;
   color: var(--inactive-color);
@@ -190,11 +198,19 @@ body.light-mode .video-bg:before {
     display: none;
   }
 }
+.modal--show{
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: all !important;
+}
 .header-menu .menu-link.is-active, .header-menu .menu-link:hover {
   color: var(--theme-color);
   border-bottom: 2px solid var(--theme-color);
 }
-
+.header-menu .main-header-link.is-active, .header-menu .main-header-link:hover {
+  color: var(--theme-color);
+  border-bottom: 2px solid var(--theme-color);
+}
 .notify {
   position: relative;
 }

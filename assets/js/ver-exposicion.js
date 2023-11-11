@@ -13,7 +13,7 @@ const joinRoomDiv = document.querySelector(".join-room");
 const videoShare = document.querySelector(".video-share");
 
 socket.on("connect_error", (error) => {
-    document.querySelector('h2').innerHTML = "Error en conexión";
+    document.querySelector('h3').innerHTML = "Error en conexión";
 });
 
 let room = { id: '', name: '', size: 1, };

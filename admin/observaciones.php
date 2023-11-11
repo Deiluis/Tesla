@@ -56,18 +56,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles.css">
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script> -->
+    <script src="../assets/js/jquery.js"></script>
     <title>&lt; \ Tesla \ Observaciones &gt;</title>
     <link rel="shortcut icon" href="../assets/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
-    <div class="video-bg">
-        <video width="320" height="240" autoplay loop muted>
-            <source src="https://assets.codepen.io/3364143/7btrrd.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
     <div class="dark-light">
         <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
@@ -112,7 +107,7 @@
                     </button>
                 </div>
                 <a href="#">
-                    <img class="profile-img" src="https://images.unsplash.com/photo-1600353068440-6361ef3a86e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="">
+                    <img class="profile-img" src="../assets/account.png" alt="">
                 </a>
                 <a href="#">
                     <svg viewBox="0 0 512 512" fill="currentColor">
@@ -249,6 +244,9 @@
         <div class="overlay-app"></div>
     </div>
     <script>
+        let target = $(location).attr('hash') || '#B106';
+        $('.main-container > div + div').not(target).hide();
+        $(target).fadeIn(600);
         document.querySelector(".modal-pc .close-button").addEventListener("click", (e) => {
             document.querySelector(".modal-pc").classList.remove("modal--show");
         });

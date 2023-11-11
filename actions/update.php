@@ -37,7 +37,7 @@
         $professor = $_POST['professor'];
         $laboratory = $_POST['laboratory'];
 
-        $values = "`name_id` = $name, `course`=$course, `division`=$division, `group`='$course', `professor_id`=$professor, `laboratory_id`='$laboratory'";
+        $values = "`name_id` = $name, `course`=$course, `division`=$division, `group`='$group', `professor_id`=$professor, `laboratory_id`='$laboratory'";
     }
 
     if (isset($_POST['roles'])) {

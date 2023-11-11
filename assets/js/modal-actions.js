@@ -130,7 +130,7 @@ export const registerActions = ({ modal }) => {
 export const notificationActions = ({ modal }) => {
     const createNotificationButton = document.querySelector("#create-notification");
 
-    createNotificationButton?.addEventListener("click", () => {
+    createNotificationButton.addEventListener("click", () => {
         modal.classList.add("modal--show");
     });
 };

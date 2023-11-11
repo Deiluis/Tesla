@@ -22,7 +22,7 @@ const quitButton = document.querySelector('.video-share__control-button--quit');
 let emiting = false;
 
 socket.on("connect_error", (error) => {
-    document.querySelector('h2').innerHTML = "Error en conexión";
+    document.querySelector('.title-room').innerHTML = "Error en conexión";
 });
 
 const room = { id: '', name: '', size: 1, };

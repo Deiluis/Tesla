@@ -60,7 +60,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles.css">
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script> -->
+    <script src="../assets/js/jquery.js"></script>
     <title>&lt; \ Tesla \ Relevamiento &gt;</title>
     <link rel="shortcut icon" href="../assets/favicon.ico" type="image/x-icon">
 </head>
@@ -107,7 +108,7 @@
                     </button>
                 </div>
                 <a href="#">
-                    <img class="profile-img" src="https://images.unsplash.com/photo-1600353068440-6361ef3a86e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="">
+                    <img class="profile-img" src="../assets/account.png" alt="">
                 </a>
                 <a href="#">
                     <svg viewBox="0 0 512 512" fill="currentColor">
@@ -223,12 +224,15 @@
                     </div>
                 </div>
                 <div class="container"></div>
-                <div class="history" style="left: 0px"></div>
+                <!-- <div class="history" style="left: 0px"></div> -->
             </div>
         </div>
         <div class="overlay-app"></div>
     </div>
     <script>
+        let target = $(location).attr('hash') || '#B106';
+        $('.main-container > div + div').not(target).hide();
+        $(target).fadeIn(600);
         // $('.header-menu a:first-child').addClass('is-active');
         document.querySelector(".modal-pc .close-button").addEventListener("click", (e) => {
             document.querySelector(".modal-pc").classList.remove("modal--show");
@@ -270,14 +274,14 @@
                         document.querySelector(".modal-pc .container").innerHTML = 
                         `
                             <div class="pc">
-                                <img src="https://images.vexels.com/media/users/3/157318/isolated/preview/2782b0b66efa5815b12c9c637322aff3-computadora-de-escritorio-icono-computadora.png" width="100" />
+                                <img src="../assets/pc.png" width="100" />
                                 <span>${res.laboratory_id} - ${res.id}</span>
                                 <span id="timestamp">${info.timestamp}</span>
                             </div>
                             <div class="objects"></div>
                         `
                         document.querySelector(".modal-pc .container .objects").innerHTML += `
-                        <span> ${info.so.name} <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Windows_logo_-_2012.png" width="26" /></span>
+                        <span> ${info.so.name} <img src="../assets/windows.png" width="26" /></span>
                         <span> ${info.cpu}</span>
                         <span> ${info.ram.memory} ${info.ram.model}</span>
                         `

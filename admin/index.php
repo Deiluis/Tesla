@@ -19,11 +19,11 @@ if ($_SESSION['user']['rol_id'] < 2) {
 }
 $id = $_SESSION['user']['id'];
 $notifications = $conn->query("
-        SELECT COUNT(*), GROUP_CONCAT(laboratory_id,'.', computer,'.', description) AS computadoras 
-        FROM laboratories 
-        INNER JOIN notifications ON laboratories.id = notifications.laboratory_id 
-        WHERE laboratories.admin_id = 10 AND notifications.status_id = 1;
-    ")->fetch_assoc();
+SELECT COUNT(*), GROUP_CONCAT(laboratory_id,'.', computer,'.', description) AS computadoras 
+FROM laboratories 
+INNER JOIN notifications ON laboratories.id = notifications.laboratory_id 
+WHERE laboratories.admin_id = $id AND notifications.status_id = 1;
+")->fetch_assoc();
 $computadoras = explode(',',$notifications["computadoras"]);
 ?>
 <!DOCTYPE html>
@@ -34,7 +34,8 @@ $computadoras = explode(',',$notifications["computadoras"]);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+    <script src="../assets/js/jquery.js"></script>
     <title>&lt; \ Tesla \ Admin &gt;</title>
     <link rel="shortcut icon" href="../assets/favicon.ico" type="image/x-icon">
 </head>
@@ -177,7 +178,7 @@ $computadoras = explode(',',$notifications["computadoras"]);
                             <tr>
                                 <th style="width: 10%;">Nombre</th>
                                 <th style="width: 10%;">Apellido</th>
-                                <th style="width: 10%;">Usuario</th>
+                                <th style="width: 11%;">Usuario</th>
                                 <th>Email</th>
                                 <th style="width: 17%;">Autenticidad?</th>
                                 <th style="width: 13%;">Rol</th>
@@ -425,12 +426,17 @@ $computadoras = explode(',',$notifications["computadoras"]);
                                     </tr>
                                     <tr>
                                         <form action="../actions/update?id=<?php echo $user['id'] ?>&table=subjects" method="post">
-                                            <td><select name="name" id="name_subject">
+                                            <td>
+                                                <select name="name" id="name_subject">
                                                     <?php
                                                     $roles = $conn->query("SELECT id, name FROM subjects_names");
                                                     if ($roles->num_rows > 0) {
                                                         while ($row = $roles->fetch_assoc()) {
-                                                            echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+                                                            if($row['id'] == $user['name_id']){
+                                                                echo "<option value='" . $row['id'] . "' selected>" . $row['name'] . "</option>";
+                                                            }else{
+                                                                echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+                                                            }
                                                         }
                                                     }
                                                     ?>
