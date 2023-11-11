@@ -379,9 +379,9 @@ $computadoras = explode(',',$notifications["computadoras"]);
                                             } ?>
                                         </select>
                                     </td>
-                                    <td>
-                                        <input type="number" min=1 max=7 name="course" placeholder="Curso">
-                                        <input type="number" min=1 max=6 name="division" placeholder="Division">
+                                    <td style="display:flex">
+                                        <input type="number" min=1 max=7 name="course" placeholder="Curso">°
+                                        <input type="number" min=1 max=6 name="division" placeholder="Division">-
                                         <input type="text" name="group" placeholder="Grupo">
                                     </td>
                                     <td>
@@ -449,24 +449,29 @@ $computadoras = explode(',',$notifications["computadoras"]);
                                                     $roles = $conn->query("SELECT id, name, surname FROM users WHERE rol_id=1");
                                                     if ($roles->num_rows > 0) {
                                                         while ($row = $roles->fetch_assoc()) {
-                                                            echo "<option value='" . $row['id'] . "'>" . $row['name'] . ' '. $row['surname']. "</option>";
+                                                            if($row['id'] == $user['professor_id']){
+                                                                echo "<option value='" . $row['id'] . "' selected>" . $row['name'] . ' '. $row['surname']."</option>";
+                                                            }else{
+                                                                echo "<option value='" . $row['id'] . "'>" . $row['name'] . ' '. $row['surname']."</option>";
+                                                            }
                                                         }
                                                     }
                                                     ?>
                                                 </select>
                                             </td>
-                                            <td><input type="text" name="course" id="course" placeholder="Curso"
-                                                    value="<?php echo $user['course'] ?>">
-                                            <input type="text" name="division" id="division" placeholder="Division"
-                                                    value="<?php echo $user['division'] ?>">
-                                            <input type="text" name="group" id="group" placeholder="Grupo"
-                                                    value="<?php echo $user['group'] ?>"></td>
+                                            <td style="display:flex">
+                                            <input type="text" name="course" id="course" placeholder="Curso" value="<?php echo $user['course'] ?>">°
+                                            <input type="text" name="division" id="division" placeholder="Division" value="<?php echo $user['division'] ?>">-
+                                            <input type="text" name="group" id="group" placeholder="Grupo" value="<?php echo $user['group'] ?>"></td>
                                             <td><select name="laboratory" id="laboratory_edit">
                                                     <?php
                                                     $roles = $conn->query("SELECT id FROM laboratories");
                                                     if ($roles->num_rows > 0) {
                                                         while ($row = $roles->fetch_assoc()) {
-                                                            echo "<option value='" . $row['id'] . "'>" . $row['id'] . "</option>";
+                                                            if($row['id'] == $user['laboratory_id'])
+                                                                echo "<option value='" . $row['id'] . "' selected>" . $row['id'] . "</option>";
+                                                            else
+                                                                echo "<option value='" . $row['id'] . "'>" . $row['id'] . "</option>";
                                                         }
                                                     }
                                                     ?>
@@ -585,7 +590,10 @@ $computadoras = explode(',',$notifications["computadoras"]);
                                                     $roles = $conn->query("SELECT id, name, surname FROM users WHERE rol_id=2");
                                                     if ($roles->num_rows > 0) {
                                                         while ($row = $roles->fetch_assoc()) {
-                                                            echo "<option value='" . $row['id'] . "'>" . $row['name'] . " " . $row['surname'] . "</option>";
+                                                            if($row["id"] == $user["admin_id"])
+                                                                echo "<option value='" . $row['id'] . "' selected>" . $row['name'] . " " . $row['surname'] . "</option>";
+                                                            else
+                                                                echo "<option value='" . $row['id'] . "'>" . $row['name'] . " " . $row['surname'] . "</option>";
                                                         }
                                                     }
                                                     ?>

@@ -203,6 +203,27 @@ body.light-mode .video-bg:before {
   visibility: visible !important;
   pointer-events: all !important;
 }
+.title{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-block-start: 0.83em;
+}
+.title .icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  margin-right: 1rem;
+  border-radius: 100%;
+  background-color: var(--search-bg);
+}
+.title span{
+  display: block;
+  font-size: 1.5em;
+  font-weight: bold;
+}
 .header-menu .menu-link.is-active, .header-menu .menu-link:hover {
   color: var(--theme-color);
   border-bottom: 2px solid var(--theme-color);
