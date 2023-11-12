@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const sql = require('mysql');
+const https = require('https');
+const fs = require('fs');
 require('dotenv').config();
 
 const conn = sql.createConnection({
@@ -15,11 +17,18 @@ conn.connect(function(err) {
   console.log("Connected!");
 });
 
-const server = require('http').createServer(app)
+const options = {
+    key: fs.readFileSync(process.env.KEY_PATH),
+    cert: fs.readFileSync(process.env.CERT_PATH)
+};
+
+const server = https.createServer(options, app);
+
 const port = process.env.PORT || 7777
 const io = require("socket.io")(server, {
 	cors: {
 		origin: "*",
+        methods: ["GET", "POST"]
 	}
 });
 
@@ -129,6 +138,10 @@ io.on('connection', (socket) => {
 	//Emitir el evento a todos los sockets conectados a la sala.
 	socket.on('stream', (video) => {
 		socket.to(video.roomId).emit('stream', video.stream);
+	});
+
+	socket.on('stopStream', (room) => {
+		socket.to(room.id).emit('stopStream');
 	});
 
 });

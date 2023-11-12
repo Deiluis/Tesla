@@ -85,3 +85,9 @@ jspm_packages
 
 # Heroku Env
 .env
+
+# Ignores certificates and keys
+ssl/*
+*.pem
+*.key
+*.crt

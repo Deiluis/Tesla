@@ -48,10 +48,8 @@
     <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="./assets/css/biblioteca.css">
     <link rel="stylesheet" href="./assets/css/ver-exposicion.css">
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
     <script src="./assets/js/jquery.js"></script>
-    <!-- <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script> -->
-    <script src="./assets/js/socket.js"></script>
+    <script src="./assets/js//socket.io.min.js"></script>
     <title>&lt; \ Tesla &gt;</title>
 </head>
 <body>
