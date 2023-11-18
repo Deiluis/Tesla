@@ -1,5 +1,5 @@
 // Se conecta al websocket.
-const socket = io("http://localhost:7777");
+const socket = io('https://192.168.0.2:7777');
 
 const screenImg = document.querySelector('#screenImg');
 const roomsDiv = document.querySelector('#rooms');
@@ -13,7 +13,19 @@ const joinRoomDiv = document.querySelector(".join-room");
 const videoShare = document.querySelector(".video-share");
 
 socket.on("connect_error", (error) => {
-    document.querySelector('h3').innerHTML = "Error en conexión";
+    joinRoomDiv.innerHTML = 
+    `
+        <div class="title title-room">
+            <div class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-broadcast" viewBox="0 0 16 16">
+                <path d="M3.05 3.05a7 7 0 0 0 0 9.9.5.5 0 0 1-.707.707 8 8 0 0 1 0-11.314.5.5 0 0 1 .707.707zm2.122 2.122a4 4 0 0 0 0 5.656.5.5 0 1 1-.708.708 5 5 0 0 1 0-7.072.5.5 0 0 1 .708.708zm5.656-.708a.5.5 0 0 1 .708 0 5 5 0 0 1 0 7.072.5.5 0 1 1-.708-.708 4 4 0 0 0 0-5.656.5.5 0 0 1 0-.708zm2.122-2.12a.5.5 0 0 1 .707 0 8 8 0 0 1 0 11.313.5.5 0 0 1-.707-.707 7 7 0 0 0 0-9.9.5.5 0 0 1 0-.707zM10 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/>
+            </svg></div>
+            <span>Exponer</span>
+        </div>
+
+        <h3>Error de conexión</h3>
+        <p>Hubo un error en la conexión con el servicio de exposición, intenta recargar el sitio o avísarle a tu profesor para poder resolverlo.</p>
+    `;
 });
 
 let room = { id: '', name: '', size: 1, };
@@ -72,6 +84,10 @@ socket.on("connect", () => {
 
     socket.on("stream", (image) => {
         screenImg.src = image;
+    });
+
+    socket.on('stopStream', () => {
+        screenImg.src = "";
     });
 
     socket.on("reloadRooms", (rooms) => {
