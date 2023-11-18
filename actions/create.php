@@ -68,11 +68,11 @@
     }
     if (isset($_POST['inventory'])) {
         $name = $_POST['name'];
-        $desc = $_POST['description'];
+        $desc = $_POST['desc'];
         $quantity = $_POST['quantity'];
         $laboratory = $_POST['laboratory'];
         if ($conn->query("INSERT INTO `inventory` (`id`, `name`, `description`, `quantity`, `laboratory_id`) VALUES (NULL, '$name', '$desc', $quantity, '$laboratory')")) {
-            header("Location: ../inventory/items?id=$laboratory");
+            header("Location: ../?items_id=$laboratory#inventario");
         } else {
             echo $conn->error;
         }

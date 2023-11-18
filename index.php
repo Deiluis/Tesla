@@ -49,7 +49,7 @@
     <link rel="stylesheet" href="./assets/css/biblioteca.css">
     <link rel="stylesheet" href="./assets/css/ver-exposicion.css">
     <script src="./assets/js/jquery.js"></script>
-    <script src="./assets/js//socket.io.min.js"></script>
+    <script src="./assets/js/socket.io.min.js"></script>
     <title>&lt; \ Tesla &gt;</title>
 </head>
 <body>

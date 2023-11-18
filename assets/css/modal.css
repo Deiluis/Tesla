@@ -1,106 +1,106 @@
 .modal {
-    background: #2228;
-    display: flex;
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 10;
-    visibility: hidden;
-    pointer-events: none;
-    /* transition: visibility .5s; */
+  background: #2228;
+  display: flex;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  visibility: hidden;
+  pointer-events: none;
+  /* transition: visibility .5s; */
 }
 
-.modal--show{
-	visibility: visible;
-	pointer-events: unset;
+.modal--show {
+  visibility: visible;
+  pointer-events: unset;
 }
 
 .modal__container {
-	align-items: center;
-    display: flex;
-    flex-direction: column;
-	max-width: 100%;
-	width: auto;
-	max-height: 75%;
-	height: auto;
-	z-index: 12;
-	margin: auto;
-	background-color: var(--dropdown-bg);
-    border: 1px solid var(--theme-bg-color);
-    border-radius: 14px;
-    padding: 1rem 2rem;
-    color: var(--theme-color);
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  width: auto;
+  max-height: 75%;
+  height: auto;
+  z-index: 12;
+  margin: auto;
+  background-color: var(--dropdown-bg);
+  border: 1px solid var(--theme-bg-color);
+  border-radius: 14px;
+  padding: 1rem 2rem;
+  color: var(--theme-color);
 }
 
 .modal__close-button {
-    display: flex;
-    justify-content: flex-end;
-    align-self: flex-end;
-	color: #fff;
-	font-size: 4rem;
-	opacity: 0.7;
-	cursor: pointer;
-	z-index: 15;
+  display: flex;
+  justify-content: flex-end;
+  align-self: flex-end;
+  color: #fff;
+  font-size: 4rem;
+  opacity: 0.7;
+  cursor: pointer;
+  z-index: 15;
 }
 
 .modal__text {
-    font-size: 1.5rem;
-    margin: 2rem 0;
+  font-size: 1.5rem;
+  margin: 2rem 0;
 }
 
 .modal__button {
-    margin-top: 5px;
-    color: var(--access-color);
-    padding: 4px 26px;
-    border-radius: 30px;
-    border: 1px var(--border-color) solid;
-    background: none;
-    outline: none;
-    font-family: var(--body-font);
-    font-size: 15px;
-    margin-left: auto;
-    margin-right: auto;
-    font-weight: 600;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
+  margin-top: 5px;
+  color: var(--access-color);
+  padding: 4px 26px;
+  border-radius: 30px;
+  border: 1px var(--border-color) solid;
+  background: none;
+  outline: none;
+  font-family: var(--body-font);
+  font-size: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
 }
 
 .modal__form {
-    display: flex;
-    flex-direction: column;
-    margin: 1rem 0;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+  width: 100%;
 }
 
-.modal__form input, 
+.modal__form input,
 .modal__form select,
 .modal__form textarea {
-    font-size: 1.6rem;
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: var(--popup-bg);
-    border: none;
-    color: var(--theme-color);
-    font-family: var(--body-font);
-    border-radius: 5px;
+  font-size: 1.6rem;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: var(--popup-bg);
+  border: none;
+  color: var(--theme-color);
+  font-family: var(--body-font);
+  border-radius: 5px;
 }
 
 .modal__form textarea {
-	width: 45rem;
-	max-width: 100rem;
-	min-width: 100%;
-	max-height: 30vh;
+  width: 45rem;
+  max-width: 100rem;
+  min-width: 100%;
+  max-height: 30vh;
 }
 
 .modal__form label {
-	font-size: 1.4rem;
-	margin: .5rem 0;
+  font-size: 1.4rem;
+  margin: 0.5rem 0;
 }
 
 /* .modal__container {
@@ -120,15 +120,15 @@
     color: var(--theme-color);
 } */
 
-.modal__background{
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	z-index: 11;
+.modal__background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 11;
 }
 
 .modal__title {
-    font-size: 2rem;
+  font-size: 2rem;
 }
 
 /* .modal__container--show{
@@ -168,5 +168,39 @@
 } */
 
 .close-button:hover {
-	opacity: 1;
+  opacity: 1;
+}
+
+#inventory-modal .modal__container .main-info .item {
+  display: flex;
+  flex-direction: row;
+}
+#inventory-modal .modal__container .main-info .item .objects {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  font-size: 1.3rem;
+}
+#inventory-modal .modal__container .main-info .reservations {
+  font-size: 1.3rem;
+}
+#inventory-modal .modal__container .main-info .reservations input {
+  display: block;
+  width: 100%;
+  padding: 4px;
+  border: 1px solid #131313;
+  border-radius: 6px;
+}
+#inventory-modal .modal__container .main-info .reservations label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+#inventory-modal .modal__container .main-info .reservations button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
 }

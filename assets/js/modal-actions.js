@@ -135,6 +135,13 @@ export const notificationActions = ({ modal }) => {
         modal.classList.add("modal--show");
     });
 };
+export const objectActions = ({ modal }) => {
+    const viewObjectButton = document.querySelector("#view-object");
+
+    viewObjectButton.addEventListener("click", () => {
+        modal.classList.add("modal--show");
+    });
+};
 
 export const pcActions = ({ modal, closeModal }) => {
 
