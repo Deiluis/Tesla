@@ -166,6 +166,7 @@
     include("./includes/register-modal.php");
     include("./includes/delete-modal.php");
     include("./includes/rename-modal.php");
+    include("./includes/inventory-modal.php");
 
 
     if ($rol_id == PROFESSOR_ROLE || $rol_id == AREA_CHIEF_ROLE) { 

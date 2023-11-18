@@ -21,9 +21,11 @@
 
                 if ($items -> num_rows > 0) { ?>
                     <tr>
-                        <th>Nombre</th>
+                        <th style="width:300px">Nombre</th>
+                        <th style="width:80px">Imagen</th>
+                        <th style="width:90px">Cantidad</th>
+                        <th style="width:120px">Ultimo Uso</th>
                         <th>Descripción</th>
-                        <th style="width:9%">Cantidad</th>
                         <th style="width:10%">Opciones</th>
                     </tr> <?php
 
@@ -31,8 +33,10 @@
 
                         <tr>
                             <td><?php echo $row["name"] ?></td>
-                            <td><?php echo $row["description"] ?></td>
+                            <td>Imagen</td>
                             <td><?php echo $row["quantity"] ?></td>
+                            <td>Ayer</td>
+                            <td><?php echo $row["description"] ?></td>
                             <td>
                                 <div class="button-wrapper">
                                     <a href="#" id="<?php echo $row['id'] ?>">
@@ -42,7 +46,6 @@
                                     </a> <?php 
 
                                     if ($rol_id > 0) { ?>
-
                                         <div class="menu">
                                             <button class="dropdown">
                                                 <ul>
@@ -51,16 +54,15 @@
                                                     </li>
                                                 </ul>
                                             </button>
-                                        </div> <?php 
-                                    } ?>
+                                        </div>
+                                    <?php } ?>
                                 </div>
                             </td>
                         </tr> <?php 
                     }
 
-                } else ?>
-                    <tr><span>No hay items en este laboratorio.</span></tr>
-            </table> <?php 
+                } else {?> <tr><span>No hay items en este laboratorio.</span></tr> <?php } ?> 
+            </table> <?php
 
         } else { 
             print('<ul>');
