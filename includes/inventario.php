@@ -23,7 +23,6 @@
                     if ($items->num_rows > 0) { ?>
                     <tr>
                         <th style="width:300px">Nombre</th>
-                        <th style="width:80px">Imagen</th>
                         <th style="width:90px">Cantidad</th>
                         <th style="width:120px">Ultimo Uso</th>
                         <th>Descripción</th>
@@ -34,7 +33,6 @@
 
                         <tr>
                             <td><?php echo $row["name"] ?></td>
-                            <td>Imagen</td>
                             <td><?php echo $row["quantity"] ?></td>
                             <td>Ayer</td>
                             <td><?php echo $row["description"] ?></td>
@@ -64,10 +62,9 @@
                             </td>
                         </tr>
                     <?php
-                            } ?> <tr>
+                            } if($rol_id == ADMIN_ROLE) { ?> <tr>
                         <form action="./actions/create" method="post">
                             <td><input type="text" name="name" placeholder="Nombre"></td>
-                            <td><input type="file" name="photo"></td>
                             <td><input type="number" min="1" placeholder="1" name="quantity"></td>
                             <td><input type="hidden" name="laboratory" value="<?php echo $_GET['items_id'] ?>"></td>
                             <td><input type="text" name="desc" placeholder="Descripcion"></td>
@@ -86,7 +83,9 @@
                     </tr>
                 <?php
 
-                    } else { ?> <tr><span>No hay items en este laboratorio.</span></tr><tr>
+                    }} else { ?> <tr><span>No hay items en este laboratorio.</span></tr>
+					<?php if($rol_id == ADMIN_ROLE) { ?>
+					<tr>
                         <form action="./actions/create" method="post">
                             <td><input type="text" name="name" placeholder="Nombre"></td>
                             <td><input type="file" name="photo"></td>
@@ -105,7 +104,7 @@
                                 </div>
                             </td>
                         </form>
-                    </tr> <?php } ?>
+                    </tr> <?php }} ?>
             </table> <?php
 
                     } else {
@@ -122,6 +121,7 @@
 
     </div>
     <script>
+		const userId = <?php echo $user_id ?>;
         function inventorySearch(e) {
             $.ajax({
                 type: "POST",
@@ -150,67 +150,64 @@
                                     <th>Fecha</th>
                                     <th>Inicio</th>
                                     <th>Finalizacion</th>
-                                    <th>Area de uso</th>
                                     <th>Descripcion</th>
                                 <tr>`
-                        let reservations = res.reservations.split('.')
-                        reservations.forEach(e => {
-                            let unique = e.split(',')
-                            document.querySelector("#inventory-modal .modal__container .main-info .reservations table").innerHTML += `
-                            <tr> 
-                                <td>${unique[0]}</td>
-                                <td>${unique[1]}</td>
-                                <td>${unique[2]}</td>
-                                <td>${unique[3]}</td>
-                                <td>${unique[4]}</td>
-                                <td>${unique[5]}</td>
-                            </tr>
-                            `
-                        });
+						if(res.reservations != null){
+						let reservations = res.reservations.split('.')
+						
+							reservations.forEach(e => {
+								let unique = e.split(',')
+								document.querySelector("#inventory-modal .modal__container .main-info .reservations table").innerHTML += `
+								<tr> 
+									<td>${unique[0]}</td>
+									<td>${unique[1]}</td>
+									<td>${unique[2]}</td>
+									<td>${unique[3]}</td>
+									<td>${unique[4]}</td>
+								</tr>
+								`
+							});
+						}
                         document.querySelector("#inventory-modal .modal__container .main-info").innerHTML += `</table>
                             <div>
                                 Reservar:
-                                <form action="reservations.php" method="post">
+                                <form action="./actions/create" method="post">
+								<input type="hidden" name="user" value="${userId}"></input>
+								<input type="hidden" name="item" value="${res.id}"></input>
+								<input type="hidden" name="laboratory" value="${res.laboratory_id}"></input>
                                     <div class="mb-4">
-                                        <label for="day">
+                                        <label for="date">
                                             Dia
                                         </label>
                                         <input type="date" name="date" id="day" />
                                     </div>
                                     <div class="flex mb-4">
                                         <div class="w-1/2 pr-2">
-                                            <label for="start-time">
-                                                Start Time
+                                            <label for="startTime">
+                                                Tiempo de inicio
                                             </label>
-                                            <input type="time" name="start" id="start-time" />
+                                            <input type="time" name="startTime" id="startTime" />
                                         </div>
                                         <div class="w-1/2 pl-2">
-                                            <label for="end-time">
-                                                End Time
+                                            <label for="endTime">
+                                                Tiempo de finalizacion
                                             </label>
-                                            <input type="time" name="end" id="end-time" />
+                                            <input type="time" name="endTime" id="endTime" />
                                         </div>
+                                        <div class="w-1/2 pl-2">
+                                            <label for="description">
+                                                Descripcion
+                                            </label>
+                                            <input type="text" name="description" />
+                                        </div>
+									</div>
+									<button type="submit" name="reservation">
+										Confirm Reservation
+									</button>
                                 </form>
-                                <button type="submit">
-                                    Confirm Reservation
-                                </button>
                             </div>
                         </div>
                         `
-                        // document.querySelector(".modal-pc .container .objects").innerHTML += `
-                        // <span> ${info.so.name} <img src="../assets/windows.png" width="26" /></span>
-                        // <span> ${info.cpu}</span>
-                        // <span> ${info.ram.memory} ${info.ram.model}</span>
-                        // `
-                        // info.storage.forEach(e => {
-                        //     document.querySelector(".modal-pc .container .objects").innerHTML += `<span> ${e.name} - ${e.memory}</span>`;
-                        // })
-                        // document.querySelector(".modal-pc .container .objects").innerHTML += `<div class="programs" onclick="active(this)"><span>Programas <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16"><path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg></span></div>`
-                        // info.programs.forEach(e => {
-                        //     if(e == "" || e == "'") return;
-                        //     document.querySelector(".modal-pc .container .objects .programs").innerHTML += `<span>${e}</span>`
-                        // })
-                        // document.querySelector(".modal-pc .container .objects").innerHTML += `<span>Tiempo de encendido: ${info.varios.lastboot}</span>`
                         document.querySelector("#inventory-modal").classList.add('modal--show')
                     }
                 }

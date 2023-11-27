@@ -77,4 +77,18 @@
             echo $conn->error;
         }
     }
+    if (isset($_POST['reservation'])) {
+        $user = $_POST['user'];
+        $item = $_POST['item'];
+        $date = $_POST['date'];
+        $start = $_POST['startTime'];
+        $finish = $_POST['endTime'];
+        $description = $_POST['description'];
+        $laboratory = $_POST['laboratory'];
+        if ($conn->query("INSERT INTO `reservations` (`id`, `user_id`, `item_id`, `date`, `start_time`, `finish_time`, `description`) VALUES (NULL, '$user', '$item', '$date', '$start', '$finish', '$description')")) {
+            header("Location: ../?items_id=$laboratory#inventario");
+        } else {
+            echo $conn->error;
+        }
+    }
 ?>
