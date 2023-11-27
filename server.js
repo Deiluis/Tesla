@@ -14,7 +14,7 @@ const conn = sql.createConnection({
 
 conn.connect(function(err) {
   if (err) throw err;
-  console.log("Connected!");
+  console.log("Conectado a la base de datos!");
 });
 
 const options = {
@@ -22,7 +22,8 @@ const options = {
     cert: fs.readFileSync(process.env.CERT_PATH)
 };
 
-const server = https.createServer(options, app);
+// const server = https.createServer(options, app);
+const server = require('http').createServer(app)
 
 const port = process.env.PORT || 7777
 const io = require("socket.io")(server, {
@@ -147,5 +148,5 @@ io.on('connection', (socket) => {
 });
 
 server.listen(port, () => {
-  	console.log(`Express server listening on port ${port}`)
+  	console.log(`Servidor encendido en el puerto: ${port}`)
 });

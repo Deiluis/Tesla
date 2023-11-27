@@ -1,4 +1,4 @@
-const socket = io("https://192.168.0.2:7777");
+const socket = io("https://192.168.0.10:7777");
 
 const createRoomDiv = document.querySelector(".create-room");
 const createRoomForm = document.querySelector(".create-room__form");

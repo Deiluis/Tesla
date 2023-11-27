@@ -1,5 +1,5 @@
 // Se conecta al websocket.
-const socket = io('https://192.168.0.2:7777');
+const socket = io('https://192.168.0.10:7777');
 
 const screenImg = document.querySelector('#screenImg');
 const roomsDiv = document.querySelector('#rooms');

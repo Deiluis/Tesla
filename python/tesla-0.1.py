@@ -145,4 +145,4 @@ if __name__ == '__main__':
                             }
                 }
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-        requests.post('http://192.168.0.2:9000/api/computers', data=json.dumps(data), headers=headers)
+        requests.post('https://192.168.0.2:9000/api/computers', data=json.dumps(data), headers=headers)

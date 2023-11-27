@@ -86,7 +86,26 @@
                     </tr>
                 <?php
 
-                    } else { ?> <tr><span>No hay items en este laboratorio.</span></tr> <?php } ?>
+                    } else { ?> <tr><span>No hay items en este laboratorio.</span></tr><tr>
+                        <form action="./actions/create" method="post">
+                            <td><input type="text" name="name" placeholder="Nombre"></td>
+                            <td><input type="file" name="photo"></td>
+                            <td><input type="number" min="1" placeholder="1" name="quantity"></td>
+                            <td><input type="hidden" name="laboratory" value="<?php echo $_GET['items_id'] ?>"></td>
+                            <td><input type="text" name="desc" placeholder="Descripcion"></td>
+                            <td>
+                                <div class="button-wrapper">
+                                    <button class='content-button status-button' type="submit" name="inventory">Agregar</button>
+                                    <button type="reset">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+                                            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </form>
+                    </tr> <?php } ?>
             </table> <?php
 
                     } else {
@@ -114,8 +133,7 @@
                 success: function(response) {
                     const res = JSON.parse(response)
                     if (res) {
-                        document.querySelector("#inventory-modal .modal__container .main-info").innerHTML =
-                            `
+                        document.querySelector("#inventory-modal .modal__container .main-info").innerHTML = `
                         <div class="item">
                             <img src="./assets/windows.png" width="100" />
                             <div class="objects">
@@ -134,27 +152,25 @@
                                     <th>Finalizacion</th>
                                     <th>Area de uso</th>
                                     <th>Descripcion</th>
-                                <tr>
-                                <tr>
-                                    <td>John Doe</td>
-                                    <td>2023-01-23</td>
-                                    <td>10:00</td>
-                                    <td>14:00</td>
-                                    <td>EMATP</td>
-                                    <td>Tenia que cambiar unas cosas</td>
-                                <tr>
-                                <tr>
-                                    <td>John Doe</td>
-                                    <td>2023-01-25</td>
-                                    <td>10:00</td>
-                                    <td>14:00</td>
-                                    <td>EMATP</td>
-                                    <td>Se rompio de nuevo y la volvi a usar</td>
-                                <tr>
-                            </table>
+                                <tr>`
+                        let reservations = res.reservations.split('.')
+                        reservations.forEach(e => {
+                            let unique = e.split(',')
+                            document.querySelector("#inventory-modal .modal__container .main-info .reservations table").innerHTML += `
+                            <tr> 
+                                <td>${unique[0]}</td>
+                                <td>${unique[1]}</td>
+                                <td>${unique[2]}</td>
+                                <td>${unique[3]}</td>
+                                <td>${unique[4]}</td>
+                                <td>${unique[5]}</td>
+                            </tr>
+                            `
+                        });
+                        document.querySelector("#inventory-modal .modal__container .main-info").innerHTML += `</table>
                             <div>
                                 Reservar:
-                                <form action="" method="post">
+                                <form action="reservations.php" method="post">
                                     <div class="mb-4">
                                         <label for="day">
                                             Dia
