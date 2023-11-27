@@ -13,13 +13,9 @@
         $rol_id = $_SESSION['user']['rol_id'];
         $user_id = $_SESSION['user']['id'];
 
-        if ($rol_id == ADMIN_ROLE) {
-            header("Location: ./admin"); 
-            exit;
-        } else {
+        if ($rol_id != ADMIN_ROLE) {
             $notifications = $conn -> query("SELECT laboratories.id FROM laboratories");
-        }
-
+        } 
     } else {
         $rol_id = 0;
     }
@@ -81,6 +77,9 @@
                     <a class="menu-link" href="#exposicion">Exponer</a> <?php
                 } else { ?>
                     <a class="menu-link" href="#ver-exposicion" onclick="reloadRooms()">Ver exposición</a> <?php 
+                }
+                if ($rol_id == ADMIN_ROLE) { ?>
+                    <a class="menu-link" href="./admin">Administracion</a> <?php
                 } ?>
             </div>
 
@@ -191,7 +190,6 @@
         $('.main-container > div + div').not(target).hide();
         $(target).fadeIn(600);
         $('.header .header-menu .menu-link').on('click', function (e) {
-            e.preventDefault();
             $(this).addClass('is-active');
             $(this).siblings().removeClass('is-active');
             target = $(this).attr('href');
